@@ -1,0 +1,60 @@
+/* Lebar Sweet Alert untuk layar besar */
+.swal2-popup {
+    width: 700px !important; /* Menentukan lebar Sweet Alert untuk layar besar */
+    border-radius: 10px;
+}
+
+/* Untuk layar kecil (perangkat seluler) */
+@media only screen and (max-width: 600px) {
+    .swal2-popup {
+        width: 90% !important; /* Lebar Sweet Alert untuk layar kecil */
+    }
+}
+.quick-view-content {
+    display: flex;
+}
+
+/* Gaya untuk gambar */
+.quick-view-image {
+    flex: 1;
+    order: 1; /* Menempatkan gambar di bagian kiri atas */
+    margin-right: 10px;
+    margin-bottom: 20px;
+}
+
+/* CSS untuk gambar dalam carousel */
+.carousel img {
+    max-width: 100%; /* Menentukan lebar maksimum gambar */
+    max-height: auto; /* Menentukan tinggi maksimum gambar */
+    border-radius: 15px; /* Memberikan sudut melengkung pada gambar */
+    margin: auto; /* Pusatkan gambar dalam carousel */
+}
+
+
+/* Gaya untuk detail */
+.quick-view-details {
+    flex: 1;
+    order: 2; /* Menempatkan detail di bagian kanan atas */
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
+
+/* Gaya untuk tombol-tombol */
+.quick-view-buttons {
+    text-align: center; /* Teks tombol diberi posisi tengah */
+}
+
+.quick-view-buttons button {
+    margin-top: 10px;
+    margin: 5px; /* Jarak antara tombol */
+    padding: 10px 20px; /* Padding tombol */
+    border: none; /* Hilangkan border tombol */
+    background-color: #00878b; /* Warna latar tombol */
+    color: #fff; /* Warna teks tombol */
+    border-radius: 5px; /* Agar tombol memiliki sudut yang sedikit melengkung */
+    cursor: pointer; /* Ubah kursor saat diarahkan ke tombol */
+}
+
+.quick-view-buttons button:hover {
+    background-color: #00555a; /* Warna latar tombol saat dihover */
+}

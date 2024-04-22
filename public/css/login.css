@@ -1,0 +1,75 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+}
+
+/* Login container styling */
+.login-container {
+    width: 90%; /* Lebar kontainer login menjadi 90% dari lebar layar */
+    max-width: 400px; /* Maksimum lebar kontainer login adalah 400px */
+    padding: 20px;
+    background-color: #007074;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Logo styling */
+.logo {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+/* Form styling */
+form {
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #008eb9;
+}
+
+/* Media query untuk perangkat Android dengan lebar layar kurang dari atau sama dengan 600px */
+@media only screen and (max-width: 600px) {
+    .login-container {
+        width: 90%; /* Lebar kontainer login menjadi 90% dari lebar layar */
+        max-width: none; /* Hapus batasan maksimum lebar */
+    }
+}
