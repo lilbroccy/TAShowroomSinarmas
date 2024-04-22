@@ -4,20 +4,21 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords"
-        content="Showroom Mobil Bekas Sinarmas">
-    <meta name="description"
-        content="Showroom Mobil Bekas Sinarmas">
+    <meta name="keywords" content="Showroom Mobil Bekas Sinarmas">
+    <meta name="description" content="Showroom Mobil Bekas Sinarmas">
     <meta name="robots" content="noindex,nofollow">
     <title>@yield('title') Showroom Sinarmas</title>
-    <link rel="canonical" href="https://www.wrappixel.com/templates/monster-admin-lite/" />
+    <link rel="canonical" href="https://www.wrappixel.com/templates/monster-admin-lite/">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset ('admin/assets/images/favicon.png')}}">
     <link href="{{ asset ('admin/assets/plugins/chartist/dist/chartist.min.css') }}" rel="stylesheet">
     <link href="{{ asset ('admin/css/style.min.css') }}" rel="stylesheet">
     <link href="{{ asset ('admin/assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
     @yield('css')
     @include('layoutadmin.variable')
+    <script src="{{ asset ('admin/assets/plugins/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset ('admin/assets/plugins/datatables/datatables.min.js') }}"></script>
 </head>
+
 <body>
     <div class="preloader">
         <div class="lds-ripple">
@@ -42,6 +43,7 @@
     </div>
     <script src="{{ asset ('admin/assets/plugins/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset ('admin/assets/plugins/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset ('admin/assets/plugins/datatables/datatables.min.js') }}"></script>
     <script src="{{ asset ('admin/js/app-style-switcher.js') }}"></script>
     <script src="{{ asset ('admin/js/waves.js') }}"></script>
     <script src="{{ asset ('admin/js/sidebarmenu.js') }}"></script>
@@ -49,6 +51,5 @@
     <script src="{{ asset ('admin/assets/plugins/flot/jquery.flot.js') }}"></script>
     <script src="{{ asset ('admin/assets/plugins/flot.tooltip/js/jquery.flot.tooltip.min.js') }}"></script>
     <script src="{{ asset ('admin/js/pages/dashboards/dashboard1.js') }}"></script>
-    <script src="{{ asset ('admin/assets/plugins/datatables/datatables.min.js') }}"></script>
 </body>
 </html>
