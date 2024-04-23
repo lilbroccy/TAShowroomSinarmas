@@ -1,7 +1,7 @@
 $(document).on('click', '.quick-view', function() {
     var carUnitId = $(this).data('id');
     $.ajax({
-        url: '/get-carunit-detail/' + carUnitId, 
+        url: '/get-car-units-detail/' + carUnitId, 
         method: 'GET',
         success: function(response) {
             Swal.fire({

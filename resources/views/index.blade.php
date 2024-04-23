@@ -52,7 +52,9 @@
 								@foreach ($carUnits->where('category_id', $category->id) as $carUnit)
 									<div class="product">
 										<div class="product-img">
-										<img src="{{ asset('img/photos/' . $carUnit->photos->first()->file_path) }}" alt="">
+										@foreach ($carUnit->photos->take(1) as $photo)
+											<img src="{{ asset('storage/'.$photo->file_path) }}" alt="">
+										@endforeach
 											<!-- <div class="product-label">
 												<span class="sale">-30%</span>
 												<span class="new">NEW</span>
@@ -147,6 +149,6 @@
 @endsection
 @section('js')
 <script>
-    var assetUrl = "{{ asset('img/photos/') }}";
+    var assetUrl = "{{ asset('storage/') }}";
 </script>
 @endsection

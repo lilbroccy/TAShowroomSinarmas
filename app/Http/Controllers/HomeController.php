@@ -14,6 +14,10 @@ class HomeController extends Controller
         $categories = Category::all();
         $carUnits = CarUnit::all();
 
+        foreach ($carUnits as $carUnit) {
+            $carUnit->first_photo = $carUnit->photos->isNotEmpty() ? $carUnit->photos->first()->file_path : null;
+        }
+
         return view('index', compact('categories', 'carUnits'));
     }
 }

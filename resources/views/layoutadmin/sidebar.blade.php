@@ -23,7 +23,7 @@
                             <!-- Submenu untuk Data Mobil -->
                             <ul id="data-mobil-submenu" class="sidebar-submenu">
                                 <li class="sidebar-item"> 
-                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route ('dashboard.carunits')}}" aria-expanded="false">
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route ('dashboard.car-units')}}" aria-expanded="false">
                                         <i class="me-3 fa fa-ambulance" aria-hidden="true"></i>
                                         <span class="hide-menu">Unit Mobil</span>
                                     </a>

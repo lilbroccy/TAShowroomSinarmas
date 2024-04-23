@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use App\Models\Photo;
+use App\Models\CarUnit;
 use Illuminate\Http\Request;
 
 class PhotoController extends Controller
@@ -12,10 +14,10 @@ class PhotoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(int $carUnitId)
     {
-        $photos = Photo::all();
-        return view('photos.index', compact('photos'));
+        $carUnit = CarUnit::findorfail($carUnitId);
+        return view('layoutadmin.car-units-photos', compact('carUnit'));
     }
 
     /**
@@ -34,28 +36,28 @@ class PhotoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        // Validasi data yang masuk
-        $request->validate([
-            'car_unit_id' => 'required',
-            'file_path' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Sesuaikan validasi dengan kebutuhan Anda
-        ]);
+    public function store(Request $request, int $carUnitId)
+{   
+    $request->validate([
+        'photos.*' => 'required|image|mimes:png,jpg,jpeg,webp'
+    ]);
 
-        // Simpan file gambar yang diunggah
-        $imageName = time().'.'.$request->file_path->extension();
-        $request->file_path->move(public_path('images'), $imageName);
+    // Iterasi setiap file foto
+    foreach ($request->file('photos') as $photo) {
+        $filename = date('Y-m-d') . $photo->getClientOriginalName();
+        $path = 'car-units-photos/' . $filename;
 
-        // Simpan data baru ke dalam tabel
-        Photo::create([
-            'car_unit_id' => $request->car_unit_id,
-            'file_path' => $imageName,
-        ]);
+        Storage::disk('public')->put($path, file_get_contents($photo));
 
-        // Redirect kembali ke halaman index dengan pesan sukses
-        return redirect()->route('photos.index')
-            ->with('success', 'Photo created successfully.');
+        $data['car_unit_id'] = $carUnitId;
+        $data['file_path'] = $path;
+
+        Photo::create($data);
     }
+
+    return redirect()->route('dashboard.car-units');
+}
+
 
     // Metode lainnya seperti edit, update, destroy, dll.
 }

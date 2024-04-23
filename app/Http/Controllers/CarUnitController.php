@@ -21,7 +21,7 @@ class CarUnitController extends Controller
     public function dtCarUnits()
     {
         $carUnits = CarUnit::all();
-        return view('layoutadmin.carunit', compact('carUnits'));
+        return view('layoutadmin.car-units', compact('carUnits'));
     }
 
     public function show($id)
@@ -37,7 +37,7 @@ class CarUnitController extends Controller
      */
     public function create()
     {
-        return view('car_units.create');
+        return view('car-units.create');
     }
 
     /**
@@ -58,7 +58,7 @@ class CarUnitController extends Controller
         CarUnit::create($request->all());
 
         // Redirect kembali ke halaman index dengan pesan sukses
-        return redirect()->route('car_units.index')
+        return redirect()->route('car-units.index')
             ->with('success', 'Car Unit created successfully.');
     }
 
