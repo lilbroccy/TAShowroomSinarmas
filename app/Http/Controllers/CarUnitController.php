@@ -15,6 +15,6 @@ class CarUnitController extends Controller
     public function index()
     {
         $carUnits = CarUnit::all();
-        return view('tampilanadmin.car-units', compact('carUnits'));
+        return view('tampilan-admin.car-units', compact('carUnits'));
     }
 }

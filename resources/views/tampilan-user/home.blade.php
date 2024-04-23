@@ -1,4 +1,4 @@
-@extends('layoutuser.index')
+@extends('layout-user.index')
 @section('title', 'Halaman Utama')
 @section('css')
 @endsection

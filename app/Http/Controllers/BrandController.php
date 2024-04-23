@@ -15,6 +15,6 @@ class BrandsController extends Controller
     public function index()
     {
         $brands = Brand::all();
-        return view('tampilanadmin.brands', compact('brands'));
+        return view('tampilan-admin.brands', compact('brands'));
     }
 }

@@ -40,10 +40,10 @@ Route::get('/get-car-units-detail/{id}', [HomeController::class, 'getDetail'])->
 
 
 //Dashboard Admin
-Route::get('/dashboard', function () {
-    return view('layoutadmin.dashboard');
+Route::get('/admin/dashboard', function () {
+    return view('tampilan-admin.dashboard');
 })->name('dashboard');
 
-Route::get ('/dashboard/car-units', [CarUnitController::class, 'index'])->name('dashboard.car-units');
-Route::get ('/dashboard/car-units/{carUnitId}/upload', [PhotoController::class, 'index']);
-Route::post('/dashboard/car-units/{carUnitId}/upload', [PhotoController::class, 'store']);
+Route::get ('/admin/dashboard/car-units', [CarUnitController::class, 'index'])->name('dashboard.car-units');
+Route::get ('/admin/dashboard/car-units/{carUnitId}/upload', [PhotoController::class, 'index']);
+Route::post('/admin/dashboard/car-units/{carUnitId}/upload', [PhotoController::class, 'store']);

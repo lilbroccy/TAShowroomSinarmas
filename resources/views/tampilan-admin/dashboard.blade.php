@@ -1,4 +1,4 @@
-@extends('layoutadmin.index')
+@extends('layout-admin.index')
 @section('title', 'Dashboard')
 @section('css')
 @endsection

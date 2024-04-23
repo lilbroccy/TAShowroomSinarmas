@@ -1,4 +1,4 @@
-@extends('layoutadmin.index')
+@extends('layout-admin.index')
 @section('title', "Car Unit Photos")
 @section('body')
 <div class="container mt-1">
@@ -22,7 +22,7 @@
                     </ul>
                     @endif
 
-                    <form action="{{url('dashboard/car-units/'.$carUnit->id.'/upload')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('admin/dashboard/car-units/'.$carUnit->id.'/upload')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                         <label>Upload Foto Mobil (maks: 10 foto)</label>

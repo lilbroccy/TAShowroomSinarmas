@@ -124,7 +124,7 @@
     <!-- /MAIN HEADER -->
 </header>
 
-    @include('layoutuser.navbar')
+    @include('layout-user.navbar')
     <main>
         @yield('content')
     </main>

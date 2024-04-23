@@ -1,4 +1,4 @@
-@extends('layoutadmin.index')
+@extends('layout-admin.index')
 @section('title', "Car Unit")
 @section('body')
     <div class="page-breadcrumb">
@@ -80,7 +80,7 @@
                                             <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $carUnit->id }}" title="Hapus Data Mobil">
                                                 <i class="fas fa-trash-alt"></i> <!-- Ikon Hapus -->
                                             </button>
-                                            <a href="{{url('dashboard/car-units/'.$carUnit->id.'/upload')}}" class="btn btn-info" title="Tambah/Lihat Foto Mobil">
+                                            <a href="{{url('admin/dashboard/car-units/'.$carUnit->id.'/upload')}}" class="btn btn-info" title="Tambah/Lihat Foto Mobil">
                                                 <i class="fas fa-camera"></i> <!-- Ganti dengan ikon yang sesuai -->
                                             </a>
                                         </td>

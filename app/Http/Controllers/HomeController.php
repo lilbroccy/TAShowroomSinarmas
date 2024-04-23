@@ -18,7 +18,7 @@ class HomeController extends Controller
             $carUnit->first_photo = $carUnit->photos->isNotEmpty() ? $carUnit->photos->first()->file_path : null;
         }
 
-        return view('tampilanuser.home', compact('categories', 'carUnits'));
+        return view('tampilan-user.home', compact('categories', 'carUnits'));
     }
 
     //get detail sweetalert

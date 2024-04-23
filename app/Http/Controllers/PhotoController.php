@@ -17,7 +17,7 @@ class PhotoController extends Controller
     public function index(int $carUnitId)
     {
         $carUnit = CarUnit::findorfail($carUnitId);
-        return view('tampilanadmin.car-units-photos', compact('carUnit'));
+        return view('tampilan-admin.car-units-photos', compact('carUnit'));
     }
 
     public function store(Request $request, int $carUnitId)

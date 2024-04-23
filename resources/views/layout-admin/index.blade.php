@@ -14,7 +14,7 @@
     <link href="{{ asset ('admin/css/style.min.css') }}" rel="stylesheet">
     <link href="{{ asset ('admin/assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
     @yield('css')
-    @include('layoutadmin.variable')
+    @include('layout-admin.variable')
     <script src="{{ asset ('admin/assets/plugins/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset ('admin/assets/plugins/datatables/datatables.min.js') }}"></script>
 </head>
@@ -29,8 +29,8 @@
     <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
     
-        @include('layoutadmin.navbar')
-        @include('layoutadmin.sidebar')
+        @include('layout-admin.navbar')
+        @include('layout-admin.sidebar')
 
         <div class="page-wrapper">
 

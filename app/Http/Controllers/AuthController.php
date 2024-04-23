@@ -33,19 +33,20 @@ class AuthController extends Controller
         'password' => 'required|string',
     ]);
 
-    
-
-    $credentials = [
-        'email' => $request->input('email'),
-        'password' => $request->input('password'),
-    ];
+    $credentials = $request->only('email', 'password');
 
     if (Auth::attempt($credentials)) {
         $request->session()->regenerate();
-        return redirect()->intended('/');
-    }else{
-        return redirect()->intended('/login')->with('The provided credentials do not match our records.');
+
+        // Cek peran pengguna setelah berhasil login
+        if (Auth::user()->isAdmin()) {
+            return redirect()->intended('/admin/dashboard'); // Redirect jika admin
+        } else {
+            return redirect()->intended('/user/home'); // Redirect jika pengguna umum
+        }
     }
+
+    return redirect()->route('login')->with('error', 'The provided credentials do not match our records.');
 }
 
 
@@ -89,6 +90,6 @@ class AuthController extends Controller
     
     public function dashboard(Request $request)
     {
-        return view('tampilanadmin.dashboard');
+        return view('tampilan-admin.dashboard');
     }
 }
