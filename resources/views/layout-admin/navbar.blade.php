@@ -21,13 +21,20 @@
                 </li>
             </ul>
             <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle waves-effect waves-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{{ asset ('admin/assets/images/users/1.jpg') }}" alt="user" class="profile-pic me-2">{{ Auth::user()->name }}
-                    </a>
-                    <ul class="dropdown-menu show" aria-labelledby="navbarDropdown"></ul>
-                </li>
-            </ul>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle waves-effect waves-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="{{ asset('admin/assets/images/users/1.jpg') }}" alt="user" class="profile-pic me-2">{{ Auth::user()->name }}
+        </a>
+            <li>
+                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    Logout
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+</li>
+    </li>
+</ul>
         </div>
     </nav>
 </header>
