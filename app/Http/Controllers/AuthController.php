@@ -89,6 +89,6 @@ class AuthController extends Controller
     
     public function dashboard(Request $request)
     {
-        return view('layoutadmin.dashboard');
+        return view('tampilanadmin.dashboard');
     }
 }

@@ -27,29 +27,23 @@ Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
 
-// View
-Route::get('/', [HomeController::class, 'index'])->name('home');
-
-Route::get('/categories/index', [CategoryController::class, 'index'])->name('categories.index');
-Route::get('/car-units/index', [CarUnitController::class, 'index'])->name('car-units.index');
-
-//SweetAlert
-Route::get('/get-car-units-detail/{id}', [CarUnitController::class, 'getDetail'])->name('car-units.detail');
-
 //Auth
 Route::middleware('web')->group(function () {
-    // Rute untuk login dan logout
     Route::post('/loginUser', [AuthController::class, 'login'])->name('loginUser');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    // Rute lainnya...
 });
 
-//Rute Admin
+
+//Home User
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/get-car-units-detail/{id}', [HomeController::class, 'getDetail'])->name('car-units.detail');
+
+
+//Dashboard Admin
 Route::get('/dashboard', function () {
     return view('layoutadmin.dashboard');
 })->name('dashboard');
 
-Route::get('/dashboard/car-units', [CarUnitController::class, 'dtCarUnits'])->name('dashboard.car-units');
-
-Route::get('/dashboard/car-units/{carUnitId}/upload', [PhotoController::class, 'index']);
+Route::get ('/dashboard/car-units', [CarUnitController::class, 'index'])->name('dashboard.car-units');
+Route::get ('/dashboard/car-units/{carUnitId}/upload', [PhotoController::class, 'index']);
 Route::post('/dashboard/car-units/{carUnitId}/upload', [PhotoController::class, 'store']);
