@@ -228,8 +228,8 @@
 	<script src="{{ asset('js/jquery.zoom.min.js') }}"></script>
 	<script src="{{ asset('js/main.js') }}"></script>
 	<script src="{{ asset('js/sweetalert.js') }}"></script>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	
+	<script src="{{ asset('sweetalert2/package/dist/sweetalert2.all.min.js') }}"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
     @yield('js')    
 </body>
