@@ -35,7 +35,7 @@ Route::middleware('web')->group(function () {
 
 
 //Home User
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/get-car-units-detail/{id}', [HomeController::class, 'getDetail'])->name('car-units.detail');
 
 
