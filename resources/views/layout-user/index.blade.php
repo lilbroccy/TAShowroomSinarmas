@@ -8,13 +8,13 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Showroom Sinarmas</title>
 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
-		<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-		<link href="{{ asset('css/slick.css') }}" rel="stylesheet">
-		<link href="{{ asset('css/slick-theme.css') }}" rel="stylesheet">
-		<link href="{{ asset('css/nouislider.min.css') }}" rel="stylesheet">
-		<link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
-		<link href="{{ asset('css/style.css') }}" rel="stylesheet">
-		<link href="{{ asset('css/sweetalert.css') }}" rel="stylesheet">
+		<link href="{{ asset('user/css/bootstrap.min.css') }}" rel="stylesheet">
+		<link href="{{ asset('user/css/slick.css') }}" rel="stylesheet">
+		<link href="{{ asset('user/css/slick-theme.css') }}" rel="stylesheet">
+		<link href="{{ asset('user/css/nouislider.min.css') }}" rel="stylesheet">
+		<link href="{{ asset('user/css/font-awesome.min.css') }}" rel="stylesheet">
+		<link href="{{ asset('user/css/style.css') }}" rel="stylesheet">
+		<link href="{{ asset('user/css/sweetalert.css') }}" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
 		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
     @yield('css')
@@ -58,7 +58,7 @@
                 <div class="col-md-3">
                     <div class="header-logo">
                         <a href="#" class="logo">
-                            <img src="{{ asset('img/logo.png') }}" alt="">
+                            <img src="{{ asset('user/img/logo.png') }}" alt="">
                         </a>
                     </div>
                 </div>
@@ -221,13 +221,12 @@
 				<!-- /container -->
 			</div>
     </footer>
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
-	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
-	<script src="{{ asset('js/slick.min.js') }}"></script>
-	<script src="{{ asset('js/nouislider.min.js') }}"></script>
-	<script src="{{ asset('js/jquery.zoom.min.js') }}"></script>
-	<script src="{{ asset('js/main.js') }}"></script>
-	<script src="{{ asset('js/sweetalert.js') }}"></script>
+    <script src="{{ asset('user/js/jquery.min.js') }}"></script>
+	<script src="{{ asset('user/js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('user/js/slick.min.js') }}"></script>
+	<script src="{{ asset('user/js/nouislider.min.js') }}"></script>
+	<script src="{{ asset('user/js/jquery.zoom.min.js') }}"></script>
+	<script src="{{ asset('user/js/main.js') }}"></script>
 	
 	<script src="{{ asset('sweetalert2/package/dist/sweetalert2.all.min.js') }}"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>

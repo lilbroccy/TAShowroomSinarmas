@@ -12,7 +12,7 @@
             <div class="col-md-4 col-xs-6">
                 <div class="shop">
                     <div class="shop-img">
-                        <img src="{{ asset('img/categories/' . $category->category_logo) }}" alt="{{ $category->name }}">
+                        <img src="{{ asset('user/img/categories/' . $category->category_logo) }}" alt="{{ $category->name }}">
                     </div>
                     <div class="shop-body">
                         <h3>{{ $category->name }}<br>Collection</h3>
@@ -151,4 +151,5 @@
 <script>
     var assetUrl = "{{ asset('storage/') }}";
 </script>
+<script src="{{ asset('user/modal/quick-view.js') }}"></script>
 @endsection
