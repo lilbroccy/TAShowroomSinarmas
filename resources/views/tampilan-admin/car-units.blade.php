@@ -16,7 +16,6 @@
             </div>
         </div>
     </div>
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
@@ -25,7 +24,7 @@
                         <div class="row mb-3">
                             <div class="col-md-6"><h4 class="card-title">Tabel Car Unit</h4></div>
                             <div class="col-md-6 text-right">
-                                    <button class="btn btn-primary float-end" data-toggle="modal" data-target="#tambahModal"><i class="fas fa-plus"></i> Tambah Unit Mobil</button>
+                            <button type="button" class="btn btn-primary float-end" id="tambahUnitMobil"><i class="fas fa-plus"></i>Tambah Unit Mobil</button>
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -89,7 +88,98 @@
                                 </tbody>
                             </table>
                             <!-- Tambah Modal -->
-                            <div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="tambahModalLabel" aria-hidden="true">
+<div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="tambahModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tambahModalLabel">Tambah Unit Mobil</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="tambahModalForm">
+                @csrf
+                <div class="form-group">
+                        <label for="name">Nama Mobil:</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <!-- Form group untuk Brand -->
+                    <div class="form-group">
+                        <label for="brand_id">Brand:</label>
+                        <select class="form-control" id="brand_id" name="brand_id" required>
+                            <!-- Opsi brand akan diisi melalui AJAX -->
+                        </select>
+                    </div>
+                    <!-- Form group untuk Kategori -->
+                    <div class="form-group">
+                        <label for="category_id">Kategori:</label>
+                        <select class="form-control" id="category_id" name="category_id" required>
+                            <!-- Opsi kategori akan diisi melalui AJAX -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Harga:</label>
+                        <input type="text" class="form-control" id="price" name="price">
+                    </div>
+                    <div class="form-group">
+                        <label for="year">Tahun:</label>
+                        <input type="text" class="form-control" id="year" name="year">
+                    </div>
+                    <div class="form-group">
+                        <label for="fuel_type">Tipe Bahan Bakar:</label>
+                        <input type="text" class="form-control" id="fuel_type" name="fuel_type">
+                    </div>
+                    <div class="form-group">
+                        <label for="seat">Jumlah Kursi:</label>
+                        <input type="text" class="form-control" id="seat" name="seat">
+                    </div>
+                    <div class="form-group">
+                        <label for="warranty">Garansi:</label>
+                        <input type="text" class="form-control" id="warranty" name="warranty">
+                    </div>
+                    <div class="form-group">
+                        <label for="color">Warna:</label>
+                        <input type="text" class="form-control" id="color" name="color">
+                    </div>
+                    <div class="form-group">
+                        <label for="mileage">Jarak Tempuh:</label>
+                        <input type="text" class="form-control" id="mileage" name="mileage">
+                    </div>
+                    <div class="form-group">
+                        <label for="engine_cc">CC Mesin:</label>
+                        <input type="text" class="form-control" id="engine_cc" name="engine_cc">
+                    </div>
+                    <div class="form-group">
+                        <label for="service_book">Buku Service:</label>
+                        <input type="text" class="form-control" id="service_book" name="service_book">
+                    </div>
+                    <div class="form-group">
+                        <label for="spare_key">Kunci Cadangan:</label>
+                        <input type="text" class="form-control" id="spare_key" name="spare_key">
+                    </div>
+                    <div class="form-group">
+                        <label for="unit_document">Dokumen Unit:</label>
+                        <input type="text" class="form-control" id="unit_document" name="unit_document">
+                    </div>
+                    <div class="form-group">
+                        <label for="stnk_validity_period">Masa Berlaku STNK:</label>
+                        <input type="text" class="form-control" id="stnk_validity_period" name="stnk_validity_period">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Deskripsi:</label>
+                        <textarea class="form-control" id="description" name="description"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary float-end" data-dismiss="modal">Batal</button>
+                        <button type="button" class="btn btn-primary float-end ms-2" id="simpanButton">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+                            <!-- <div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="tambahModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -99,13 +189,12 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="" method="post">
+                                            <form action="" method="post" id="tambahModalForm">
                                                 @csrf
                                                 <div class="form-group">
-                                                    <label for="nama">Nama carUnits:</label>
+                                                    <label for="nama">Nama Mobil:</label>
                                                     <input type="text" class="form-control" id="nama" name="nama" required>
                                                 </div>
-                                                <!-- Tambahkan kolom formulir lain sesuai kebutuhan -->
 
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                                                 <button type="submit" class="btn btn-primary">Simpan</button>
@@ -113,7 +202,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!-- Modal Update -->
                             @foreach ($carUnits as $carUnit)
                             <div class="modal fade" id="updateModal{{ $carUnit->id }}" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel{{ $carUnit->id }}" aria-hidden="true">
@@ -192,5 +281,6 @@
     } );
     })
 </script>
+<script src="{{ asset('admin/modal/car-units.js') }}"></script>
 @endsection
 

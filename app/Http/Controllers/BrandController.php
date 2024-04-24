@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Brand;
 
-class BrandsController extends Controller
+class BrandController extends Controller
 {
     /**
      * Menampilkan daftar brand.
@@ -15,6 +15,6 @@ class BrandsController extends Controller
     public function index()
     {
         $brands = Brand::all();
-        return view('tampilan-admin.brands', compact('brands'));
+        return response()->json($brands);
     }
 }

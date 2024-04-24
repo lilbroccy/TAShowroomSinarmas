@@ -51,5 +51,6 @@
     <script src="{{ asset ('admin/assets/plugins/flot/jquery.flot.js') }}"></script>
     <script src="{{ asset ('admin/assets/plugins/flot.tooltip/js/jquery.flot.tooltip.min.js') }}"></script>
     <script src="{{ asset ('admin/js/pages/dashboards/dashboard1.js') }}"></script>
+    <script src="{{ asset ('sweetalert2/package/dist/sweetalert2.all.min.js') }}"></script>
 </body>
 </html>

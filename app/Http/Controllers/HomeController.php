@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\CarUnit;
 use App\Models\Category;
+use App\Models\Brand;
 
 class HomeController extends Controller
 {
@@ -52,5 +53,10 @@ class HomeController extends Controller
             'image_url_2' => $secondPhotoUrl,
             'image_url_3' => $thirdPhotoUrl
         ]);
+    }
+
+    public function getBrands(){
+        $brands = Brand::all();
+        return view('tampilan-admin.car-units', compact('brands'));
     }
 }
