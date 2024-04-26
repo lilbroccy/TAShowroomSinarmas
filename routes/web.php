@@ -38,17 +38,19 @@ Route::middleware('web')->group(function () {
 //Home User
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/get-car-units-detail/{id}', [HomeController::class, 'getDetail'])->name('car-units.detail');
+Route::get('/car-units/detail/{id}', [HomeController::class, 'getCarDetail'])->name('car.detail');
 
 //Dashboard Admin
 Route::get('/admin/dashboard', function () {
     return view('tampilan-admin.dashboard');
 })->name('dashboard');
 
-Route::get ('/admin/dashboard/car-units', [CarUnitController::class, 'index'])->name('dashboard.car-units');
-Route::post ('/admin/dashboard/car-units/add', [CarUnitController::class, 'store'])->name('dashboard.car-units.add');
-Route::get ('/admin/dashboard/car-units/{carUnitId}/upload', [PhotoController::class, 'index']);
-Route::post('/admin/dashboard/car-units/{carUnitId}/upload', [PhotoController::class, 'store']);
-
+Route::get      ('/admin/dashboard/car-units', [CarUnitController::class, 'index'])->name('dashboard.car-units');
+Route::post     ('/admin/dashboard/car-units/add', [CarUnitController::class, 'store'])->name('dashboard.car-units.add');
+Route::get      ('/admin/dashboard/car-units/{carUnitId}/upload', [PhotoController::class, 'index']);
+Route::post     ('/admin/dashboard/car-units/{carUnitId}/upload', [PhotoController::class, 'store']);
+Route::delete   ('/admin/dashboard/car-units/{id}/delete', [CarUnitController::class, 'destroy']);
+Route::put      ('/admin/dashboard/car-units/{id}/update', [CarUnitController::class, 'update']);
 
 
 Route::get('/api/categories', [CategoryController::class, 'index']);

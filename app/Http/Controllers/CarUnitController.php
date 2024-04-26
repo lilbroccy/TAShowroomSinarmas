@@ -46,4 +46,53 @@ class CarUnitController extends Controller
         $carUnit = CarUnit::create($validatedData);
         return response()->json(['message' => 'Data unit mobil berhasil disimpan', 'data' => $carUnit], 201);
     }
+
+    public function destroy($id)
+    {
+        try {
+            $carUnit = CarUnit::findOrFail($id);
+            $carUnit->delete();
+            
+            // Response jika berhasil menghapus data
+            return response()->json(['message' => 'Data mobil berhasil dihapus'], 200);
+        } catch (\Exception $e) {
+            // Response jika terjadi kesalahan saat menghapus data
+            return response()->json(['error' => 'Terjadi kesalahan saat menghapus data mobil'], 500);
+        }
+    }
+
+    public function update(Request $request, $id)
+    {   
+
+        $carUnit = CarUnit::findOrFail($id);
+        // Validasi data formulir update
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'brand_id' => 'required|exists:brands,id',
+            'category_id' => 'required|exists:categories,id',
+            'year' => 'required|integer',
+            'fuel_type' => 'required|string|max:255',
+            'seat' => 'required|integer',
+            'warranty' => 'required|string',
+            'color' => 'required|string|max:255',
+            'mileage' => 'required|numeric',
+            'engine_cc' => 'required|numeric',
+            'service_book' => 'required|numeric',
+            'spare_key' => 'required|numeric',
+            'unit_document' => 'required|numeric',
+            'stnk_validity_period' => 'required|string',
+            'description' => 'required|string',
+        ]);
+
+        // Temukan unit mobil berdasarkan ID
+        
+
+        // Update data unit mobil dengan data yang diterima dari formulir
+        $carUnit->update($request->all());
+        return response()->json(['message' => 'Data mobil berhasil diperbarui.']);
+
+        // Redirect atau kirim respons sesuai kebutuhan aplikasi Anda
+    }
+
 }

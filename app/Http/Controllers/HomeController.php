@@ -59,4 +59,12 @@ class HomeController extends Controller
         $brands = Brand::all();
         return view('tampilan-admin.car-units', compact('brands'));
     }
+
+    public function getCarDetail($id)
+    {
+        $carUnit = CarUnit::find($id);
+        return view('tampilan-user.car-detail', compact('carUnit'));
+    }
+
+    
 }

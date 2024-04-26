@@ -31,6 +31,7 @@
                             <table id="carunits" class="table no-wrap">
                                 <thead>
                                     <tr>
+                                    <th>No</th>
                                     <th>Nama</th>
                                     <th>Harga</th>
                                     <th>Brand</th>
@@ -51,8 +52,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                @php
+                                $no=1
+                                @endphp
                                 @foreach ($carUnits as $carUnit)
                             <tr>
+                                <td>{{ $no++ }}</td>
                                 <td>{{ $carUnit->name }}</td>
                                 <td>{{ $carUnit->price }}</td>
                                 <td>{{ $carUnit->brand->name }}</td>
@@ -71,12 +76,12 @@
                                 <td>{{ $carUnit->description }}</td>
                                         <td class="text-right">
                                             <!-- Tombol Update -->
-                                            <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#updateModal{{ $carUnit->id }}" title="Edit Data Mobil">
+                                            <button class="btn btn-warning btn-sm updateBtn" data-carunitid="{{ $carUnit->id }}" data-carunitname="{{ $carUnit->name }}" title="Edit Data Mobil">
                                                 <i class="fas fa-edit"></i> <!-- Ikon Edit -->
                                             </button>
 
                                             <!-- Tombol Delete -->
-                                            <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $carUnit->id }}" title="Hapus Data Mobil">
+                                            <button class="btn btn-danger btn-sm deleteBtn" data-carunitid="{{ $carUnit->id }}" data-carunitname="{{ $carUnit->name }}" title="Hapus Data Mobil">
                                                 <i class="fas fa-trash-alt"></i> <!-- Ikon Hapus -->
                                             </button>
                                             <a href="{{url('admin/dashboard/car-units/'.$carUnit->id.'/upload')}}" class="btn btn-info" title="Tambah/Lihat Foto Mobil">
@@ -88,98 +93,7 @@
                                 </tbody>
                             </table>
                             <!-- Tambah Modal -->
-<div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="tambahModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="tambahModalLabel">Tambah Unit Mobil</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="tambahModalForm">
-                @csrf
-                <div class="form-group">
-                        <label for="name">Nama Mobil:</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
-                    </div>
-                    <!-- Form group untuk Brand -->
-                    <div class="form-group">
-                        <label for="brand_id">Brand:</label>
-                        <select class="form-control" id="brand_id" name="brand_id" required>
-                            <!-- Opsi brand akan diisi melalui AJAX -->
-                        </select>
-                    </div>
-                    <!-- Form group untuk Kategori -->
-                    <div class="form-group">
-                        <label for="category_id">Kategori:</label>
-                        <select class="form-control" id="category_id" name="category_id" required>
-                            <!-- Opsi kategori akan diisi melalui AJAX -->
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="price">Harga:</label>
-                        <input type="text" class="form-control" id="price" name="price">
-                    </div>
-                    <div class="form-group">
-                        <label for="year">Tahun:</label>
-                        <input type="text" class="form-control" id="year" name="year">
-                    </div>
-                    <div class="form-group">
-                        <label for="fuel_type">Tipe Bahan Bakar:</label>
-                        <input type="text" class="form-control" id="fuel_type" name="fuel_type">
-                    </div>
-                    <div class="form-group">
-                        <label for="seat">Jumlah Kursi:</label>
-                        <input type="text" class="form-control" id="seat" name="seat">
-                    </div>
-                    <div class="form-group">
-                        <label for="warranty">Garansi:</label>
-                        <input type="text" class="form-control" id="warranty" name="warranty">
-                    </div>
-                    <div class="form-group">
-                        <label for="color">Warna:</label>
-                        <input type="text" class="form-control" id="color" name="color">
-                    </div>
-                    <div class="form-group">
-                        <label for="mileage">Jarak Tempuh:</label>
-                        <input type="text" class="form-control" id="mileage" name="mileage">
-                    </div>
-                    <div class="form-group">
-                        <label for="engine_cc">CC Mesin:</label>
-                        <input type="text" class="form-control" id="engine_cc" name="engine_cc">
-                    </div>
-                    <div class="form-group">
-                        <label for="service_book">Buku Service:</label>
-                        <input type="text" class="form-control" id="service_book" name="service_book">
-                    </div>
-                    <div class="form-group">
-                        <label for="spare_key">Kunci Cadangan:</label>
-                        <input type="text" class="form-control" id="spare_key" name="spare_key">
-                    </div>
-                    <div class="form-group">
-                        <label for="unit_document">Dokumen Unit:</label>
-                        <input type="text" class="form-control" id="unit_document" name="unit_document">
-                    </div>
-                    <div class="form-group">
-                        <label for="stnk_validity_period">Masa Berlaku STNK:</label>
-                        <input type="text" class="form-control" id="stnk_validity_period" name="stnk_validity_period">
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Deskripsi:</label>
-                        <textarea class="form-control" id="description" name="description"></textarea>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary float-end" data-dismiss="modal">Batal</button>
-                        <button type="button" class="btn btn-primary float-end ms-2" id="simpanButton">Simpan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-                            <!-- <div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="tambahModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="tambahModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -189,45 +103,209 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="" method="post" id="tambahModalForm">
-                                                @csrf
-                                                <div class="form-group">
-                                                    <label for="nama">Nama Mobil:</label>
-                                                    <input type="text" class="form-control" id="nama" name="nama" required>
+                                            <form id="tambahModalForm">
+                                            @csrf
+                                            <div class="form-group">
+                                                    <label for="name">Nama Mobil:</label>
+                                                    <input type="text" class="form-control" id="name" name="name" required>
                                                 </div>
-
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                                <!-- Form group untuk Brand -->
+                                                <div class="form-group">
+                                                    <label for="brand_id">Brand:</label>
+                                                    <select class="form-control" id="brand_id" name="brand_id" required>
+                                                        <!-- Opsi brand akan diisi melalui AJAX -->
+                                                    </select>
+                                                </div>
+                                                <!-- Form group untuk Kategori -->
+                                                <div class="form-group">
+                                                    <label for="category_id">Kategori:</label>
+                                                    <select class="form-control" id="category_id" name="category_id" required>
+                                                        <!-- Opsi kategori akan diisi melalui AJAX -->
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="price">Harga:</label>
+                                                    <input type="text" class="form-control" id="price" name="price" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="year">Tahun:</label>
+                                                    <input type="text" class="form-control" id="year" name="year" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="fuel_type">Tipe Bahan Bakar:</label>
+                                                    <input type="text" class="form-control" id="fuel_type" name="fuel_type" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="seat">Jumlah Kursi:</label>
+                                                    <input type="text" class="form-control" id="seat" name="seat" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="warranty">Garansi:</label>
+                                                    <input type="text" class="form-control" id="warranty" name="warranty" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="color">Warna:</label>
+                                                    <input type="text" class="form-control" id="color" name="color" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="mileage">Jarak Tempuh:</label>
+                                                    <input type="text" class="form-control" id="mileage" name="mileage" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="engine_cc">CC Mesin:</label>
+                                                    <input type="text" class="form-control" id="engine_cc" name="engine_cc" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="service_book">Buku Service:</label>
+                                                    <select class="form-control" id="service_book" name="service_book" required>
+                                                        <option>--Pilih--</option>
+                                                        <option value="1">Ya</option>
+                                                        <option value="0">Tidak</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="spare_key">Kunci Cadangan:</label>
+                                                    <select class="form-control" id="spare_key" name="spare_key" required>
+                                                        <option>--Pilih--</option>
+                                                        <option value="1">Ya</option>
+                                                        <option value="0">Tidak</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="unit_document">Dokumen Unit:</label>
+                                                    <select class="form-control" id="unit_document" name="unit_document" required>
+                                                        <option>--Pilih--</option>
+                                                        <option value="1">Ya</option>
+                                                        <option value="0">Tidak</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="stnk_validity_period">Masa Berlaku STNK:</label>
+                                                    <input type="text" class="form-control" id="stnk_validity_period" name="stnk_validity_period" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="description">Deskripsi:</label>
+                                                    <textarea class="form-control" id="description" name="description" required></textarea>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary float-end" data-dismiss="modal">Batal</button>
+                                                    <button type="button" class="btn btn-primary float-end ms-2" id="simpanButton">Simpan</button>
+                                                </div>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
-                            </div> -->
+                            </div>
+
                             <!-- Modal Update -->
                             @foreach ($carUnits as $carUnit)
                             <div class="modal fade" id="updateModal{{ $carUnit->id }}" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel{{ $carUnit->id }}" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="updateModalLabel{{ $carUnit->id }}">Update Car</h5>
+                                            <h5 class="modal-title" id="updateModalLabel{{ $carUnit->id }}">Update Car {{ $carUnit->name }}</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <!-- Formulir Update Karyawan -->
-                                            <form action="" method="post">
-                                                @csrf
-                                                @method('PUT') <!-- Menggunakan metode PUT untuk update -->
+                                        <form id="updateForm_{{ $carUnit->id }}" class="updateForm">
+                                            @csrf
+                                            @method('PUT')
+                                            <!-- Tambahkan ID unik untuk setiap elemen formulir -->
+                                                <div class="form-group">
+                                                    <label for="name">Nama:</label>
+                                                    <input type="text" class="form-control" id="name" name="name" value="{{ $carUnit->name }}" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="brand_id">Brand:</label>
+                                                    <select class="form-control" id="brand_id" name="brand_id" required>
+                                                        <!-- Opsi brand akan diisi melalui AJAX -->
+                                                        @foreach ($brands as $brand)
+                                                            <option value="{{ $brand->id }}" {{ $brand->id == $carUnit->brand_id ? 'selected' : '' }}>{{ $brand->name }}</option>
+                                                        @endforeach
+
+                                                    </select>
+                                                </div>
+                                                <!-- Form group untuk Kategori -->
+                                                <div class="form-group">
+                                                    <label for="category_id">Kategori:</label>
+                                                    <select class="form-control" id="category_id" name="category_id" required>
+                                                        <!-- Opsi kategori akan diisi melalui AJAX -->
+                                                        @foreach ($categories as $category)
+                                                            <option value="{{ $category->id }}" {{ $category->id == $carUnit->category_id ? 'selected' : '' }}>{{ $category->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="price">Harga:</label>
+                                                    <input type="text" class="form-control" id="price" name="price" value="{{ $carUnit->price }}" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="year">Tahun:</label>
+                                                    <input type="text" class="form-control" id="year" name="year" value="{{ $carUnit->year }}" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="fuel_type">Tipe Bahan Bakar:</label>
+                                                    <input type="text" class="form-control" id="fuel_type" name="fuel_type" value="{{ $carUnit->fuel_type }}" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="seat">Jumlah Kursi:</label>
+                                                    <input type="text" class="form-control" id="seat" name="seat" value="{{ $carUnit->seat }}" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="warranty">Garansi:</label>
+                                                    <input type="text" class="form-control" id="warranty" name="warranty" value="{{ $carUnit->warranty }}" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="color">Warna:</label>
+                                                    <input type="text" class="form-control" id="color" name="color" value="{{ $carUnit->color }}" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="mileage">Jarak Tempuh:</label>
+                                                    <input type="text" class="form-control" id="mileage" name="mileage" value="{{ $carUnit->mileage }}" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="engine_cc">CC Mesin:</label>
+                                                    <input type="text" class="form-control" id="engine_cc" name="engine_cc" value="{{ $carUnit->engine_cc }}" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="service_book">Buku Service:</label>
+                                                    <select class="form-control" id="service_book" name="service_book" required>
+                                                        <option value="" @if ($carUnit->service_book === null) selected @endif>--Pilih--</option>
+                                                        <option value="1" @if ($carUnit->service_book === 1) selected @endif>Ya</option>
+                                                        <option value="0" @if ($carUnit->service_book === 0) selected @endif>Tidak</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="spare_key">Kunci Cadangan:</label>
+                                                    <select class="form-control" id="spare_key" name="spare_key" required>
+                                                        <option value="" @if ($carUnit->spare_key === null) selected @endif>--Pilih--</option>
+                                                        <option value="1" @if ($carUnit->spare_key === 1) selected @endif>Ya</option>
+                                                        <option value="0" @if ($carUnit->spare_key === 0) selected @endif>Tidak</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="unit_document">Dokumen Unit:</label>
+                                                    <select class="form-control" id="unit_document" name="unit_document" required>
+                                                        <option value="" @if ($carUnit->unit_document === null) selected @endif>--Pilih--</option>
+                                                        <option value="1" @if ($carUnit->unit_document === 1) selected @endif>Ya</option>
+                                                        <option value="0" @if ($carUnit->unit_document === 0) selected @endif>Tidak</option>
+                                                    </select>
+                                                </div>
 
                                                 <div class="form-group">
-                                                    <label for="namaUpdate">Nama:</label>
-                                                    <input type="text" class="form-control" id="namaUpdate" name="namaUpdate" value="{{ $carUnit->name }}" required>
+                                                    <label for="stnk_validity_period">Masa Berlaku STNK:</label>
+                                                    <input type="text" class="form-control" id="stnk_validity_period" name="stnk_validity_period" value="{{ $carUnit->stnk_validity_period }}" required>
                                                 </div>
-                                                <!-- Tambahkan kolom formulir lain sesuai kebutuhan -->
-
+                                                <div class="form-group">
+                                                    <label for="description">Deskripsi:</label>
+                                                    <textarea class="form-control" id="description" name="description" required>{{ $carUnit->description }}</textarea>
+                                                </div>
+                                                <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                                <button type="button" class="btn btn-primary updateButton" id="updateButton_{{ $carUnit->id }}">Simpan Perubahan</button>
+                                                </div>
                                             </form>
                                         </div>
                                     </div>
@@ -235,32 +313,27 @@
                             </div>
                             @endforeach
 
-                            <!-- Modal Delete -->
-                            @foreach ($carUnits as $carUnit)
-                            <div class="modal fade" id="deleteModal{{ $carUnit->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel{{ $carUnit->id }}" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
+                            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="deleteModalLabel{{ $carUnit->id }}">Konfirmasi Hapus carUnits</h5>
+                                            <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Penghapusan</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <div class="modal-body">
-                                            <p>Anda yakin ingin menghapus carUnits {{ $carUnit->name }}?</p>
+                                        <div class="modal-body" id="deleteModalBody">
+                                            Apakah Anda yakin ingin menghapus data mobil?
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                            <form action="" method="post">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">Hapus</button>
-                                            </form>
+                                            <button type="button" class="btn btn-danger" id="confirmDelete">Hapus</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            @endforeach
+
+
                         </div>
                     </div>
                 </div>

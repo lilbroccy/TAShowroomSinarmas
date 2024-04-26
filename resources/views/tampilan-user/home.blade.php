@@ -62,7 +62,7 @@
 										</div>
 										<div class="product-body">
 											<p class="product-category">{{ $carUnit->category->name }}</p>
-											<h3 class="product-name"><a href="#">{{ $carUnit->name }}</a></h3>
+											<h3 class="product-name"><a href="{{ route('car.detail', ['id' => $carUnit->id]) }}">{{ $carUnit->name }}</a></h3>
 											<h4 class="product-price">Rp. {{ number_format($carUnit->price, 0, ',', '.') }}</h4>
 											<!-- <div class="product-rating">
 												<i class="fa fa-star"></i>

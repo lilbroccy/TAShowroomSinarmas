@@ -8,9 +8,9 @@ $(document).on('click', '.quick-view', function() {
                 title: 'Quick View',
                 html: '<div class="carousel-container">' +
                         '<div class="carousel">' +
-                            '<div><img src="' + assetUrl + '/' + response.image_url_1 + '" alt="Car Image 1"></div>' +
-                            '<div><img src="' + assetUrl + '/' + response.image_url_2 + '" alt="Car Image 2"></div>' +
-                            '<div><img src="' + assetUrl + '/' + response.image_url_3 + '" alt="Car Image 3"></div>' +
+                            '<div style="height: 400px"><img src="' + assetUrl + '/' + response.image_url_1 + '" alt="Car Image 1"></div>' +
+                            '<div style="height: 400px"><img src="' + assetUrl + '/' + response.image_url_2 + '" alt="Car Image 2"></div>' +
+                            '<div style="height: 400px"><img src="' + assetUrl + '/' + response.image_url_3 + '" alt="Car Image 3"></div>' +
                         '</div>' +
                     '</div>' +
                     '<div class="quick-view-details">' +
@@ -18,10 +18,10 @@ $(document).on('click', '.quick-view', function() {
                         '<p>Price: Rp. ' + response.price + '</p>' +
                         '<p>Description: ' + response.description + '</p>' +
                     '</div>'+
-                    '<div class="quick-view-buttons">' +
+                    '<div class="quick-view-buttons>' +
                         '<button class="btn btn-primary"><i class="fa fa-calendar"></i> Booking Now</button>' +
                         '<button class="btn btn-success"><i class="fa fa-whatsapp"></i> Share to WhatsApp</button>' +
-                        '<button class="btn btn-info"><i class="fa fa-info-circle"></i> Detail Lengkap</button>' +
+                        '<button class="btn btn-info" ><i class="fa fa-info-circle"></i> Detail Lengkap</button>' +
                     '</div>',
                 showCloseButton: true,
                 showConfirmButton: false,
@@ -85,9 +85,3 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
-
-
-
-
-
-    
