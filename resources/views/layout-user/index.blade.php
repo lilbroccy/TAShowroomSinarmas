@@ -27,7 +27,11 @@
             <ul class="header-links pull-left">
                 <li><a href="#"><i class="fa fa-phone"></i>0851-5658-5108</a></li>
                 <li><a href="#"><i class="fa fa-envelope-o"></i> showroom.sinarmas@gmail.com</a></li>
-                <li><a href="#"><i class="fa fa-map-marker"></i> Jl. PB Sudirman No. 14, Jember</a></li>
+
+            </ul>
+			<ul class="header-links pull-left">
+                <li><a href="#"><i class="fa fa-map-marker"></i> Jl. PB Sudirman No. 14, Kec. Patrang, Jember (Jumat-Sabtu, 16.00-22.00 WIB)</a></li>
+				<li><a href="#"><i class="fa fa-map-marker"></i> Jl. Jayanegara, Kec. Kaliwates, Jember (Minggu-Kamis, 08.00-17.00 WIB)</a></li>
             </ul>
             <ul class="header-links pull-right">
                 <!-- <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li> -->
@@ -70,9 +74,9 @@
                     <div class="header-search">
                         <form>
                             <select class="input-select">
-                                <option value="0">All Categories</option>
-                                <option value="1">Category 01</option>
-                                <option value="1">Category 02</option>
+								@foreach ($categories as $category)
+                                <option value="">{{$category->name}}</option>
+								@endforeach
                             </select>
                             <input class="input" placeholder="Search here">
                             <button class="search-btn">Search</button>

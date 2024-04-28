@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Validation\Rule;
 use App\Models\CarUnit;
 use App\Models\Brand;
 use App\Models\Category;
@@ -31,7 +32,14 @@ class CarUnitController extends Controller
             'category_id' => 'required|exists:categories,id',
             'price' => 'nullable|numeric',
             'year' => 'nullable|integer',
-            'fuel_type' => 'nullable|string',
+            'fuel_type' => [
+                'nullable',
+                Rule::in(\App\Models\CarUnit::FUEL_TYPE_OPTIONS)
+            ],
+            'transmission' => [
+                'nullable',
+                Rule::in(\App\Models\CarUnit::TRANSMISSION_OPTIONS)
+            ],
             'seat' => 'nullable|integer',
             'warranty' => 'nullable|string',
             'color' => 'nullable|string',
@@ -44,7 +52,7 @@ class CarUnitController extends Controller
             'description' => 'nullable|string',
         ]);
         $carUnit = CarUnit::create($validatedData);
-        return response()->json(['message' => 'Data unit mobil berhasil disimpan', 'data' => $carUnit], 201);
+        return response()->json(['message' => 'Data unit mobil berhasil ditambahkan', 'data' => $carUnit], 201);
     }
 
     public function destroy($id)
@@ -72,7 +80,14 @@ class CarUnitController extends Controller
             'brand_id' => 'required|exists:brands,id',
             'category_id' => 'required|exists:categories,id',
             'year' => 'required|integer',
-            'fuel_type' => 'required|string|max:255',
+            'fuel_type' => [
+                'nullable',
+                Rule::in(\App\Models\CarUnit::FUEL_TYPE_OPTIONS)
+            ],
+            'transmission' => [
+                'nullable',
+                Rule::in(\App\Models\CarUnit::TRANSMISSION_OPTIONS)
+            ],
             'seat' => 'required|integer',
             'warranty' => 'required|string',
             'color' => 'required|string|max:255',

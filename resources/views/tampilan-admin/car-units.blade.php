@@ -5,7 +5,7 @@
         <div class="row align-items-center">
             <div class="col-md-6 col-8 align-self-center">
                 <h3 class="page-title mb-0 p-0">Car Unit</h3>
-                <div class="d-flex align-carUnits-center">
+                <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
@@ -38,6 +38,7 @@
                                     <th>Kategori</th>
                                     <th>Tahun</th>
                                     <th>Bahan Bakar</th>
+                                    <th>Transmisi</th>
                                     <th>Jumlah Tempat Duduk</th>
                                     <th>Garansi</th>
                                     <th>Warna</th>
@@ -64,6 +65,7 @@
                                 <td>{{ $carUnit->category->name }}</td>
                                 <td>{{ $carUnit->year }}</td>
                                 <td>{{ $carUnit->fuel_type }}</td>
+                                <td>{{ $carUnit->transmission }}</td>
                                 <td>{{ $carUnit->seat }}</td>
                                 <td>{{ $carUnit->warranty }}</td>
                                 <td>{{ $carUnit->color }}</td>
@@ -133,7 +135,21 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="fuel_type">Tipe Bahan Bakar:</label>
-                                                    <input type="text" class="form-control" id="fuel_type" name="fuel_type" required>
+                                                    <select class="form-control" id="fuel_type" name="fuel_type" required>
+                                                        <option value="">-- Pilih Opsi --</option>
+                                                        @foreach(\App\Models\CarUnit::FUEL_TYPE_OPTIONS as $option)
+                                                            <option value="{{ $option }}">{{ $option }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="transmission">Transmisi:</label>
+                                                    <select class="form-control" id="transmission" name="transmission" required>
+                                                        <option value="">-- Pilih Opsi --</option>
+                                                        @foreach(\App\Models\CarUnit::TRANSMISSION_OPTIONS as $option)
+                                                            <option value="{{ $option }}">{{ $option }}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="seat">Jumlah Kursi:</label>
@@ -158,7 +174,7 @@
                                                 <div class="form-group">
                                                     <label for="service_book">Buku Service:</label>
                                                     <select class="form-control" id="service_book" name="service_book" required>
-                                                        <option>--Pilih--</option>
+                                                        <option>--Pilih Opsi--</option>
                                                         <option value="1">Ya</option>
                                                         <option value="0">Tidak</option>
                                                     </select>
@@ -166,7 +182,7 @@
                                                 <div class="form-group">
                                                     <label for="spare_key">Kunci Cadangan:</label>
                                                     <select class="form-control" id="spare_key" name="spare_key" required>
-                                                        <option>--Pilih--</option>
+                                                        <option>--Pilih Opsi--</option>
                                                         <option value="1">Ya</option>
                                                         <option value="0">Tidak</option>
                                                     </select>
@@ -174,7 +190,7 @@
                                                 <div class="form-group">
                                                     <label for="unit_document">Dokumen Unit:</label>
                                                     <select class="form-control" id="unit_document" name="unit_document" required>
-                                                        <option>--Pilih--</option>
+                                                        <option>--Pilih Opsi--</option>
                                                         <option value="1">Ya</option>
                                                         <option value="0">Tidak</option>
                                                     </select>
@@ -247,7 +263,21 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="fuel_type">Tipe Bahan Bakar:</label>
-                                                    <input type="text" class="form-control" id="fuel_type" name="fuel_type" value="{{ $carUnit->fuel_type }}" required>
+                                                    <select class="form-control" id="fuel_type" name="fuel_type" required>
+                                                        <option value="">-- Pilih Opsi --</option>
+                                                        @foreach(\App\Models\CarUnit::FUEL_TYPE_OPTIONS as $option)
+                                                            <option value="{{ $option }}" @if($carUnit->fuel_type == $option) selected @endif>{{ $option }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="transmission">Transmisi:</label>
+                                                    <select class="form-control" id="transmission" name="transmission" required>
+                                                        <option value="">-- Pilih Opsi --</option>
+                                                        @foreach(\App\Models\CarUnit::TRANSMISSION_OPTIONS as $option)
+                                                            <option value="{{ $option }}" @if($carUnit->transmission == $option) selected @endif>{{ $option }}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="seat">Jumlah Kursi:</label>
@@ -272,7 +302,7 @@
                                                 <div class="form-group">
                                                     <label for="service_book">Buku Service:</label>
                                                     <select class="form-control" id="service_book" name="service_book" required>
-                                                        <option value="" @if ($carUnit->service_book === null) selected @endif>--Pilih--</option>
+                                                        <option value="" @if ($carUnit->service_book === null) selected @endif>--Pilih Opsi--</option>
                                                         <option value="1" @if ($carUnit->service_book === 1) selected @endif>Ya</option>
                                                         <option value="0" @if ($carUnit->service_book === 0) selected @endif>Tidak</option>
                                                     </select>
@@ -280,7 +310,7 @@
                                                 <div class="form-group">
                                                     <label for="spare_key">Kunci Cadangan:</label>
                                                     <select class="form-control" id="spare_key" name="spare_key" required>
-                                                        <option value="" @if ($carUnit->spare_key === null) selected @endif>--Pilih--</option>
+                                                        <option value="" @if ($carUnit->spare_key === null) selected @endif>--Pilih Opsi--</option>
                                                         <option value="1" @if ($carUnit->spare_key === 1) selected @endif>Ya</option>
                                                         <option value="0" @if ($carUnit->spare_key === 0) selected @endif>Tidak</option>
                                                     </select>
@@ -288,7 +318,7 @@
                                                 <div class="form-group">
                                                     <label for="unit_document">Dokumen Unit:</label>
                                                     <select class="form-control" id="unit_document" name="unit_document" required>
-                                                        <option value="" @if ($carUnit->unit_document === null) selected @endif>--Pilih--</option>
+                                                        <option value="" @if ($carUnit->unit_document === null) selected @endif>--Pilih Opsi--</option>
                                                         <option value="1" @if ($carUnit->unit_document === 1) selected @endif>Ya</option>
                                                         <option value="0" @if ($carUnit->unit_document === 0) selected @endif>Tidak</option>
                                                     </select>

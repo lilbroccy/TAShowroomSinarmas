@@ -63,7 +63,8 @@ class HomeController extends Controller
     public function getCarDetail($id)
     {
         $carUnit = CarUnit::find($id);
-        return view('tampilan-user.car-detail', compact('carUnit'));
+        $categories = Category::all();
+        return view('tampilan-user.car-detail', compact('carUnit','categories'));
     }
 
     

@@ -60,17 +60,31 @@ $(document).ready(function() {
             data: formData,
             dataType: 'json',
             success: function(response) {
-                // console.log(response);
                 Swal.fire({
                     title: 'Sukses!',
-                    text: 'Data mobil berhasil disimpan.',
+                    text: 'Data mobil berhasil ditambahkan.',
                     icon: 'success',
                     confirmButtonText: 'OK'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         Swal.fire({
                             title: 'Tambahkan Foto Mobil?',
-                            text: 'Apakah Anda ingin menambahkan foto unit mobil yang baru disimpan?',
+                            text: 'Apakah Anda ingin menambahkan foto unit mobil yang baru ditambahkan?',
+                            icon: 'question',
+                            showCancelButton: true,
+                            confirmButtonText: 'Ya',
+                            cancelButtonText: 'Tidak'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = '/admin/dashboard/car-units/' + response.data.id + '/upload';
+                            } else {
+                                window.location.reload();
+                            }
+                        });
+                    }  else {
+                        Swal.fire({
+                            title: 'Tambahkan Foto Mobil?',
+                            text: 'Apakah Anda ingin menambahkan foto unit mobil yang baru ditambahkan?',
                             icon: 'question',
                             showCancelButton: true,
                             confirmButtonText: 'Ya',
@@ -115,7 +129,6 @@ $(document).ready(function() {
                 'X-CSRF-TOKEN': csrfToken
             },
             success: function(response) {
-                console.log('Data mobil berhasil dihapus:', response);
                 $('#deleteModal').modal('hide');
                 Swal.fire({
                     title: 'Berhasil!',
@@ -146,7 +159,6 @@ $(document).ready(function() {
     function handleUpdateButton() {
     $('.updateBtn').off('click').on('click', function(event) {
         var id = $(this).data('carunitid');
-        console.log('ID yang diperoleh dari tombol: ' + id);
         $('#updateModal' + id).modal('show');
         $('#updateButton_' + id).data('carunitid', id);
         $('.updateButton').click(function(event) {
@@ -158,18 +170,13 @@ $(document).ready(function() {
 
     function updateCar(id) {
         event.preventDefault();
-        console.log('ID yang diperoleh dari tombol "Simpan Perubahan": ' + id);
         var formData = $('#updateForm_' + id).serialize(); 
         $.ajax({
             url: '/admin/dashboard/car-units/' + id + '/update',
             type: 'PUT',
             data: formData,
             success: function(response) {
-                // Handle jika update berhasil
-                console.log('Update berhasil');
                 $('#updateModal' + id).modal('hide');
-
-                // Tampilkan SweetAlert untuk meminta konfirmasi mengubah foto
                 Swal.fire({
                     title: 'Ubah Foto Mobil?',
                     text: 'Apakah Anda ingin mengubah foto unit mobil yang baru diubah?',

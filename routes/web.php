@@ -52,6 +52,16 @@ Route::post     ('/admin/dashboard/car-units/{carUnitId}/upload', [PhotoControll
 Route::delete   ('/admin/dashboard/car-units/{id}/delete', [CarUnitController::class, 'destroy']);
 Route::put      ('/admin/dashboard/car-units/{id}/update', [CarUnitController::class, 'update']);
 
+Route::get      ('/admin/dashboard/categories', [CategoryController::class, 'index'])->name('dashboard.categories');
+Route::post     ('/admin/dashboard/categories/add', [CategoryController::class, 'store'])->name('dashboard.categories.add');
+Route::delete   ('/admin/dashboard/categories/{id}/delete', [CategoryController::class, 'destroy']);
+Route::put      ('/admin/dashboard/categories/{id}/update', [CategoryController::class, 'update']);
 
-Route::get('/api/categories', [CategoryController::class, 'index']);
-Route::get('/api/brands', [BrandController::class, 'index']);
+Route::get      ('/admin/dashboard/brands', [BrandController::class, 'index'])->name('dashboard.brands');
+Route::post     ('/admin/dashboard/brands/add', [BrandController::class, 'store'])->name('dashboard.brands.add');
+Route::delete   ('/admin/dashboard/brands/{id}/delete', [BrandController::class, 'destroy']);
+Route::put      ('/admin/dashboard/brands/{id}/update', [BrandController::class, 'update']);
+
+
+Route::get('/api/categories', [CategoryController::class, 'getCategory']);
+Route::get('/api/brands', [BrandController::class, 'getBrand']);

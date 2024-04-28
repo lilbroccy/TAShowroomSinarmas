@@ -11,7 +11,8 @@ use App\Models\Category;
 class CarUnit extends Model
 {
     use HasFactory;
-
+    const FUEL_TYPE_OPTIONS = ['Diesel', 'Bensin', 'Listrik'];
+    const TRANSMISSION_OPTIONS = ['Manual', 'Automatic', 'CVT', 'DCT', 'AMT'];
     protected $fillable = [
         'name',
         'price',
@@ -19,6 +20,7 @@ class CarUnit extends Model
         'category_id',
         'year',
         'fuel_type',
+        'transmission',
         'seat',
         'warranty',
         'color',

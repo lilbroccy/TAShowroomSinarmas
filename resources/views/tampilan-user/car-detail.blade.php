@@ -12,7 +12,7 @@
     </div>
     <div class="col-5">
         <h3>{{$carUnit->name}}</h3>
-        <p class="text-secondary fw-normal">{{$carUnit->year}} - {{$carUnit->mileage}} Km - Automatics</p>
+        <p class="text-secondary fw-normal">{{$carUnit->year}} - {{$carUnit->mileage}} Km - {{$carUnit->transmission}} - {{$carUnit->fuel_type}}</p>
         <p class="fs-2">Rp. {{$carUnit->price}}</p>
         <div class="row ms-1 mt-4" style="display: flex; flex-wrap: wrap;">
             <div class="col-5 btn btn-primary me-2" style="flex: 0 0 auto; width: 41.66666667%;"><i class="fa fa-heart"></i> Suka</div>
@@ -34,6 +34,10 @@
     <tr>
       <td class="fw-bold fs-3">Jenis Bahan Bakar</td>
       <td class="fw-bold fs-3 text-right">{{$carUnit->fuel_type}}</td>
+    </tr>
+    <tr>
+      <td class="fw-bold fs-3">Jenis Transmisi</td>
+      <td class="fw-bold fs-3 text-right">{{$carUnit->transmission}}</td>
     </tr>
     <tr>
       <td class="fw-bold fs-3">Jarak Tempuh Saat Ini</td>

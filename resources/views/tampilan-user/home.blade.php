@@ -4,8 +4,7 @@
 @endsection
 @section('content')
 <!-- SECTION -->
-<div class="section">
-	<!-- container -->
+<!-- <div class="section">
 	<div class="container">
         <div class="row">
             @foreach($categories as $category)
@@ -23,8 +22,7 @@
             @endforeach
         </div>
 	</div>
-	<!-- /container -->
-</div>
+</div> -->
 <!-- /SECTION -->
 <!-- Section Per Category -->
 @foreach ($categories as $category)
@@ -73,7 +71,7 @@
 											</div> -->
 											<div class="product-btns">
 												<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-												<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+												<!-- <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button> -->
 												<button class="quick-view" data-id="{{ $carUnit->id }}"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
 											</div>
 										</div>

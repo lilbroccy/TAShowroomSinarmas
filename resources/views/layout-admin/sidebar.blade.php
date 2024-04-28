@@ -29,13 +29,13 @@
                                     </a>
                                 </li>
                                 <li class="sidebar-item"> 
-                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false">
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route ('dashboard.categories')}}" aria-expanded="false">
                                         <i class="me-3 fa fa-list-alt" aria-hidden="true"></i>
                                         <span class="hide-menu">Kategori</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item"> 
-                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false">
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route ('dashboard.brands')}}" aria-expanded="false">
                                         <i class="me-3 fa fa-copyright" aria-hidden="true"></i>
                                         <span class="hide-menu">Brand</span>
                                     </a>

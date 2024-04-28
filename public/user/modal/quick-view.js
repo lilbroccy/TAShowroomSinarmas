@@ -18,7 +18,7 @@ $(document).on('click', '.quick-view', function() {
                         '<p>Price: Rp. ' + response.price + '</p>' +
                         '<p>Description: ' + response.description + '</p>' +
                     '</div>'+
-                    '<div class="quick-view-buttons>' +
+                    '<div class="quick-view-buttons">' +
                         '<button class="btn btn-primary"><i class="fa fa-calendar"></i> Booking Now</button>' +
                         '<button class="btn btn-success"><i class="fa fa-whatsapp"></i> Share to WhatsApp</button>' +
                         '<button class="btn btn-info" ><i class="fa fa-info-circle"></i> Detail Lengkap</button>' +
