@@ -18,8 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('brand_id');
             $table->unsignedBigInteger('category_id');
             $table->integer('year');
-            $table->enum('fuel_type', ['diesel', 'bensin', 'listrik']);
-            $table->enum('transmission', ['manual', 'automatic', 'cvt', 'dct', 'amt']);
+            $table->enum('fuel_type', ['Diesel', 'Bensin', 'Listrik']);
+            $table->enum('transmission', ['Manual', 'Automatic', 'CVT', 'DCT', 'AMT']);
             $table->integer('seat');
             $table->string('warranty');
             $table->string('color');
