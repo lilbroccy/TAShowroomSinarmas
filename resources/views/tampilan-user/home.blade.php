@@ -47,7 +47,7 @@
                         <div id="tab{{ $category->id }}-1" class="tab-pane active">
                             <div class="products-slick" data-nav="#slick-nav-{{ $category->id }}-1">
                                 <!-- Product items for category 1 here -->
-								@foreach ($carUnits->where('category_id', $category->id) as $carUnit)
+								@foreach ($carUnits->where('category_id', $category->id)->where('status', 'Tersedia') as $carUnit)
 									<div class="product">
 										<div class="product-img">
 										@foreach ($carUnit->photos->take(1) as $photo)
@@ -76,7 +76,7 @@
 											</div>
 										</div>
 										<div class="add-to-cart">
-											<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+											<button class="add-to-cart-btn"><i class="fa fa-calendar"></i>Cek Unit</button>
 										</div>
 									</div>
 								@endforeach

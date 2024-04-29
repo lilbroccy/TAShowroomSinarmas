@@ -30,7 +30,9 @@ return new class extends Migration
             $table->boolean('unit_document');
             $table->string('stnk_validity_period');
             $table->text('description')->nullable();
+            $table->enum('status', ['Tersedia', 'Terjual'])->default('Tersedia');
             $table->timestamps();
+
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });

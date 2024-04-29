@@ -22,7 +22,7 @@
             <div class="col-10 btn btn-primary me-2" style="flex: 0 0 auto; width: 83.33333333%;"><i class="fa fa-phone"></i> Chat Admin</div>
         </div>
         <div class="row ms-1 mt-4" style="display: flex; flex-wrap: wrap;">
-            <div class="col-10 btn btn-primary me-2" style="flex: 0 0 auto; width: 83.33333333%;"><i class="fa-regular fa-calendar-days"></i> Check Unit & Test Drive</div>
+            <div class="col-10 btn btn-primary me-2" style="flex: 0 0 auto; width: 83.33333333%;"><i class="fa fa-calendar"></i> Check Unit & Test Drive</div>
         </div>
         <p class="fs-4 mt-5">Butuh bantuan? hubungi kami melalui <a href="">whatsapp</a></p>
     </div>

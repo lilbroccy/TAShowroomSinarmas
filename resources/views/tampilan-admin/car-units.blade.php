@@ -49,6 +49,7 @@
                                     <th>Dokumen</th>
                                     <th>Masa Panjang STNK</th>
                                     <th>Deskripsi</th>
+                                    <th>Status</th>
                                     <th style="text-align: center;">Aksi</th>
                                     </tr>
                                 </thead>
@@ -57,7 +58,7 @@
                                 $no=1
                                 @endphp
                                 @foreach ($carUnits as $carUnit)
-                            <tr>
+                                <tr>
                                 <td>{{ $no++ }}</td>
                                 <td>{{ $carUnit->name }}</td>
                                 <td>{{ $carUnit->price }}</td>
@@ -76,21 +77,30 @@
                                 <td>{{ $carUnit->unit_document ? 'Ya' : 'Tidak' }}</td>
                                 <td>{{ $carUnit->stnk_validity_period }}</td>
                                 <td>{{ $carUnit->description }}</td>
-                                        <td class="text-right">
-                                            <!-- Tombol Update -->
-                                            <button class="btn btn-warning btn-sm updateBtn" data-carunitid="{{ $carUnit->id }}" data-carunitname="{{ $carUnit->name }}" title="Edit Data Mobil">
-                                                <i class="fas fa-edit"></i> <!-- Ikon Edit -->
-                                            </button>
-
-                                            <!-- Tombol Delete -->
-                                            <button class="btn btn-danger btn-sm deleteBtn" data-carunitid="{{ $carUnit->id }}" data-carunitname="{{ $carUnit->name }}" title="Hapus Data Mobil">
-                                                <i class="fas fa-trash-alt"></i> <!-- Ikon Hapus -->
-                                            </button>
-                                            <a href="{{url('admin/dashboard/car-units/'.$carUnit->id.'/upload')}}" class="btn btn-info" title="Tambah/Lihat Foto Mobil">
-                                                <i class="fas fa-camera"></i> <!-- Ganti dengan ikon yang sesuai -->
-                                            </a>
-                                        </td>
-                                    </tr>
+                                <td>
+                                    @if($carUnit->status == 'Tersedia')
+                                        <span style="background-color: #34D399; color: #ffffff; border-radius: 0.5rem; padding: 0.25rem 0.5rem; font-weight: bold; font-size: 0.75rem;">
+                                            {{ $carUnit->status }}
+                                        </span>
+                                    @elseif($carUnit->status == 'Terjual')
+                                        <span style="background-color: #FF5F5F; color: #ffffff; border-radius: 0.5rem; padding: 0.25rem 0.5rem; font-weight: bold; font-size: 0.75rem;">
+                                            {{ $carUnit->status }}
+                                        </span>
+                                        {{ $carUnit->status }}
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    <button class="btn btn-warning btn-sm updateBtn" data-carunitid="{{ $carUnit->id }}" data-carunitname="{{ $carUnit->name }}" title="Edit Data Mobil">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-danger btn-sm deleteBtn" data-carunitid="{{ $carUnit->id }}" data-carunitname="{{ $carUnit->name }}" title="Hapus Data Mobil">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                    <a href="{{url('admin/dashboard/car-units/'.$carUnit->id.'/upload')}}" class="btn btn-info" title="Tambah/Lihat Foto Mobil">
+                                        <i class="fas fa-camera"></i>
+                                    </a>
+                                </td>
+                                </tr>
                                     @endforeach
                                 </tbody>
                             </table>

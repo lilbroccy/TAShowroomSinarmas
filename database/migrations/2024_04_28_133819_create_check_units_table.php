@@ -4,21 +4,20 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBookingsTable extends Migration
+class CreateCheckUnitsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('bookings', function (Blueprint $table) {
+        Schema::create('check_units', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('car_unit_id');
             $table->unsignedBigInteger('user_id');
-            $table->dateTime('date');
-            $table->string('payment');
+            $table->date('date');
+            $table->time('time');
+            $table->enum('status', ['Diterima', 'Ditolak', 'Dalam Proses']);
             $table->timestamps();
 
             $table->foreign('car_unit_id')->references('id')->on('car_units')->onDelete('cascade');
@@ -28,11 +27,9 @@ class CreateBookingsTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('bookings');
+        Schema::dropIfExists('check_units');
     }
-}
+};
