@@ -18,6 +18,7 @@ class CreateCheckUnitsTable extends Migration
             $table->date('date');
             $table->time('time');
             $table->enum('status', ['Diterima', 'Ditolak', 'Dalam Proses']);
+            $table->text('description')->nullable();
             $table->timestamps();
 
             $table->foreign('car_unit_id')->references('id')->on('car_units')->onDelete('cascade');
