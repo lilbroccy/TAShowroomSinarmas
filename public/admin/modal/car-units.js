@@ -73,7 +73,7 @@ $(document).ready(function() {
                             icon: 'question',
                             showCancelButton: true,
                             confirmButtonText: 'Ya',
-                            cancelButtonText: 'Tidak'
+                            cancelButtonText: 'Nanti Saja'
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 window.location.href = '/admin/dashboard/car-units/' + response.data.id + '/upload';
@@ -88,7 +88,7 @@ $(document).ready(function() {
                             icon: 'question',
                             showCancelButton: true,
                             confirmButtonText: 'Ya',
-                            cancelButtonText: 'Tidak'
+                            cancelButtonText: 'Nanti Saja'
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 window.location.href = '/admin/dashboard/car-units/' + response.data.id + '/upload';

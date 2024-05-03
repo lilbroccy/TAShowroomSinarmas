@@ -9,7 +9,6 @@
     <meta name="description" content="Showroom Mobil Bekas Sinarmas">
     <meta name="robots" content="noindex,nofollow">
     <title>@yield('title') Showroom Sinarmas</title>
-    <link rel="canonical" href="https://www.wrappixel.com/templates/monster-admin-lite/">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset ('admin/assets/images/favicon.png')}}">
     <link href="{{ asset ('admin/assets/plugins/chartist/dist/chartist.min.css') }}" rel="stylesheet">
     <link href="{{ asset ('admin/css/style.min.css') }}" rel="stylesheet">
@@ -52,6 +51,6 @@
     <script src="{{ asset ('admin/assets/plugins/flot/jquery.flot.js') }}"></script>
     <script src="{{ asset ('admin/assets/plugins/flot.tooltip/js/jquery.flot.tooltip.min.js') }}"></script>
     <script src="{{ asset ('admin/js/pages/dashboards/dashboard1.js') }}"></script>
-    <script src="{{ asset ('sweetalert2/package/dist/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ asset ('plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
 </body>
 </html>
