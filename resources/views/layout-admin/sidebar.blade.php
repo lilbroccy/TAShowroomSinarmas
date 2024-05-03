@@ -12,8 +12,8 @@
                                     class="hide-menu">Profile</span></a>
                         </li> -->
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="#" aria-expanded="false"><i class="me-3 fa fa-calendar"
-                                    aria-hidden="true"></i><span class="hide-menu">Jadwal Test Drive</span></a>
+                                href="{{ route('dashboard.check-units') }}" aria-expanded="false"><i class="me-3 fa fa-calendar"
+                                    aria-hidden="true"></i><span class="hide-menu">Jadwal Cek Unit</span></a>
                         </li>
                         <li class="sidebar-item"> 
                             <a id="data-mobil-link" class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false">

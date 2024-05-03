@@ -15,7 +15,7 @@
 		<link href="{{ asset('user/css/nouislider.min.css') }}" rel="stylesheet">
 		<link href="{{ asset('user/css/font-awesome.min.css') }}" rel="stylesheet">
 		<link href="{{ asset('user/css/style.css') }}" rel="stylesheet">
-		<link href="{{ asset('user/css/sweetalert.css') }}" rel="stylesheet">
+		<!-- <link href="{{ asset('user/css/quick-view.css') }}" rel="stylesheet"> -->
 		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
 		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
     @yield('css')
@@ -231,7 +231,7 @@
 	<script src="{{ asset('user/js/nouislider.min.js') }}"></script>
 	<script src="{{ asset('user/js/jquery.zoom.min.js') }}"></script>
 	<script src="{{ asset('user/js/main.js') }}"></script>
-	
+	<!-- <script src="{{ asset('user/modal/quick-view.js') }}"></script> -->
 	<script src="{{ asset('sweetalert2/package/dist/sweetalert2.all.min.js') }}"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
     @yield('js')    

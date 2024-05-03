@@ -8,6 +8,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\CheckUnitController;
+use App\Http\Controllers\WishlistController;
 
 
 /*
@@ -61,6 +63,8 @@ Route::get      ('/admin/dashboard/brands', [BrandController::class, 'index'])->
 Route::post     ('/admin/dashboard/brands/add', [BrandController::class, 'store'])->name('dashboard.brands.add');
 Route::delete   ('/admin/dashboard/brands/{id}/delete', [BrandController::class, 'destroy']);
 Route::put      ('/admin/dashboard/brands/{id}/update', [BrandController::class, 'update']);
+
+Route::get      ('/admin/dashboard/check-units', [CheckUnitController::class, 'index'])->name('dashboard.check-units');
 
 
 Route::get('/api/categories', [CategoryController::class, 'getCategory']);

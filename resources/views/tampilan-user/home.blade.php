@@ -1,6 +1,7 @@
 @extends('layout-user.index')
 @section('title', 'Halaman Utama')
 @section('css')
+<link href="{{ asset('user/css/cars-tabs.css') }}" rel="stylesheet">
 @endsection
 @section('content')
 <!-- SECTION -->
@@ -42,49 +43,43 @@
                             <li><a data-toggle="tab" href="#tab{{ $category->id }}-3">New Stock</a></li>
                         </ul>
                     </div>
-                    <div class="products-tabs">
-                        <!-- tab -->
-                        <div id="tab{{ $category->id }}-1" class="tab-pane active">
-                            <div class="products-slick" data-nav="#slick-nav-{{ $category->id }}-1">
-                                <!-- Product items for category 1 here -->
+                    <div class="cars-tabs">
+						<!-- tab -->
+						<div id="tab{{ $category->id }}-1" class="tab-pane active">
+							<div class="cars-slick" data-nav="#slick-nav-{{ $category->id }}-1">
 								@foreach ($carUnits->where('category_id', $category->id)->where('status', 'Tersedia') as $carUnit)
-									<div class="product">
-										<div class="product-img">
-										@foreach ($carUnit->photos->take(1) as $photo)
-											<img src="{{ asset('storage/'.$photo->file_path) }}" alt="">
-										@endforeach
-											<!-- <div class="product-label">
-												<span class="sale">-30%</span>
-												<span class="new">NEW</span>
-											</div> -->
+									<div class="car">
+										<div class="car-img">
+											@foreach ($carUnit->photos->take(1) as $photo)
+												<img src="{{ asset('storage/'.$photo->file_path) }}" alt="">
+											@endforeach
 										</div>
-										<div class="product-body">
-											<p class="product-category">{{ $carUnit->category->name }}</p>
-											<h3 class="product-name"><a href="{{ route('car.detail', ['id' => $carUnit->id]) }}">{{ $carUnit->name }}</a></h3>
-											<h4 class="product-price">Rp. {{ number_format($carUnit->price, 0, ',', '.') }}</h4>
-											<!-- <div class="product-rating">
+										<div class="car-body">
+											<p class="car-category">{{ $carUnit->brand->name }} - {{ $carUnit->transmission }} - {{ $carUnit->fuel_type }}</p>
+											<h3 class="car-name"><a href="{{ route('car.detail', ['id' => $carUnit->id]) }}">{{ $carUnit->name }}</a></h3>
+											<h4 class="car-price">Rp. {{ number_format($carUnit->price, 0, ',', '.') }}</h4>
+											<!-- <div class="car-rating">
 												<i class="fa fa-star"></i>
 												<i class="fa fa-star"></i>
 												<i class="fa fa-star"></i>
 												<i class="fa fa-star"></i>
 												<i class="fa fa-star"></i>
 											</div> -->
-											<div class="product-btns">
-												<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+											
+											<div class="car-btns">
+												<button class="add-to-wishlist" title="Tambahkan ke Wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp"></span></button>
 												<!-- <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button> -->
-												<button class="quick-view" data-id="{{ $carUnit->id }}"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+												<button title="Detail Lengkap"><a href="{{ route('car.detail', ['id' => $carUnit->id]) }}"><i class="fa fa-eye text-white"></i></a></button>
+												<button class="add-to-check" title="Jadwalkan Cek Unit"><i class="fa fa-calendar"></i> Cek Unit</button>
 											</div>
-										</div>
-										<div class="add-to-cart">
-											<button class="add-to-cart-btn"><i class="fa fa-calendar"></i>Cek Unit</button>
 										</div>
 									</div>
 								@endforeach
-                            </div>
-                            <div id="slick-nav-{{ $category->id }}-1" class="products-slick-nav"></div>
-                        </div>
-                        <!-- /tab -->
-                    </div>
+							</div>
+							<div id="slick-nav-{{ $category->id }}-1" class="cars-slick-nav"></div>
+						</div>
+						<!-- /tab -->
+					</div>
                 </div>
             </div>
             <!-- /section title -->
@@ -94,9 +89,6 @@
     <!-- /container -->
 </div>
 @endforeach
-<!-- Section Per Category -->
-
-
 
 		<!-- HOT DEAL SECTION -->
 		<div id="hot-deal" class="section">
@@ -146,8 +138,5 @@
 
 @endsection
 @section('js')
-<script>
-    var assetUrl = "{{ asset('storage/') }}";
-</script>
-<script src="{{ asset('user/modal/quick-view.js') }}"></script>
+<script src="{{ asset ('user/modal/logout.js') }}"></script>
 @endsection

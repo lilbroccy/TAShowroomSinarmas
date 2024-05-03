@@ -1,87 +1,47 @@
-$(document).on('click', '.quick-view', function() {
-    var carUnitId = $(this).data('id');
-    $.ajax({
-        url: '/get-car-units-detail/' + carUnitId, 
-        method: 'GET',
-        success: function(response) {
-            Swal.fire({
-                title: 'Quick View',
-                html: '<div class="carousel-container">' +
-                        '<div class="carousel">' +
-                            '<div style="height: 400px"><img src="' + assetUrl + '/' + response.image_url_1 + '" alt="Car Image 1"></div>' +
-                            '<div style="height: 400px"><img src="' + assetUrl + '/' + response.image_url_2 + '" alt="Car Image 2"></div>' +
-                            '<div style="height: 400px"><img src="' + assetUrl + '/' + response.image_url_3 + '" alt="Car Image 3"></div>' +
-                        '</div>' +
-                    '</div>' +
-                    '<div class="quick-view-details">' +
-                        '<h3>' + response.name + '</h3>' +
-                        '<p>Price: Rp. ' + response.price + '</p>' +
-                        '<p>Description: ' + response.description + '</p>' +
-                    '</div>'+
-                    '<div class="quick-view-buttons">' +
-                        '<button class="btn btn-primary"><i class="fa fa-calendar"></i> Booking Now</button>' +
-                        '<button class="btn btn-success"><i class="fa fa-whatsapp"></i> Share to WhatsApp</button>' +
-                        '<button class="btn btn-info" ><i class="fa fa-info-circle"></i> Detail Lengkap</button>' +
-                    '</div>',
-                showCloseButton: true,
-                showConfirmButton: false,
-                didOpen: () => {
-                    $('.carousel').slick({
-                        autoplay: true,
-                        autoplaySpeed: 2000,
-                        arrows: true,
-                        prevArrow: '<button type="button" class="slick-prev"><i class="fa fa-chevron-left"></i></button>',
-                        nextArrow: '<button type="button" class="slick-next"><i class="fa fa-chevron-right"></i></button>',
-                        dots: true,
-                        infinite: true
-                    });
-                }
-            });
-        },
-        error: function(xhr, status, error) {
-            console.error(error);
-            Swal.fire({
-                title: 'Error',
-                text: 'Failed to fetch car unit details.',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-        }
+$(document).ready(function(){
+    // Function to handle Quick View button click
+    $('.quick-view').on('click', function() {
+        var carUnitId = $(this).data('id');
+        $.ajax({
+            url: '/get-car-units-detail/' + carUnitId,
+            method: 'GET',
+            success: function(response) {
+                // Memasukkan URL gambar ke dalam elemen HTML
+                var modalContent = '<div class="row">' +
+                                        '<div class="col-md-6">' +
+                                            '<div class="car-image-container">' +
+                                            '<img src="' + assetUrl + '/' + response.image_url_1 + '" alt="Car Image">' +
+                                            '</div>' +
+                                        '</div>' +
+                                        '<div class="col-md-6">' +
+                                            '<div class="quick-view-details">' +
+                                                '<h3>' + response.name + '</h3>' +
+                                                '<p>Price: Rp. ' + response.price + '</p>' +
+                                            '</div>' +
+                                            '<div class="quick-view-buttons">' +
+                                                '<button class="btn btn-primary"><i class="fa fa-calendar"></i> Booking Now</button>' +
+                                                '<button class="btn btn-success"><i class="fa fa-whatsapp"></i> Share to WhatsApp</button>' +
+                                                '<button class="btn btn-info" ><i class="fa fa-info-circle"></i> Detail Lengkap</button>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>';
+                // Memasukkan konten modal ke dalam .modal-body di blade template
+                $('#quick-view-modal .modal-body').html(modalContent);
+                // Menampilkan modal
+                $('#quick-view-modal').modal('show');
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+                alert('Failed to fetch car unit details.');
+            }
+        });
     });
 });
 
 
 
-//SWEET ALERT LOGOUT
-document.addEventListener('DOMContentLoaded', function() {
-    var logoutButton = document.getElementById('logout-button');
-    if (logoutButton) {
-        logoutButton.addEventListener('click', function(event) {
-            event.preventDefault(); // Mencegah form submit default
-            Swal.fire({
-                title: 'Logout',
-                text: 'Anda yakin ingin logout?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Submit form untuk logout
-                    document.getElementById('logout-form').submit();
-                }
-            });
-        });
-    }
-});
 
-document.addEventListener('DOMContentLoaded', function() {
-    var loginForm = document.getElementById('login-form');
-    if (loginForm) {
-        loginForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            window.location.href = "/login";
-        });
-    }
-});
+
+
+
+//SWEET ALERT LOGOUT
