@@ -14,6 +14,8 @@
 		<link href="{{ asset('user/css/nouislider.min.css') }}" rel="stylesheet">
 		<link href="{{ asset('user/css/font-awesome.min.css') }}" rel="stylesheet">
 		<link href="{{ asset('user/css/style.css') }}" rel="stylesheet">
+		<link rel="stylesheet" href="{{ asset('plugins/magnific-popup/magnific-popup.css') }}">
+		
 		<!-- <link href="{{ asset('user/css/quick-view.css') }}" rel="stylesheet"> -->
     @yield('css')
 </head>
@@ -31,7 +33,6 @@
 				<li><a href="#"><i class="fa fa-map-marker"></i> Jl. Jayanegara, Kec. Kaliwates, Jember (Minggu-Kamis, 08.00-17.00 WIB)</a></li>
             </ul>
             <ul class="header-links pull-right">
-                <!-- <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li> -->
                 @if(Auth::check())
 					<li><a href="#"><i class="fa fa-user-o"></i> {{ Auth::user()->name }}</a></li>
 					<li>
@@ -125,12 +126,12 @@
     </div>
     <!-- /MAIN HEADER -->
 </header>
+	@include('layout-user.navbar')
     <main>
 	<a href="https://wa.me/6281336881004" class="whatsapp-float" target="_blank">
     <i class="fa fa-whatsapp my-float"></i>
 	</a>
-
-        @yield('content')
+    @yield('content')
     </main>
 
     <footer id="footer">
@@ -232,6 +233,7 @@
 	<script src="{{ asset('user/js/jquery.zoom.min.js') }}"></script>
 	<script src="{{ asset('user/js/main.js') }}"></script>
 	<script src="{{ asset('plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
+	<script src="{{ asset('plugins/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
 	<script src="{{ asset('user/modal/logout.js') }}"></script>
     @yield('js')    
 </body>

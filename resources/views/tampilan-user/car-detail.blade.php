@@ -1,7 +1,6 @@
 @extends('layout-user.index')
 @section('title', 'Halaman Utama')
 @section('css')
-<link rel="stylesheet" href="{{ asset('plugins/magnific-popup/magnific-popup.css') }}">
 <style>
     .border-table {
         border-collapse: collapse;
@@ -31,17 +30,51 @@
     }
     .btn-round {
     border-radius: 15px;
-}
+    }
+    .cover-image {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    height: 0;
+    padding-top: calc(400 / 630 * 100%);
+    background-image: url('{{ asset('storage/'.$carUnit->photos->first()->file_path) }}');
+    background-size: cover;
+    background-position: center center;
+    transition: filter 0.3s ease, transform 0.3s ease;
+    transform-origin: center center;
+    border-radius: 10px; 
+    }
+    .cover-image::before {
+        content: 'Lihat Foto Lengkap';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+    }
+    .cover-image:hover::before {
+        opacity: 0;
+    }
+    .cover-image:hover {
+        filter: brightness(80%);
+        transform: scale(1.1);
+    }
 </style>
 @endsection
 @section('content')
-<div class="container" style="margin-top: 50px; margin-bottom: 50px">
+<div class="container" style="margin-top: 5px; margin-bottom: 50px">
   <div class="row" style="margin-top: 20px;">
     <div class="col-md-7">
         <div class="gallery">
-            <a href="{{ asset('storage/'.$carUnit->photos->first()->file_path) }}">
-                <img style="width: 100%; height: auto; max-width: 630px; max-height: 400px;" src="{{ asset('storage/'.$carUnit->photos->first()->file_path) }}" alt="">
-            </a>
+        <a href="{{ asset('storage/'.$carUnit->photos->first()->file_path) }}" class="cover-image" >
+            <img style="width: 100%; height: auto; max-width: 630px; max-height: 400px; display: none;">
+        </a>
             @foreach ($carUnit->photos->slice(1) as $photo)
                 <a href="{{ asset('storage/'.$photo->file_path) }}"></a>
             @endforeach
@@ -49,8 +82,8 @@
     </div>
     <div class="col-md-5">
         <h3>{{$carUnit->name}}</h3>
-        <p class="text-muted fw-normal">{{$carUnit->year}} - {{$carUnit->mileage}} Km - {{$carUnit->transmission}} - {{$carUnit->fuel_type}}</p>
-        <p class="lead">Rp. {{$carUnit->price}}</p>
+        <p class="text-muted fw-normal"> {{$carUnit->brand->name}} - {{$carUnit->year}} - {{$carUnit->transmission}} - {{$carUnit->fuel_type}}</p>
+        <p class="lead"><b>Rp. {{ number_format($carUnit->price, 0, ',', '.') }}</b></p>
         <div class="row" style="margin-bottom: 10px;">
             <div class="col-xs-6">
                 <button class="btn btn-danger btn-block btn-round" style="padding: 10px 0;"><i class="fa fa-heart"></i> Suka</button>
@@ -128,13 +161,13 @@
     <div class="table-container">
       <div class="mt-5 border border-dark p-5">
         <h3 class="text-center mb-5 title"><u>Deskripsi</u></h3>
-        <p class="lead description">{{$carUnit->description}}</p>
+        <p class="lead description"><b>{{$carUnit->description}}</b></p>
       </div>
     </div>
 </div>
 @endsection
 @section('js')
-<script src="{{ asset('plugins/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
+
 <script>
 $(document).ready(function() {
     $('.gallery').magnificPopup({
@@ -143,17 +176,20 @@ $(document).ready(function() {
         gallery: {
             enabled: true,
             navigateByImgClick: true,
-            preload: [0,1] 
+            preload: [0, 1] 
         },
         zoom: {
             enabled: true,
             duration: 300, 
             easing: 'ease-in-out', 
             opener: function(openerElement) {
-                return openerElement.is('img') ? openerElement : openerElement.find('img');
+                return openerElement.closest('.gallery').find('.cover-image');
+            },
+            image: {
+                verticalFit: true, 
+                fitContainerWidth: true
             }
         },
-        mainClass: 'mfp-fade',
         callbacks: {
             resize: function() {
                 var self = this;
@@ -171,4 +207,5 @@ $(document).ready(function() {
     });
 });
 </script>
+
 @endsection

@@ -1,18 +1,10 @@
 <nav id="navigation">
-			<!-- container -->
-			<div class="container">
-				<!-- responsive-nav -->
-				<div id="responsive-nav">
-					<!-- NAV -->
-					<ul class="main-nav nav navbar-nav">
-						<li class="active"><a href="#">Home</a></li>
-						<li><a href="#">Merk</a></li>
-						<li><a href="#">Model</a></li>
-						<li><a href="#">Stok Baru</a></li>
-					</ul>
-					<!-- /NAV -->
-				</div>
-				<!-- /responsive-nav -->
-			</div>
-			<!-- /container -->
-		</nav>
+    <div class="container">
+        <ol class="breadcrumb">
+            <li class="{{ Request::is('/') ? 'active' : '' }}"><a href="{{ route('home') }}">Home</a></li>
+            @if (!Request::is('/'))
+                <li class="{{ Request::routeIs('car.detail') ? 'active' : '' }}">Detail Mobil</li>
+            @endif
+        </ol>
+    </div>
+</nav>
