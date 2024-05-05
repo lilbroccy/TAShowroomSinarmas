@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\CarUnit;
+use App\Models\User;
 
 class CheckUnit extends Model
 {
@@ -16,4 +18,12 @@ class CheckUnit extends Model
         'status',
         'description',
     ];
+    public function carUnit()
+    {
+        return $this->belongsTo(CarUnit::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

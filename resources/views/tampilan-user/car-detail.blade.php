@@ -1,71 +1,15 @@
 @extends('layout-user.index')
 @section('title', 'Halaman Utama')
 @section('css')
+@php
+    $carUnitImagePath = asset('storage/'.$carUnit->photos->first()->file_path);
+@endphp
 <style>
-    .border-table {
-        border-collapse: collapse;
-        width: 100%;
-        font-size: 16px;
-    }
-    .border-table td,
-    .border-table th {
-        border-bottom: 1px solid #ddd;
-        padding: 8px;
-        font-weight: bold; 
-    }
-    .border-table th {
-        text-align: left;
-    }
-    .title {
-        margin-bottom: 20px; 
-        margin-top: 20px;
-    }
-    .table-container {
-        border: 1px solid #000;
-        padding: 10px; 
-        margin-top: 20px; 
-    }
-    .description{
-      font-size: 16px;
-    }
-    .btn-round {
-    border-radius: 15px;
-    }
-    .cover-image {
-    position: relative;
-    display: block;
-    overflow: hidden;
-    width: 100%;
-    height: 0;
-    padding-top: calc(400 / 630 * 100%);
-    background-image: url('{{ asset('storage/'.$carUnit->photos->first()->file_path) }}');
-    background-size: cover;
-    background-position: center center;
-    transition: filter 0.3s ease, transform 0.3s ease;
-    transform-origin: center center;
-    border-radius: 10px; 
-    }
-    .cover-image::before {
-        content: 'Lihat Foto Lengkap';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: rgba(0, 0, 0, 0.5);
-        color: white;
-        padding: 10px 20px;
-        border-radius: 5px;
-        opacity: 1;
-        transition: opacity 0.3s ease;
-    }
-    .cover-image:hover::before {
-        opacity: 0;
-    }
-    .cover-image:hover {
-        filter: brightness(80%);
-        transform: scale(1.1);
+    :root {
+        --car-unit-image: url('{{ $carUnitImagePath }}');
     }
 </style>
+<link href="{{ asset('user/css/car-detail.css') }}" rel="stylesheet">
 @endsection
 @section('content')
 <div class="container" style="margin-top: 5px; margin-bottom: 50px">
@@ -94,12 +38,14 @@
         </div>
         <div class="row" style="margin-bottom: 10px;">
             <div class="col-xs-12">
-                <button class="btn btn-success btn-block btn-round" style="padding: 10px 0;"><i class="fa fa-phone"></i> Chat Admin</button>
+                <button class="btn btn-success btn-block btn-round" style="padding: 10px 0;"><i class="fa fa-comment"></i> Chat Admin</button>
             </div>
         </div>
         <div class="row" style="margin-bottom: 10px;">
             <div class="col-xs-12">
-                <button class="btn btn-primary btn-block btn-round" style="padding: 10px 0;"><i class="fa fa-calendar"></i> Check Unit & Test Drive</button>
+            <button class="btn btn-primary btn-block btn-round" id="checkUnitBtn" style="padding: 10px 0;">
+                <i class="fa fa-calendar"></i> Check Unit & Test Drive
+            </button>
             </div>
         </div>
         <p class="lead mt-4">Butuh bantuan? Hubungi kami melalui <a href="#">WhatsApp <i class="fa fa-whatsapp"></i></a></p>
@@ -165,47 +111,103 @@
       </div>
     </div>
 </div>
+<div class="modal fade" id="checkUnitModal" tabindex="-1" role="dialog" aria-labelledby="checkUnitModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="checkUnitModalLabel">Check Unit & Test Drive</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="checkUnitForm">
+                    @csrf
+                    <div class="form-group">
+                        <label for="carname">Nama Mobil:</label>
+                        <input type="text" class="form-control" id="carname" name="carname" value="{{ $carUnit->name }}" readonly>                    
+                        <input type="hidden" id="car_id" name="car_id" value="{{ $carUnit->id }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Nama Anda:</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ auth()->user()->name }}" readonly>
+                        <input type="hidden" id="user_id" name="user_id" value="{{ auth()->user()->id }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Nomor Telepon Anda:</label>
+                        <input type="text" class="form-control" id="phone" name="phone" value="{{ auth()->user()->phone }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Tanggal:</label>
+                        <input type="date" class="form-control" id="date" name="date" required min="{{ now()->format('Y-m-d') }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Jam (WIB):</label>
+                        <input type="time" class="form-control" id="time" name="time" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="note">Catatan:</label>
+                        <textarea class="form-control" id="note" name="note"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-primary" id="simpanButton">Kirim</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="checkUnitUpdateModal" tabindex="-1" role="dialog" aria-labelledby="checkUnitUpdateModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="checkUnitUpdateModalLabel">Check Unit & Test Drive</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="checkUnitUpdateForm">
+                    @csrf
+                    <div class="form-group">
+                        <label for="carname">Nama Mobil:</label>
+                        <input type="text" class="form-control" id="carname" name="carname" value="{{ $carUnit->name }}" readonly>                    
+                        <input type="hidden" id="car_id" name="car_id" value="{{ $carUnit->id }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Nama Anda:</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ auth()->user()->name }}" readonly>
+                        <input type="hidden" id="user_id" name="user_id" value="{{ auth()->user()->id }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Nomor Telepon Anda:</label>
+                        <input type="text" class="form-control" id="phone" name="phone" value="{{ auth()->user()->phone }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Tanggal:</label>
+                        <input type="date" class="form-control" id="date" name="date" required min="{{ now()->format('Y-m-d') }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Jam (WIB):</label>
+                        <input type="time" class="form-control" id="time" name="time" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="note">Catatan:</label>
+                        <textarea class="form-control" id="note" name="note"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-primary" id="updateButton">Kirim</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
 @section('js')
-
-<script>
-$(document).ready(function() {
-    $('.gallery').magnificPopup({
-        delegate: 'a',
-        type: 'image',
-        gallery: {
-            enabled: true,
-            navigateByImgClick: true,
-            preload: [0, 1] 
-        },
-        zoom: {
-            enabled: true,
-            duration: 300, 
-            easing: 'ease-in-out', 
-            opener: function(openerElement) {
-                return openerElement.closest('.gallery').find('.cover-image');
-            },
-            image: {
-                verticalFit: true, 
-                fitContainerWidth: true
-            }
-        },
-        callbacks: {
-            resize: function() {
-                var self = this;
-                setTimeout(function() {
-                    self.wrap.addClass('mfp-image-loaded');
-                }, 16);
-            },
-            imageLoadComplete: function() {
-                var self = this;
-                setTimeout(function() {
-                    self.wrap.addClass('mfp-image-loaded');
-                }, 16);
-            }
-        }
-    });
-});
-</script>
-
+<script src="{{ asset ('user/modal/car-detail.js') }}"></script>
+<script src="{{ asset ('user/modal/check-unit.js') }}"></script>
 @endsection

@@ -42,6 +42,10 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/get-car-units-detail/{id}', [HomeController::class, 'getDetail'])->name('car-units.detail');
 Route::get('/car-units/detail/{id}', [HomeController::class, 'getCarDetail'])->name('car.detail');
 
+Route::post('/car-units/detail/check-unit', [CheckUnitController::class, 'store'])->name('check-unit');
+Route::get('/car-units/detail/check-booking', [CheckUnitController::class, 'checkBooking']);
+
+
 //Dashboard Admin
 Route::get('/admin/dashboard', function () {
     return view('tampilan-admin.dashboard');

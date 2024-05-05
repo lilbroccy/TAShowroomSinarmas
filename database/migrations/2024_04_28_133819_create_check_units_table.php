@@ -17,8 +17,8 @@ class CreateCheckUnitsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->date('date');
             $table->time('time');
-            $table->enum('status', ['Diterima', 'Ditolak', 'Dalam Proses']);
-            $table->text('description')->nullable();
+            $table->enum('status', ['Diterima', 'Ditolak', 'Menunggu Persetujuan']);
+            $table->text('note')->nullable();
             $table->timestamps();
 
             $table->foreign('car_unit_id')->references('id')->on('car_units')->onDelete('cascade');
