@@ -16,7 +16,7 @@ class CheckUnit extends Model
         'date',
         'time',
         'status',
-        'description',
+        'note',
     ];
     public function carUnit()
     {

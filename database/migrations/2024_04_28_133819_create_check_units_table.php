@@ -17,7 +17,7 @@ class CreateCheckUnitsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->date('date');
             $table->time('time');
-            $table->enum('status', ['Diterima', 'Ditolak', 'Menunggu Persetujuan']);
+            $table->enum('status', ['Disetujui', 'Ditolak', 'Menunggu Persetujuan', 'Selesai']);
             $table->text('note')->nullable();
             $table->timestamps();
 

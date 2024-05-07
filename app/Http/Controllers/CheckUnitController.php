@@ -9,8 +9,14 @@ use App\Models\User;
 
 class CheckUnitController extends Controller
 {
-    public function index(){
-        return view('tampilan-admin.check-units');
+    public function index() {
+        $checkUnits = CheckUnit::all();
+        return view('tampilan-admin.check-units', compact('checkUnits'));
+    }
+
+    public function show(CheckUnit $checkUnit)
+    {
+        return view('tampilan-admin.check-units', compact('checkUnit'));
     }
 
     public function store(Request $request){
@@ -30,7 +36,7 @@ class CheckUnitController extends Controller
     $checkUnit->date = $validatedData['date'];
     $checkUnit->time = $validatedData['time'];
     $checkUnit->status = 'Menunggu Persetujuan'; // Set status secara otomatis
-    $checkUnit->description = $validatedData['note'];
+    $checkUnit->note = $validatedData['note'];
     $checkUnit->save(); 
 
     // Kirim respons ke JavaScript

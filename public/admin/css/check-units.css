@@ -7,22 +7,27 @@
     padding: 0.25rem 0.5rem;
     font-weight: bold;
     font-size: 0.75rem;
-    z-index: 1; /* Atur z-index untuk menampilkan di atas gambar */
+    z-index: 1;
+    transition: box-shadow 0.3s ease; 
+    box-shadow: 0 0 5px rgba(0, 0, 255, 0); 
+}
+
+.status:hover {
+    box-shadow: 0 0 5px #4f95ff; 
 }
 
 .waiting-approval {
-    background-color: #cacaca; /* Warna untuk status menunggu persetujuan */
+    background-color: #cacaca; 
 }
 
 .approved {
-    background-color: #00d885; /* Warna untuk status disetujui */
+    background-color: #00d885; 
 }
 
 .canceled{
     background-color: #e72424;
 }
 
-/* Custom Card Styling */
 .custom-card {
     border: 1px solid #e6e6e6;
     border-radius: 5px;
@@ -30,14 +35,13 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Custom Car Image Styling */
 .car-img-wrapper {
     text-align: center;
     width: 100%;
     overflow: hidden;
     position: relative;
-    height: 0; /* Set tinggi wrapper menjadi 0 */
-    padding-top: 56.25%; /* Atur rasio aspek 16:9 untuk gambar */
+    height: 0; 
+    padding-top: 56.25%; 
 }
 
 .car-img-wrapper img {
@@ -46,12 +50,20 @@
     left: 0;
     right: 0;
     bottom: 0;
-    margin: auto; /* Pusatkan gambar secara horizontal dan vertikal */
-    width: 100%; /* Agar gambar mengisi lebar wrapper */
-    height: 100%; /* Agar gambar mengisi tinggi wrapper */
-    object-fit: cover; /* Hindari distorsi gambar dan pastikan gambar memenuhi wrapper */
+    margin: auto; 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
 }
 
+.car-name {
+    transition: color 0.3s ease; 
+}
+
+.car-name:hover {
+    color: #448fff; 
+    cursor: pointer;
+}
 
 @media (max-width: 768px) {
     .status {

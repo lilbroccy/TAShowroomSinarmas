@@ -69,7 +69,7 @@ Route::delete   ('/admin/dashboard/brands/{id}/delete', [BrandController::class,
 Route::put      ('/admin/dashboard/brands/{id}/update', [BrandController::class, 'update']);
 
 Route::get      ('/admin/dashboard/check-units', [CheckUnitController::class, 'index'])->name('dashboard.check-units');
-
+Route::get      ('/admin/dashboard/check-units/{checkUnitId}', [CheckUnitController::class, 'show'])->name('check-units.detail');
 
 Route::get('/api/categories', [CategoryController::class, 'getCategory']);
 Route::get('/api/brands', [BrandController::class, 'getBrand']);

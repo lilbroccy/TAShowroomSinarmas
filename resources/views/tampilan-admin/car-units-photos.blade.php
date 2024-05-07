@@ -13,7 +13,6 @@
                 <div class="card-body">
                     <h5>Nama Mobil: {{$carUnit->name}}</h5>   
                     <hr>
-
                     @if ($errors->any())
                     <ul class="alert alert-warning">
                         @foreach($errors->all() as $error)
@@ -21,7 +20,6 @@
                         @endforeach
                     </ul>
                     @endif
-
                     <form action="{{url('admin/dashboard/car-units/'.$carUnit->id.'/upload')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
@@ -32,4 +30,5 @@
                             <button type="submit" class="btn btn-primary">Upload</button>
                         </div>
                     </form>
+                </div>
 @endsection

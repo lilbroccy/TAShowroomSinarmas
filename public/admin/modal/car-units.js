@@ -36,19 +36,19 @@ $(document).ready(function() {
         });
     }
 
-    $('#tambahUnitMobil').on('click', function() {
+    $('#tambahUnitMobil').off('click').on('click', function() {
         $('#tambahModal').modal('show'); 
     });
 
-    $('#simpanButton').on('click', function() {
+    $('#simpanButton').off('click').on('click', function() {
         simpanData();
     });
 
-    $('.modal .close').on('click', function() {
+    $('.modal .close').off('click').on('click', function() {
         $(this).closest('.modal').modal('hide');
     });
 
-    $('.modal .btn-secondary').on('click', function() {
+    $('.modal .btn-secondary').off('click').on('click', function() {
         $(this).closest('.modal').modal('hide');
     });
 
@@ -161,7 +161,7 @@ $(document).ready(function() {
         var id = $(this).data('carunitid');
         $('#updateModal' + id).modal('show');
         $('#updateButton_' + id).data('carunitid', id);
-        $('.updateButton').click(function(event) {
+        $('.updateButton').off('click').on('click',function(event) {
             var id = $(this).data('carunitid'); 
             updateCar(id);
         });

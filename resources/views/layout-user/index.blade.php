@@ -15,7 +15,8 @@
 		<link href="{{ asset('user/css/nouislider.min.css') }}" rel="stylesheet">
 		<link href="{{ asset('user/css/font-awesome.min.css') }}" rel="stylesheet">
 		<link href="{{ asset('user/css/style.css') }}" rel="stylesheet">
-		<link rel="stylesheet" href="{{ asset('plugins/magnific-popup/magnific-popup.css') }}">
+		<link href="{{ asset('plugins/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet">
+		<link href="{{ asset('plugins/magnific-popup/magnific-popup.css') }}" rel="stylesheet">
 		<!-- <link href="{{ asset('user/css/quick-view.css') }}" rel="stylesheet"> -->
     @yield('css')
 </head>

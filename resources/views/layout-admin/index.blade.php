@@ -13,10 +13,10 @@
     <link href="{{ asset ('admin/assets/plugins/chartist/dist/chartist.min.css') }}" rel="stylesheet">
     <link href="{{ asset ('admin/css/style.min.css') }}" rel="stylesheet">
     <link href="{{ asset ('admin/assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
+    <link href="{{ asset ('plugins/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet">
     @yield('css')
     @include('layout-admin.variable')
-    <script src="{{ asset ('admin/assets/plugins/jquery/dist/jquery.min.js') }}"></script>
-    <script src="{{ asset ('admin/assets/plugins/datatables/datatables.min.js') }}"></script>
+    
 </head>
 
 <body>
@@ -41,6 +41,7 @@
             </footer>
         </div>
     </div>
+
     <script src="{{ asset ('admin/assets/plugins/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset ('admin/assets/plugins/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset ('admin/assets/plugins/datatables/datatables.min.js') }}"></script>
@@ -52,5 +53,6 @@
     <script src="{{ asset ('admin/assets/plugins/flot.tooltip/js/jquery.flot.tooltip.min.js') }}"></script>
     <script src="{{ asset ('admin/js/pages/dashboards/dashboard1.js') }}"></script>
     <script src="{{ asset ('plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
+    @yield('js')
 </body>
 </html>
