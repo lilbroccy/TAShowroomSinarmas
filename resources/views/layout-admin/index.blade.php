@@ -14,6 +14,91 @@
     <link href="{{ asset ('admin/css/style.min.css') }}" rel="stylesheet">
     <link href="{{ asset ('admin/assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
     <link href="{{ asset ('plugins/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet">
+    <!-- <style>
+    .admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+}
+
+.logo {
+    z-index: 1000; /* Atur nilai z-index yang tinggi */
+    position: relative;
+}
+
+.logo img {
+    height: 60px;
+    width: 180px;
+}
+
+.admin-actions {
+    display: flex;
+    align-items: center;
+}
+
+.action-icon {
+    margin-right: 15px;
+    color: #fff;
+    font-size: 20px;
+}
+
+.logout-btn {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.logout-btn:hover {
+    text-decoration: underline;
+}
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #fff; /* Warna background putih */
+    position: fixed;
+    top: 0;
+    left: -250px;
+    transition: left 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Efek bayangan */
+    padding-top: 60px; /* Padding untuk menghindari tumpukan dengan header */
+    z-index: 999;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    padding: 10px 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+.sidebar ul li a {
+    color: #333;
+    text-decoration: none;
+}
+
+.sidebar ul li a i {
+    margin-right: 10px;
+}
+
+.sidebar.open {
+    left: 0;
+}
+
+.nav-link {
+    color: #333 !important;
+}
+
+    
+    </style> -->
     @yield('css')
     @include('layout-admin.variable')
     
@@ -53,6 +138,14 @@
     <script src="{{ asset ('admin/assets/plugins/flot.tooltip/js/jquery.flot.tooltip.min.js') }}"></script>
     <script src="{{ asset ('admin/js/pages/dashboards/dashboard1.js') }}"></script>
     <script src="{{ asset ('plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
+    <!-- <script>
+
+document.getElementById("toggle-sidebar").addEventListener("click", function() {
+    var sidebar = document.getElementById("sidebar");
+    sidebar.classList.toggle("open");
+});
+
+</script> -->
     @yield('js')
 </body>
 </html>

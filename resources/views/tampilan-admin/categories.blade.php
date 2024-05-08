@@ -2,19 +2,12 @@
 @section('title', "Car Unit")
 @section('body')
     <div class="page-breadcrumb">
-        <div class="row align-items-center">
-            <div class="col-md-6 col-8 align-self-center">
-                <h3 class="page-title mb-0 p-0">Kategori</h3>
-                <div class="d-flex align-items-center">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Kategori</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Kategori</li>
+            </ol>
+        </nav>
     </div>
     <div class="container-fluid">
         <div class="row">

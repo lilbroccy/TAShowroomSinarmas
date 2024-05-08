@@ -1,23 +1,60 @@
 .status {
-    top: 10px;
-    right: 10px;
+    position: absolute; /* Menggunakan posisi absolut agar status selalu berada di pojok kanan atas gambar */
+    top: 5px; /* Jarak dari bagian atas gambar */
+    right: 5px; /* Jarak dari sisi kanan gambar */
     background-color: #D1D5DB;
     color: #ffffff;
-    border-radius: 0.5rem;
-    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem; /* Mengurangi border radius */
+    padding: 0.15rem 0.3rem; /* Mengurangi padding */
     font-weight: bold;
-    font-size: 0.75rem;
+    font-size: 0.65rem; /* Mengurangi ukuran font */
     z-index: 1;
-    transition: box-shadow 0.3s ease; 
-    box-shadow: 0 0 5px rgba(0, 0, 255, 0); 
+    transition: box-shadow 0.3s ease;
+    box-shadow: 0 0 3px rgba(0, 0, 255, 0); /* Mengurangi shadow */
+}
+
+.card-img-wrapper {
+    position: relative; /* Menjadikan parent untuk posisi absolut */
+}
+
+.card-img-wrapper .status {
+    position: absolute; /* Menggunakan posisi absolut agar status selalu berada di pojok kanan atas gambar */
+    top: 5px; /* Jarak dari bagian atas gambar */
+    right: 5px; /* Jarak dari sisi kanan gambar */
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; /* Pastikan card memiliki tinggi 100% */
+    position: relative; /* Menggunakan posisi relatif agar footer dan status bisa menggunakan posisi absolut */
+    
+}
+
+.card-footer {
+    position: absolute; /* Menggunakan posisi absolut agar footer selalu berada di bagian bawah card */
+    bottom: 0; /* Footer akan menempel di bagian bawah card */
+    left: 0; /* Footer akan menempel di bagian kiri card */
+    width: 100%; /* Footer akan mengikuti lebar card */
+    margin-top: auto; /* Footer menarik ke bawah sehingga selalu berada di bagian bawah card */
+}
+
+.card-status {
+    position: absolute; /* Menggunakan posisi absolut agar status selalu berada di bagian atas card */
+    top: 10px; /* Jarak dari bagian atas card */
+    right: 10px; /* Jarak dari sisi kanan card */
 }
 
 .status:hover {
-    box-shadow: 0 0 5px #4f95ff; 
+    box-shadow: 0 0 5px #4f95ff;
 }
 
+/* Sisanya tetap seperti yang Anda berikan */
+
+
 .waiting-approval {
-    background-color: #cacaca; 
+    background-color: #ffc400; 
 }
 
 .approved {
@@ -31,7 +68,7 @@
 .custom-card {
     border: 1px solid #e6e6e6;
     border-radius: 5px;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -56,20 +93,12 @@
     object-fit: cover; 
 }
 
-.car-name {
+.name {
     transition: color 0.3s ease; 
 }
 
-.car-name:hover {
+.name:hover {
     color: #448fff; 
     cursor: pointer;
 }
 
-@media (max-width: 768px) {
-    .status {
-        position: relative; 
-        top: auto; 
-        right: auto; 
-        font-size: 0.5rem;
-    }
-}
