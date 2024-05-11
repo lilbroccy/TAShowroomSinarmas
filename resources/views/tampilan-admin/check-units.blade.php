@@ -1,7 +1,9 @@
 @extends('layout-admin.index')
 @section('title', 'Dashboard')
 @section('css')
+
 <link href="{{ asset('admin/css/check-units.css') }}" rel="stylesheet">
+<link href="{{ asset('user/css/font-awesome.min.css') }}" rel="stylesheet">
 @endsection
 @section('body')
 <div class="page-breadcrumb">
@@ -35,12 +37,14 @@
                 </div>
                 <div class="card-body" style="position: relative;">
                     <h5 class="card-title name car-name" data-id="{{ $checkUnit->id }}"><b>{{ $checkUnit->carUnit->name }}</b></h5>
-                    <p class="card-text name"><i class="fa fa-user"></i> {{ $checkUnit->user->name }}</p>
-                    <p class="card-text name"><i class="fa fa-phone"></i> {{ $checkUnit->user->phone }}</p>
-                    <p class="card-text name"><i class="fa fa-calendar"></i> {{ \Carbon\Carbon::parse($checkUnit->date)->format('d-m-Y') }}, {{ $checkUnit->time }} WIB</p>
+                    <p class="card-text name user" data-id="{{ $checkUnit->user->id }}"><i class="fa fa-user-o"></i>&nbsp;:&nbsp; {{ $checkUnit->user->name }}</p>
+                    <p class="card-text name whatsapp-link" data-phone="{{ $checkUnit->user->phone }}"><i class="fa fa-whatsapp"></i>&nbsp;:&nbsp; {{ $checkUnit->user->phone }}</p>
+                    <p class="card-text name date"><i class="fa fa-calendar"></i>&nbsp;:&nbsp; {{ \Carbon\Carbon::parse($checkUnit->date)->format('d-m-Y') }}</p>
+                    <p class="card-text name time"><i class="fa fa-clock-o"></i>&nbsp;:&nbsp; {{ $checkUnit->time }} WIB</p>
                 </div>
-                <div class="card-footer" style="display: grid; grid-template-rows: auto auto;">
+                <div class="card-footer" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                     <button class="btn btn-outline-primary btn-sm detail-button" data-id="{{ $checkUnit->id }}"><i class="fa fa-eye"></i> Lihat Detail</button>
+                    <button class="btn btn-outline-info btn-sm action-button" data-id="{{ $checkUnit->id }}"><i class="fa fa-cogs"></i> Opsi</button>
                 </div>
             </div>
         </div>
@@ -56,22 +60,26 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="userProfileModal{{ $checkUnit->user->id }}" role="dialog" tabindex="-1" aria-labelledby="userProfileModalLabel{{ $checkUnit->user->id }}" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="userProfileModalLabel{{ $checkUnit->user->id }}">Profil Pengguna</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    <p>Nama: {{ $checkUnit->user->name }}</p>
+                    <p>Nomor Telepon: {{ $checkUnit->user->phone }}</p>
+                    <p>Email: {{ $checkUnit->user->email }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
         @endforeach
     </div>
 </div>
 @endsection
 @section('js')
-<script>
-    $(document).ready(function() {
-        $('.detail-button').click(function() {
-            var checkUnitId = $(this).data('id');
-            $('#detailModal' + checkUnitId).modal('show');
-        });
-        $('.car-name').click(function() {
-            var checkUnitId = $(this).data('id');
-            $('#detailModal' + checkUnitId).modal('show');
-        });
-    });
-</script>
+<script src="{{ asset('admin/modal/check-unit.js')}}"></script>
 @endsection
 

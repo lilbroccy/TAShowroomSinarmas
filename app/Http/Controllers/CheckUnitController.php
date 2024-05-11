@@ -57,4 +57,30 @@ class CheckUnitController extends Controller
                                     ->exists();
         return response()->json(['bookingExists' => $bookingExists]);
     }
+
+    public function rubahStatusCheckUnit(Request $request)
+    {
+        try {
+            // Mendapatkan data dari body request
+            $checkUnitId = $request->input('checkUnitId');
+            $status = $request->input('status');
+            $note = $request->input('note');
+
+            // Proses untuk mengubah status check unit
+            // Misalnya jika menggunakan model CheckUnit
+            $checkUnit = CheckUnit::find($checkUnitId);
+            $checkUnit->status = $status;
+            
+            // Jika ditolak, tambahkan note
+            if ($status === 'Ditolak') {
+                $checkUnit->note = $note;
+            }
+
+            $checkUnit->save();
+            return response()->json(['success' => true, 'message' => 'Status cek unit berhasil diubah'], 200);
+        } catch (\Exception $e) {
+            \Log::error('Error: ' . $e->getMessage());
+            return response()->json(['success' => false, 'message' => 'Terjadi kesalahan dalam mengubah status cek unit'], 500);
+        }
+    }
 }

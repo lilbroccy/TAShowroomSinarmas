@@ -101,4 +101,12 @@
     color: #448fff; 
     cursor: pointer;
 }
+.selected-date a {
+    background-color: #ffff00; /* Warna latar kuning untuk tanggal yang dipilih */
+}
+
+/* CSS untuk menandai hari saat ini */
+.current-day a {
+    background-color: #ffcccc; /* Warna latar merah muda untuk hari saat ini */
+}
 

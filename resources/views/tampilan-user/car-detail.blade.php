@@ -146,8 +146,8 @@
                         <input type="time" class="form-control" id="time" name="time" required>
                     </div>
                     <div class="form-group">
-                        <label for="note">Catatan:</label>
-                        <textarea class="form-control" id="note" name="note"></textarea>
+                        <label for="note">Catatan Tambahan:</label>
+                        <textarea class="form-control" id="note" name="note" placeholder="Kosongkan jika tidak ada catatan tambahan"></textarea>
                     </div>
                 </form>
             </div>
@@ -205,9 +205,7 @@
         </div>
     </div>
 </div>
-
 @endsection
 @section('js')
 <script src="{{ asset ('user/modal/car-detail.js') }}"></script>
-<script src="{{ asset ('user/modal/check-unit.js') }}"></script>
 @endsection
