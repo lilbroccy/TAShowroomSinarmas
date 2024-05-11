@@ -19,10 +19,13 @@ class CreateCheckUnitsTable extends Migration
             $table->time('time');
             $table->enum('status', ['Disetujui', 'Ditolak', 'Menunggu Persetujuan', 'Selesai']);
             $table->text('note')->nullable();
+            $table->text('note_from_admin')->nullable();
+            $table->unsignedBigInteger('last_edit_by')->nullable();
             $table->timestamps();
 
             $table->foreign('car_unit_id')->references('id')->on('car_units')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('last_edit_by')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

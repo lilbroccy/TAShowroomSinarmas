@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\CheckUnit;
 use App\Models\CarUnit;
@@ -20,26 +21,23 @@ class CheckUnitController extends Controller
     }
 
     public function store(Request $request){
-    // Validasi data yang diterima dari request
     $validatedData = $request->validate([
-        'car_id' => 'required', // Ganti 'car_id' menjadi 'car_id'
-        'user_id' => 'required', // Ganti 'user_
+        'car_id' => 'required',
+        'user_id' => 'required',
         'date' => 'required|date',
         'time' => 'required',
         'note' => 'nullable'
     ]);
     
-    // Simpan data ke dalam database
     $checkUnit = new CheckUnit();
-    $checkUnit->car_unit_id = $validatedData['car_id']; // Ganti 'carname' menjadi 'car_unit_id'
-    $checkUnit->user_id = $validatedData['user_id']; // Gan
+    $checkUnit->car_unit_id = $validatedData['car_id'];
+    $checkUnit->user_id = $validatedData['user_id'];
     $checkUnit->date = $validatedData['date'];
     $checkUnit->time = $validatedData['time'];
-    $checkUnit->status = 'Menunggu Persetujuan'; // Set status secara otomatis
+    $checkUnit->status = 'Menunggu Persetujuan';
     $checkUnit->note = $validatedData['note'];
     $checkUnit->save(); 
 
-    // Kirim respons ke JavaScript
     return response()->json(['message' => 'Data berhasil disimpan'], 200);
     }
 
@@ -59,28 +57,29 @@ class CheckUnitController extends Controller
     }
 
     public function rubahStatusCheckUnit(Request $request)
-    {
-        try {
-            // Mendapatkan data dari body request
-            $checkUnitId = $request->input('checkUnitId');
-            $status = $request->input('status');
-            $note = $request->input('note');
+{
+    try {
+        $checkUnitId = $request->input('checkUnitId');
+        $status = $request->input('status');
+        $note = $request->input('note');
 
-            // Proses untuk mengubah status check unit
-            // Misalnya jika menggunakan model CheckUnit
-            $checkUnit = CheckUnit::find($checkUnitId);
-            $checkUnit->status = $status;
-            
-            // Jika ditolak, tambahkan note
-            if ($status === 'Ditolak') {
-                $checkUnit->note = $note;
-            }
+        $adminId = Auth::id();
 
-            $checkUnit->save();
-            return response()->json(['success' => true, 'message' => 'Status cek unit berhasil diubah'], 200);
-        } catch (\Exception $e) {
-            \Log::error('Error: ' . $e->getMessage());
-            return response()->json(['success' => false, 'message' => 'Terjadi kesalahan dalam mengubah status cek unit'], 500);
-        }
+        $checkUnit = CheckUnit::find($checkUnitId);
+        $checkUnit->status = $status;
+        $checkUnit->last_edit_by = $adminId;
+        
+        $checkUnit->note_from_admin = $note;
+
+        $updatedAt = Carbon::now()->addHours(7);
+        $checkUnit->updated_at = $updatedAt;
+
+        $checkUnit->save();
+
+        return response()->json(['success' => true, 'message' => 'Status check unit berhasil diubah'], 200);
+    } catch (\Exception $e) {
+        \Log::error('Error: ' . $e->getMessage());
+        return response()->json(['success' => false, 'message' => 'Terjadi kesalahan dalam mengubah status check unit'], 500);
     }
+}
 }

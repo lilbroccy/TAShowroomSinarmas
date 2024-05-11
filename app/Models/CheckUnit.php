@@ -17,12 +17,18 @@ class CheckUnit extends Model
         'time',
         'status',
         'note',
+        'note_from_admin',
+        'last_edit_by',
     ];
     public function carUnit()
     {
         return $this->belongsTo(CarUnit::class);
     }
     public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function lastEditBy()
     {
         return $this->belongsTo(User::class);
     }

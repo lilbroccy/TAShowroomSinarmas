@@ -38,11 +38,10 @@ class AuthController extends Controller
     if (Auth::attempt($credentials)) {
         $request->session()->regenerate();
 
-        // Cek peran pengguna setelah berhasil login
-        if (Auth::user()->isAdmin()) {
-            return redirect()->intended('/admin/dashboard'); // Redirect jika admin
+        if (Auth::user()->isAdmin() || Auth::user()->isOwner()) {
+            return redirect()->intended('/admin/dashboard'); 
         } else {
-            return redirect()->intended('/'); // Redirect jika pengguna umum
+            return redirect()->intended('/'); 
         }
     }
 
