@@ -1,5 +1,9 @@
 $(document).ready(function() {
-    $('.done-button').click(doneButtonHandler);
+    
+    $('.done-button').click(function() {
+        var checkUnitId = $(this).data('id');
+        doneButtonHandler(checkUnitId);
+    });
     $('.action-button').click(actionButtonHandler);
 
     $('.detail-button').click(function() {
@@ -23,7 +27,7 @@ $(document).ready(function() {
     });
 });
 
-function doneButtonHandler() {
+function doneButtonHandler(checkUnitId) {
     Swal.fire({
         title: 'Apakah mobil terjual?',
         icon: 'question',
@@ -31,41 +35,59 @@ function doneButtonHandler() {
         confirmButtonText: '<i class="fa fa-check"></i> Ya',
         cancelButtonText: '<i class="fa fa-times"></i> Tidak',
         showCloseButton: true,
-        showClass: {
-            popup: 'swal2-noanimation',
-            backdrop: 'swal2-noanimation'
-        },
-        hideClass: {
-            popup: '',
-            backdrop: ''
-        }
     }).then((result) => {
         if (result.isConfirmed) {
-            Swal.fire({
-                title: 'Pilih Sistem Penjualan',
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonText: '<i class="fa fa-money"></i> Tunai',
-                cancelButtonText: '<i class="fa fa-credit-card"></i> Kredit',
-                showCloseButton: true,
-                showClass: {
-                    popup: 'swal2-noanimation',
-                    backdrop: 'swal2-noanimation'
-                },
-                hideClass: {
-                    popup: '',
-                    backdrop: ''
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire('Anda memilih Tunai');
-                } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    Swal.fire('Anda memilih Kredit');
-                }
-            });
+            showPaymentMethodDialog(checkUnitId);
         }
     });
 }
+
+function showPaymentMethodDialog(checkUnitId) {
+    Swal.fire({
+        title: 'Pilih Sistem Penjualan',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: '<i class="fa fa-money"></i> Tunai',
+        cancelButtonText: '<i class="fa fa-credit-card"></i> Kredit',
+        showCloseButton: true,
+    }).then((result) => {
+        if (result.isConfirmed) {
+            saveSalesData(checkUnitId, 'Tunai');
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            saveSalesData(checkUnitId, 'Kredit');
+        }
+    });
+}
+
+function saveSalesData(checkUnitId, paymentMethod) {
+    var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    fetch('/save-sales-data', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
+        },
+        body: JSON.stringify({
+            checkUnitId: checkUnitId,
+            paymentMethod: paymentMethod
+        })
+    }).then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error('Network response was not ok.');
+    }).then(data => {
+        Swal.fire(data.message);
+        setTimeout(function() {
+            location.reload();
+        }, 1000);
+    }).catch(error => {
+        console.error('Error:', error);
+        Swal.fire('Terjadi Kesalahan');
+    });
+}
+
 
 
 function actionButtonHandler() {

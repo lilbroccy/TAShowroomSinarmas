@@ -49,7 +49,6 @@
                         <button class="btn btn-outline-success btn-sm done-button" data-id="{{ $checkUnit->id }}"><i class="fa fa-check"></i> Selesai</button>
                     @endif
                 </div>
-
             </div>
         </div>
         <div class="modal fade" id="detailModal{{ $checkUnit->id }}" role="dialog" tabindex="-1" aria-labelledby="detailModalLabel{{ $checkUnit->id }}" aria-hidden="true">

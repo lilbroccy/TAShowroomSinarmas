@@ -10,6 +10,7 @@ use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CheckUnitController;
 use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\SalesController;
 
 
 /*
@@ -71,6 +72,8 @@ Route::put      ('/admin/dashboard/brands/{id}/update', [BrandController::class,
 Route::get      ('/admin/dashboard/check-units', [CheckUnitController::class, 'index'])->name('dashboard.check-units');
 Route::get      ('/admin/dashboard/check-units/{checkUnitId}', [CheckUnitController::class, 'show'])->name('check-units.detail');
 Route::post     ('/rubah-status-check-unit', [CheckUnitController::class, 'rubahStatusCheckUnit']);
+
+Route::post     ('/save-sales-data', [SalesController::class, 'save']);
 
 Route::get('/api/categories', [CategoryController::class, 'getCategory']);
 Route::get('/api/brands', [BrandController::class, 'getBrand']);
