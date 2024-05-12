@@ -30,6 +30,6 @@ class CheckUnit extends Model
     }
     public function lastEditBy()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'last_edit_by');
     }
 }

@@ -42,20 +42,39 @@
                     <p class="card-text name date"><i class="fa fa-calendar"></i>&nbsp;:&nbsp; {{ \Carbon\Carbon::parse($checkUnit->date)->format('d-m-Y') }}</p>
                     <p class="card-text name time"><i class="fa fa-clock-o"></i>&nbsp;:&nbsp; {{ $checkUnit->time }} WIB</p>
                 </div>
-                <div class="card-footer" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                    <button class="btn btn-outline-primary btn-sm detail-button" data-id="{{ $checkUnit->id }}"><i class="fa fa-eye"></i> Lihat Detail</button>
+                <div class="card-footer" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                    <button class="btn btn-outline-primary btn-sm detail-button" data-id="{{ $checkUnit->id }}"><i class="fa fa-eye"></i> Detail</button>
                     <button class="btn btn-outline-info btn-sm action-button" data-id="{{ $checkUnit->id }}"><i class="fa fa-cogs"></i> Opsi</button>
+                    @if($checkUnit->status == 'Disetujui')
+                        <button class="btn btn-outline-success btn-sm done-button" data-id="{{ $checkUnit->id }}"><i class="fa fa-check"></i> Selesai</button>
+                    @endif
                 </div>
+
             </div>
         </div>
         <div class="modal fade" id="detailModal{{ $checkUnit->id }}" role="dialog" tabindex="-1" aria-labelledby="detailModalLabel{{ $checkUnit->id }}" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="detailModalLabel{{ $checkUnit->id }}">Detail Check Unit  {{ $checkUnit->carUnit->name }}</h5>
+                        <h5 class="modal-title" id="detailModalLabel{{ $checkUnit->id }}">Detail Cek Unit  {{ $checkUnit->carUnit->name }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                        <p style="color: black;"><b>Tanggal & Waktu Cek Unit:</b> {{ \Carbon\Carbon::createFromFormat('Y-m-d', $checkUnit->date)->format('d-m-Y') }}, {{ $checkUnit->time}} (WIB)</p>
+                        <p style="color: black;"><b>Nama Mobil:</b> {{ $checkUnit->carUnit->name }}</p>
+                        <p style="color: black;"><b>Harga:</b> {{ $checkUnit->carUnit->price }}</p>
+                        <p style="color: black;"><b>Nama Pengguna:</b> {{ $checkUnit->user->name }}</p>
+                        <p style="color: black;"><b>Nomor Telepon:</b> {{ $checkUnit->user->phone }}</p>
+                        <p style="color: black;"><b>Email:</b> {{ $checkUnit->user->email }}</p>
+                        <p style="color: black;"><b>Catatan Tambahan Pengguna :</b> {{ $checkUnit->note }}</p>
+                        </br>
+                        </br>
+                        </br>
+                        @if ($checkUnit->status === 'Ditolak' || $checkUnit->status === 'Disetujui')
+                            <div style="position: absolute; bottom: 10px; right: 10px;">
+                                <p style="font-size: 12px;">Terakhir Diubah Oleh: {{ $checkUnit->lastEditBy->name }}, {{ $checkUnit->updated_at->format('d-m-Y H:i:s')}} (WIB)</p>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -81,5 +100,7 @@
 @endsection
 @section('js')
 <script src="{{ asset('admin/modal/check-unit.js')}}"></script>
+<script>
+</script>
 @endsection
 

@@ -62,7 +62,7 @@
                 <div class="col-md-3">
                     <div class="header-logo">
                         <a href="#" class="logo">
-                            <img src="{{ asset('admin/assets/images/Logo-ShowroomSinarmas.png') }}" style="width: 240px; height: 80px;" alt="">
+                            <img src="{{ asset('admin/assets/images/logo-teks.png') }}" style="width: 240px; height: 80px;" alt="">
                         </a>
                     </div>
                 </div>
