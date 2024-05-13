@@ -115,7 +115,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="checkUnitModalLabel">Check Unit & Test Drive</h5>
+                <h5 class="modal-title" id="checkUnitModalLabel">Form Check Unit & Test Drive</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -152,8 +152,39 @@
                 </form>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="selanjutnyaButton">Selanjutnya</button>
+
+                <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-primary" id="simpanButton">Kirim</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Transfer dan Upload Bukti -->
+<div class="modal fade" id="transferModal" tabindex="-1" role="dialog" aria-labelledby="transferModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="transferModalLabel">Form Transfer dan Unggah Bukti Transfer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="transferForm">
+                    <div class="form-group">
+                        <label for="bankAccount">Rekening Bank:</label>
+                        <input type="text" class="form-control" id="bankAccount" name="bankAccount" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="buktiTransfer">Unggah Bukti Transfer:</label>
+                        <input type="file" class="form-control-file" id="buktiTransfer" name="buktiTransfer" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-primary" id="simpanButton">Kirim</button>
+                <button type="button" class="btn btn-primary" id="simpanButton">Lanjutkan</button>
             </div>
         </div>
     </div>

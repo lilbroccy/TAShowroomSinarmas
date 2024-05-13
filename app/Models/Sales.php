@@ -19,6 +19,7 @@ class Sales extends Model
         'customer_name',
         'customer_phone',
         'payment_method',
+        'date',
         'last_edit_by',
     ];
 

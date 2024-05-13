@@ -13,6 +13,21 @@
     box-shadow: 0 0 3px rgba(0, 0, 255, 0); /* Mengurangi shadow */
 }
 
+.car {
+    position: absolute; /* Menggunakan posisi absolut agar status selalu berada di pojok kanan atas gambar */
+    top: 5px; /* Jarak dari bagian atas gambar */
+    left: 5px; /* Jarak dari sisi kanan gambar */
+    background-color: #D1D5DB;
+    color: #ffffff;
+    border-radius: 0.25rem; /* Mengurangi border radius */
+    padding: 0.15rem 0.3rem; /* Mengurangi padding */
+    font-weight: bold;
+    font-size: 0.65rem; /* Mengurangi ukuran font */
+    z-index: 1;
+    transition: box-shadow 0.3s ease;
+    box-shadow: 0 0 3px rgba(0, 0, 255, 0); /* Mengurangi shadow */
+}
+
 .card-img-wrapper {
     position: relative; /* Menjadikan parent untuk posisi absolut */
 }
@@ -44,6 +59,19 @@
     position: absolute; /* Menggunakan posisi absolut agar status selalu berada di bagian atas card */
     top: 10px; /* Jarak dari bagian atas card */
     right: 10px; /* Jarak dari sisi kanan card */
+}
+.car-status {
+    position: absolute;
+    top: 10px; /* Sesuaikan jaraknya dari bagian atas card */
+    left: 10px; 
+}
+
+.sold {
+    background-color: #e72424; 
+}
+
+.ready{
+    background-color: #00d885; 
 }
 
 .status:hover {

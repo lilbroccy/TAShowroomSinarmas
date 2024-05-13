@@ -41,13 +41,36 @@ $(document).ready(function() {
 $(document).ready(function() {
     updateTimeConstraints();
     $('#checkUnitBtn').click(function() {
-        $('#checkUnitModal').modal('show');
+        Swal.fire({
+            title: 'Info',
+            text: 'Layanan ini dikenakan biaya sebesar 15 ribu. Lanjutkan?',
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: 'Lanjutkan',
+            cancelButtonText: 'Batal'
+
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $('#checkUnitModal').modal('show');
+            }
+        });
     });
-    $('#simpanButton').on('click', function() {
+    
+    $('#selanjutnyaButton').on('click', function() {
         var date = $('#date').val();
         var time = $('#time').val();
         var currentTime = new Date().toLocaleTimeString('en-US', {hour12: false}).slice(0, 5);
         var today = new Date().toISOString().slice(0, 10);
+        
+        if (date < today || (date === today && time > currentTime)) {
+            Swal.fire(
+                'Error!',
+                'Silakan pilih tanggal yang valid.',
+                'error'
+            );
+            return;
+        }
+    
         if (date === today && time < currentTime) {
             Swal.fire(
                 'Error!',
@@ -64,8 +87,17 @@ $(document).ready(function() {
             );
             return;
         }
+        
+        // Jika semua validasi terpenuhi, tampilkan modal transfer
+        $('#checkUnitModal').modal('hide');
+        $('#transferModal').modal('show');
+    });
+    
+    // Tangani simpan data di sini di luar dari event click selanjutnyaButton
+    $('#simpanButton').on('click', function() {
         simpanData();
     });
+        
 
     function simpanData(){
         var date = $('#date').val();

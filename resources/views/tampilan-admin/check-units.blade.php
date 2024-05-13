@@ -30,8 +30,11 @@
                         @foreach ($checkUnit->carUnit->photos->take(1) as $photo)
                         <img src="{{ asset('storage/'.$photo->file_path) }}" alt="Gambar Mobil" class="img-fluid car-img">
                         @endforeach
-                        <span class="status card-status @if($checkUnit->status == 'Menunggu Persetujuan') waiting-approval @elseif($checkUnit->status == 'Ditolak') canceled @elseif($checkUnit->status == 'Disetujui') approved @else approved @endif">
+                        <span class="status card-status @if($checkUnit->status == 'Menunggu Persetujuan') waiting-approval @elseif($checkUnit->status == 'Ditolak') canceled @elseif($checkUnit->status == 'Disetujui') approved  @elseif($checkUnit->status == 'Selesai') approved @else canceled @endif">
                             {{ $checkUnit->status }}
+                        </span>
+                        <span class="car car-status @if($checkUnit->carUnit->status == 'Tersedia') ready @else sold @endif">
+                            {{ $checkUnit->carUnit->status }}
                         </span>
                     </div>
                 </div>
@@ -66,10 +69,11 @@
                         <p style="color: black;"><b>Nomor Telepon:</b> {{ $checkUnit->user->phone }}</p>
                         <p style="color: black;"><b>Email:</b> {{ $checkUnit->user->email }}</p>
                         <p style="color: black;"><b>Catatan Tambahan Pengguna :</b> {{ $checkUnit->note }}</p>
+                        <p style="color: black;"><b>Catatan Dari Admin :</b> {{ $checkUnit->note_from_admin }}</p>
                         </br>
                         </br>
                         </br>
-                        @if ($checkUnit->status === 'Ditolak' || $checkUnit->status === 'Disetujui')
+                        @if ($checkUnit->status === 'Ditolak' || $checkUnit->status === 'Disetujui' ||  $checkUnit->status === 'Selesai')
                             <div style="position: absolute; bottom: 10px; right: 10px;">
                                 <p style="font-size: 12px;">Terakhir Diubah Oleh: {{ $checkUnit->lastEditBy->name }}, {{ $checkUnit->updated_at->format('d-m-Y H:i:s')}} (WIB)</p>
                             </div>

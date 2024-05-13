@@ -79,7 +79,6 @@
                                         <span style="background-color: #FF5F5F; color: #ffffff; border-radius: 0.5rem; padding: 0.25rem 0.5rem; font-weight: bold; font-size: 0.75rem;">
                                             {{ $carUnit->status }}
                                         </span>
-                                        {{ $carUnit->status }}
                                     @endif
                                 </td>
                                 <td class="text-center">

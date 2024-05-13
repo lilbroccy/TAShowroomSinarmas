@@ -19,6 +19,7 @@ class CreateSalesTable extends Migration
             $table->string('customer_name')->nullable();
             $table->string('customer_phone')->nullable();
             $table->string('payment_method');
+            $table->date('date')->nullable();
             $table->unsignedBigInteger('last_edit_by')->nullable();
             $table->timestamps();
 
