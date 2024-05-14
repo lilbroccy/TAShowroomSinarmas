@@ -33,9 +33,11 @@
                         <span class="status card-status @if($checkUnit->status == 'Menunggu Verifikasi') waiting-approval @elseif($checkUnit->status == 'Ditolak') canceled @elseif($checkUnit->status == 'Disetujui') approved  @elseif($checkUnit->status == 'Selesai') approved @else canceled @endif">
                             {{ $checkUnit->status }}
                         </span>
-                        <span class="car car-status @if($checkUnit->carUnit->status == 'Tersedia') ready @else sold @endif">
-                            {{ $checkUnit->carUnit->status }}
-                        </span>
+                        @if(!empty($checkUnit->car_status))
+                            <span class="car car-status @if($checkUnit->car_status == 'Terjual') sold @else notsold @endif">
+                                {{ $checkUnit->car_status }}
+                            </span>
+                        @endif
                     </div>
                 </div>
                 <div class="card-body" style="position: relative;">
@@ -45,7 +47,7 @@
                     <p class="card-text name date"><i class="fa fa-calendar"></i>&nbsp;:&nbsp; {{ \Carbon\Carbon::parse($checkUnit->date)->format('d-m-Y') }}</p>
                     <p class="card-text name time"><i class="fa fa-clock-o"></i>&nbsp;:&nbsp; {{ $checkUnit->time }} WIB</p>
                 </div>
-                <div class="card-footer" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                <div class="card-footer" data-status="{{$checkUnit->status}}" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
                     <button class="btn btn-outline-primary btn-sm detail-button" data-id="{{ $checkUnit->id }}"><i class="fa fa-eye"></i> Detail</button>
                     <button class="btn btn-outline-info btn-sm action-button" data-id="{{ $checkUnit->id }}"><i class="fa fa-cogs"></i> Opsi</button>
                     @if($checkUnit->status == 'Disetujui')
@@ -69,14 +71,12 @@
                         <p style="color: black;"><b>Nomor Telepon:</b> {{ $checkUnit->user->phone }}</p>
                         <p style="color: black;"><b>Email:</b> {{ $checkUnit->user->email }}</p>
                         <p style="color: black;"><b>Catatan Tambahan Pengguna :</b> {{ $checkUnit->note }}</p>
-                        @if($checkUnit->payment_proof)
-                            <p style="color: black;"><b>Bukti Pembayaran:</b> <a class="popup-link" href="{{ asset('storage/' . $checkUnit->payment_proof) }}">Lihat</a></p>
-                        @endif
+                        <p style="color: black;"><b>Bukti Pembayaran:</b> <a class="popup-link" href="{{ asset('storage/' . $checkUnit->payment_proof) }}">Lihat</a></p>
                         <p style="color: black;"><b>Catatan Dari Admin :</b> {{ $checkUnit->note_from_admin }}</p>
                         </br>
                         </br>
                         </br>
-                        @if ($checkUnit->status === 'Ditolak' || $checkUnit->status === 'Disetujui' ||  $checkUnit->status === 'Selesai')
+                        @if ($checkUnit->status !== 'Menunggu Verifikasi')
                             <div style="position: absolute; bottom: 10px; right: 10px;">
                                 <p style="font-size: 12px;">Terakhir Diubah Oleh: {{ $checkUnit->lastEditBy->name }}, {{ $checkUnit->updated_at->format('d-m-Y H:i:s')}} (WIB)</p>
                             </div>
@@ -107,6 +107,7 @@
 @section('js')
 <script src="{{ asset('admin/modal/check-unit.js')}}"></script>
 <script>
+    $('.popup-link').magnificPopup({type:'image'});
 </script>
 @endsection
 

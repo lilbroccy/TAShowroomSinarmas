@@ -20,7 +20,8 @@ class CheckUnit extends Model
         'note_from_admin',
         'payment',
         'payment_proof',
-        'last_edit_by'
+        'last_edit_by',
+        'car_status'
     ];
     public function carUnit()
     {

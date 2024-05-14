@@ -32,6 +32,7 @@ class SalesController extends Controller
             Log::info('Found CheckUnit:', $checkUnit->toArray());
 
             $checkUnit->status = 'Selesai';
+            $checkUnit->car_status = 'Terjual';
             $checkUnit->last_edit_by = Auth::id();
 
             $updatedAt = Carbon::now()->addHours(7);
@@ -46,7 +47,7 @@ class SalesController extends Controller
             foreach ($relatedCheckUnits as $relatedCheckUnit) {
                 if ($relatedCheckUnit->id !== $checkUnit->id && ($relatedCheckUnit->status == 'Menunggu Verifikasi' || $relatedCheckUnit->status == 'Disetujui')) {
                     $relatedCheckUnit->status = 'Dibatalkan Oleh Admin';
-                    $relatedCheckUnit->note_from_admin = 'Mohon maaf, unit mobil baru saja terjual, Silahkan hubungi admin melalui whatsapp untuk konfirmasi proses pengembalian biaya check unit';
+                    $relatedCheckUnit->note_from_admin = 'Mohon maaf, unit mobil baru saja terjual, Silahkan hubungi admin melalui whatsapp untuk konfirmasi proses pengembalian biaya cek unit';
                     $relatedCheckUnit->save();
                     Log::info('Related CheckUnit updated:', $relatedCheckUnit->toArray());
                 } 

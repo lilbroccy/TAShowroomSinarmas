@@ -40,7 +40,9 @@ $(document).ready(function() {
 //Handler Check Unit Button
 $(document).ready(function() {
     updateTimeConstraints();
-    
+    $('#checkUnitModal').on('hidden.bs.modal', function () {
+        $('body').css('padding-right', '0');
+    });
     $('#checkUnitBtn').click(function() {
         Swal.fire({
             title: 'Info',
@@ -85,6 +87,15 @@ $(document).ready(function() {
                 'Error!',
                 'Pilih jam antara 08:00 hingga 22:00 WIB.',
                 'error'
+            );
+            return;
+        }
+
+        if (!$('#agreement').prop('checked')) {
+            Swal.fire(
+                'Error!',
+                'Anda harus menyetujui persyaratan dan ketentuan terlebih dahulu.',
+                'warning'
             );
             return;
         }

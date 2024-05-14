@@ -24,7 +24,6 @@ $(document).ready(function() {
         var url = 'https://wa.me/' + phoneNumber;
         window.open(url, '_blank');
     });
-    $('.popup-link').magnificPopup({type:'image'});
 });
 
 function doneButtonHandler(checkUnitId) {
@@ -49,6 +48,7 @@ function markCheckUnitAsDone(checkUnitId) {
         url: '/update-check-unit-status/' + checkUnitId,
         method: 'PUT',
         data: {
+            car_status: 'Tidak Terjual',
             status: 'Selesai',
             _token: $('meta[name="csrf-token"]').attr('content')
         },
@@ -124,106 +124,118 @@ function saveSalesData(checkUnitId, paymentMethod) {
 
 function actionButtonHandler() {
     var checkUnitId = $(this).data('id');
-    Swal.fire({
-        title: 'Pilih Opsi',
-        icon: 'info',
-        showCancelButton: true,
-        confirmButtonText: '<i class="fa fa-check"></i> Setujui',
-        cancelButtonText: '<i class="fa fa-times"></i> Tolak',
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        allowOutsideClick: false,
-        showCloseButton: true,
-    }).then((result) => {
-        if (result.isConfirmed) {
-            Swal.fire({
-                title: 'Catatan Tambahan',
-                input: 'text',
-                inputPlaceholder: 'Kosongkan jika tidak ada catatan tambahan',
-                showCancelButton: true,
-                confirmButtonText: 'Kirim',
-                cancelButtonText: 'Batal',
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                allowOutsideClick: false,
-                showCloseButton: false,
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    var note = result.value ? result.value : '';
-                    fetch('/rubah-status-check-unit', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        body: JSON.stringify({
-                            checkUnitId: checkUnitId,
-                            status: 'Disetujui',
-                            note: note
-                        })
-                    }).then(response => {
-                        if (response.ok) {
-                            return response.json();
-                        }
-                        throw new Error('Network response was not ok.');
-                    }).then(data => {
-                        Swal.fire(data.message);
-                        setTimeout(function() {
-                            location.reload();
-                        }, 1000);
-                    }).catch(error => {
-                        console.error('Error:', error);
-                        Swal.fire('Terjadi Kesalahan');
-                    });
-                }
-            });
-        } else if (result.dismiss === Swal.DismissReason.close) {
-        } else {
-            Swal.fire({
-                title: 'Alasan Penolakan',
-                input: 'text',
-                inputPlaceholder: 'Masukkan alasan penolakan',
-                showCancelButton: true,
-                confirmButtonText: 'Kirim',
-                cancelButtonText: 'Batal',
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                inputValidator: (value) => {
-                    if (!value) {
-                        return 'Alasan penolakan diperlukan!'
+    var status = $(this).closest('.card-footer').data('status'); // Ambil status dari elemen dengan atribut data-status
+
+    if (status === 'Selesai') {
+        Swal.fire({
+            title: 'Jadwal Selesai',
+            text: 'Jadwal ini telah selesai dilaksanakan. Anda tidak bisa memilih opsi.',
+            icon: 'info',
+            confirmButtonText: 'Tutup'
+        });
+    } else {
+        Swal.fire({
+            title: 'Pilih Opsi',
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: '<i class="fa fa-check"></i> Setujui',
+            cancelButtonText: '<i class="fa fa-times"></i> Tolak',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            allowOutsideClick: false,
+            showCloseButton: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Catatan Tambahan',
+                    input: 'text',
+                    inputPlaceholder: 'Kosongkan jika tidak ada catatan tambahan',
+                    showCancelButton: true,
+                    confirmButtonText: 'Kirim',
+                    cancelButtonText: 'Batal',
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    allowOutsideClick: false,
+                    showCloseButton: false,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var note = result.value ? result.value : '';
+                        fetch('/rubah-status-check-unit', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            body: JSON.stringify({
+                                checkUnitId: checkUnitId,
+                                status: 'Disetujui',
+                                note: note
+                            })
+                        }).then(response => {
+                            if (response.ok) {
+                                return response.json();
+                            }
+                            throw new Error('Network response was not ok.');
+                        }).then(data => {
+                            Swal.fire(data.message);
+                            setTimeout(function() {
+                                location.reload();
+                            }, 1000);
+                        }).catch(error => {
+                            console.error('Error:', error);
+                            Swal.fire('Terjadi Kesalahan');
+                        });
                     }
-                },
-                allowOutsideClick: false,
-                showCloseButton: true,
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    fetch('/rubah-status-check-unit', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        body: JSON.stringify({
-                            checkUnitId: checkUnitId,
-                            status: 'Ditolak',
-                            note: result.value
-                        })
-                    }).then(response => {
-                        if (response.ok) {
-                            return response.json();
+                });
+            } else if (result.dismiss === Swal.DismissReason.close) {
+                // Do nothing if closed
+            } else {
+                Swal.fire({
+                    title: 'Alasan Penolakan',
+                    input: 'text',
+                    inputPlaceholder: 'Masukkan alasan penolakan',
+                    showCancelButton: true,
+                    confirmButtonText: 'Kirim',
+                    cancelButtonText: 'Batal',
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    inputValidator: (value) => {
+                        if (!value) {
+                            return 'Alasan penolakan diperlukan!';
                         }
-                        throw new Error('Network response was not ok.');
-                    }).then(data => {
-                        Swal.fire(data.message);
-                        setTimeout(function() {
-                            location.reload();
-                        }, 1000);
-                    }).catch(error => {
-                        console.error('Error:', error);
-                        Swal.fire('Terjadi Kesalahan');
-                    });
-                }
-            });
-        }
-    });
+                    },
+                    allowOutsideClick: false,
+                    showCloseButton: true,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        fetch('/rubah-status-check-unit', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            body: JSON.stringify({
+                                checkUnitId: checkUnitId,
+                                status: 'Ditolak',
+                                note: result.value
+                            })
+                        }).then(response => {
+                            if (response.ok) {
+                                return response.json();
+                            }
+                            throw new Error('Network response was not ok.');
+                        }).then(data => {
+                            Swal.fire(data.message);
+                            setTimeout(function() {
+                                location.reload();
+                            }, 1000);
+                        }).catch(error => {
+                            console.error('Error:', error);
+                            Swal.fire('Terjadi Kesalahan');
+                        });
+                    }
+                });
+            }
+        });
+    }
 }

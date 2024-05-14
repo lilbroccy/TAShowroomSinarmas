@@ -97,16 +97,12 @@
                         <!-- /Wishlist -->
 
                         <!-- Cart -->
-                        <div class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>Your Cart</span>
-                                <div class="qty">3</div>
-                            </a>
-                            <div class="cart-dropdown">
-                                <!-- ... isi keranjang belanja ... -->
-                            </div>
-                        </div>
+						<div>
+							<a href="#" id="jadwalLink">
+								<i class="fa fa-calendar"></i>
+								<span>Jadwal Anda</span>
+							</a>
+						</div>
                         <!-- /Cart -->
                         <!-- Menu Toogle -->
                         <div class="menu-toggle">
@@ -235,6 +231,7 @@
 	<script src="{{ asset('plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
 	<script src="{{ asset('plugins/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
 	<script src="{{ asset('user/modal/logout.js') }}"></script>
+	<script src="{{ asset('user/modal/jadwal.js') }}"></script>
     @yield('js')    
 </body>
 </html>

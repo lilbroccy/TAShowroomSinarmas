@@ -44,7 +44,7 @@
         <div class="row" style="margin-bottom: 10px;">
             <div class="col-xs-12">
             <button class="btn btn-primary btn-block btn-round" id="checkUnitBtn" style="padding: 10px 0;">
-                <i class="fa fa-calendar"></i> Check Unit & Test Drive
+                <i class="fa fa-calendar"></i> Cek Unit & Test Drive
             </button>
             </div>
         </div>
@@ -115,7 +115,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="checkUnitModalLabel">Form Check Unit & Test Drive</h5>
+                <h5 class="modal-title" id="checkUnitModalLabel">Form Cek Unit & Test Drive</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -150,6 +150,15 @@
                         <textarea class="form-control" id="note" name="note" placeholder="Kosongkan jika tidak ada catatan tambahan"></textarea>
                     </div>
                     <div class="form-group">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="agreement">
+                            <label class="form-check-label" for="agreement">
+                                Saya menyetujui 
+                                <u><a href="#" data-toggle="modal" data-target="#termsModal">persyaratan dan ketentuan</a></u>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="payment">Pilih Metode Pembayaran: </label>
                         <select class="form-control" id="payment" name="payment" required>
                             <option value="" disabled selected>Pilih metode pembayaran</option>
@@ -163,89 +172,41 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
-                        <button type="button" class="btn btn-primary" id="simpanButton">Lanjutkan</button>
+                        <button type="button" class="btn btn-primary" id="simpanButton">Kirim</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-<!-- Modal Transfer dan Upload Bukti -->
-<div class="modal fade" id="transferModal" tabindex="-1" role="dialog" aria-labelledby="transferModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="termsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="transferModalLabel">Form Transfer dan Unggah Bukti Transfer</h5>
+                <h5 class="modal-title" id="termsModalLabel">Persyaratan dan Ketentuan</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form id="transferForm" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label for="payment">Pilih Metode Pembayaran: </label>
-                        <select class="form-control" id="payment" name="payment" required>
-                            <option value="" disabled selected>Pilih metode pembayaran</option>
-                            <option value="BCA : 0123456789 a/n Risky">BCA : 0123456789 a/n Risky</option>
-                            <option value="DANA : 081234567890">DANA : 081234567890 a/n Risky</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="payment_proof">Unggah Bukti Transfer:</label>
-                        <input type="file" class="form-control-file" id="payment_proof" name="payment_proof" required>
-                    </div>
-                </form>
+                <p>
+                    Berikut adalah persyaratan dan ketentuan terkait dengan layanan Cek Unit & Test Drive:
+                </p>
+                <ol>
+                    <li>1. Biaya cek unit sebesar Rp15.000 akan dikenakan untuk biaya operasional.</li>
+                    <li>2. Jika jadwal cek unit dibatalkan oleh pengguna, biaya cek unit tidak dapat dikembalikan.</li>
+                    <li>3. Jika unit mobil yang dipilih terjual sebelum jadwal cek unit, biaya cek unit akan dikembalikan dengan konfirmasi melalui WhatsApp kami.</li>
+                    <li>4. Test drive hanya dilakukan di sekitar lokasi showroom.</li>
+                    <li>5. Test drive harus didampingi oleh perwakilan dari pihak kami.</li>
+                    <li>6. Durasi dan rute test drive akan ditentukan oleh perwakilan kami.</li>
+                    <li>7. Pengguna harus mematuhi semua aturan lalu lintas dan instruksi dari perwakilan kami selama test drive.</li>
+                    <li>8. Kami berhak untuk menolak atau menghentikan test drive jika ada pelanggaran aturan atau perilaku tidak aman.</li>
+                    <li>9. Kami tidak bertanggung jawab atas kecelakaan atau kerusakan selama test drive, kecuali disebabkan oleh kelalaian dari perwakilan kami.</li>
+                    <li>10. Pengguna harus memiliki lisensi mengemudi yang valid dan memenuhi syarat-syarat lain yang mungkin diperlukan oleh peraturan setempat.</li>
+                </ol>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-primary" id="simpanButton">Lanjutkan</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="checkUnitUpdateModal" tabindex="-1" role="dialog" aria-labelledby="checkUnitUpdateModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="checkUnitUpdateModalLabel">Check Unit & Test Drive</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="checkUnitUpdateForm">
-                    @csrf
-                    <div class="form-group">
-                        <label for="carname">Nama Mobil:</label>
-                        <input type="text" class="form-control" id="carname" name="carname" value="{{ $carUnit->name }}" readonly>                    
-                        <input type="hidden" id="car_id" name="car_id" value="{{ $carUnit->id }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Nama Anda:</label>
-                        <input type="text" class="form-control" id="name" name="name" value="{{ auth()->user()->name }}" readonly>
-                        <input type="hidden" id="user_id" name="user_id" value="{{ auth()->user()->id }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Nomor Telepon Anda:</label>
-                        <input type="text" class="form-control" id="phone" name="phone" value="{{ auth()->user()->phone }}" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="date">Tanggal:</label>
-                        <input type="date" class="form-control" id="date" name="date" required min="{{ now()->format('Y-m-d') }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="time">Jam (WIB):</label>
-                        <input type="time" class="form-control" id="time" name="time" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="note">Catatan:</label>
-                        <textarea class="form-control" id="note" name="note"></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-primary" id="updateButton">Kirim</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
             </div>
         </div>
     </div>

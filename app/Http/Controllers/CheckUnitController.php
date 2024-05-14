@@ -102,6 +102,7 @@ class CheckUnitController extends Controller
     $checkUnit->last_edit_by = $adminId;
     $updatedAt = Carbon::now()->addHours(7);
     $checkUnit->updated_at = $updatedAt;
+    $checkUnit->car_status = $request->input('car_status');
     $checkUnit->status = $request->input('status');
     $checkUnit->save();
     $carUnit = CarUnit::findOrFail($checkUnit->car_unit_id);

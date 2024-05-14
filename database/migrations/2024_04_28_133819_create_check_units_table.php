@@ -17,12 +17,13 @@ class CreateCheckUnitsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->date('date');
             $table->time('time');
-            $table->enum('status', ['Disetujui', 'Ditolak', 'Menunggu Verifikasi', 'Selesai', 'Dibatalkan Oleh Sistem', 'Dibatalkan Oleh User']);
+            $table->enum('status', ['Disetujui', 'Ditolak', 'Menunggu Verifikasi', 'Selesai', 'Dibatalkan Oleh Sistem', 'Dibatalkan Oleh User', 'Dibatalkan Oleh Admin']);
             $table->text('note')->nullable();
             $table->text('note_from_admin')->nullable();
             $table->string('payment')->nullable();
             $table->string('payment_proof')->nullable();
             $table->unsignedBigInteger('last_edit_by')->nullable();
+            $table->string('car_status')->nullable();
             $table->timestamps();
 
             $table->foreign('car_unit_id')->references('id')->on('car_units')->onDelete('cascade');
