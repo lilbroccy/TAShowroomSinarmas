@@ -72,6 +72,7 @@ Route::put      ('/admin/dashboard/brands/{id}/update', [BrandController::class,
 Route::get      ('/admin/dashboard/check-units', [CheckUnitController::class, 'index'])->name('dashboard.check-units');
 Route::get      ('/admin/dashboard/check-units/{checkUnitId}', [CheckUnitController::class, 'show'])->name('check-units.detail');
 Route::post     ('/rubah-status-check-unit', [CheckUnitController::class, 'rubahStatusCheckUnit']);
+Route::put      ('/update-check-unit-status/{id}', [CheckUnitController::class, 'updateStatus']);
 
 Route::post     ('/save-sales-data', [SalesController::class, 'save']);
 

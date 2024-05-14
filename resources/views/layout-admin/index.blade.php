@@ -14,6 +14,7 @@
     <link href="{{ asset ('admin/css/style.min.css') }}" rel="stylesheet">
     <link href="{{ asset ('admin/assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
     <link href="{{ asset ('plugins/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('plugins/magnific-popup/magnific-popup.css') }}" rel="stylesheet">
     @yield('css')
     @include('layout-admin.variable')
     
@@ -53,6 +54,7 @@
     <script src="{{ asset ('admin/assets/plugins/flot.tooltip/js/jquery.flot.tooltip.min.js') }}"></script>
     <script src="{{ asset ('admin/js/pages/dashboards/dashboard1.js') }}"></script>
     <script src="{{ asset ('plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ asset('plugins/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
     @yield('js')
 </body>
 </html>

@@ -12,6 +12,7 @@ $(document).ready(function() {
                 $.each(response, function(index, brand) {
                     $('#brand_id').append('<option value="' + brand.id + '">' + brand.name + '</option>');
                 });
+                $('#brand_id').prepend('<option disabled selected>--Pilih Brand--</option>');
             },
             error: function(xhr, status, error) {
                 console.error('Terjadi kesalahan: ' + error);
@@ -29,6 +30,7 @@ $(document).ready(function() {
                 $.each(response, function(index, category) {
                     $('#category_id').append('<option value="' + category.id + '">' + category.name + '</option>');
                 });
+                $('#category_id').prepend('<option disabled selected>--Pilih Kategori--</option>');
             },
             error: function(xhr, status, error) {
                 console.error('Terjadi kesalahan: ' + error);

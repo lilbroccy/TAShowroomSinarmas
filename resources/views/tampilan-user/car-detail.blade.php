@@ -121,7 +121,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="checkUnitForm">
+                <form id="checkUnitForm" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="carname">Nama Mobil:</label>
@@ -149,13 +149,23 @@
                         <label for="note">Catatan Tambahan:</label>
                         <textarea class="form-control" id="note" name="note" placeholder="Kosongkan jika tidak ada catatan tambahan"></textarea>
                     </div>
+                    <div class="form-group">
+                        <label for="payment">Pilih Metode Pembayaran: </label>
+                        <select class="form-control" id="payment" name="payment" required>
+                            <option value="" disabled selected>Pilih metode pembayaran</option>
+                            <option value="BCA : 0123456789 a/n Risky">BCA : 0123456789 a/n Risky</option>
+                            <option value="DANA : 081234567890">DANA : 081234567890 a/n Risky</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="payment_proof">Unggah Bukti Transfer:</label>
+                        <input type="file" class="form-control" id="payment_proof" name="payment_proof" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                        <button type="button" class="btn btn-primary" id="simpanButton">Lanjutkan</button>
+                    </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="selanjutnyaButton">Selanjutnya</button>
-
-                <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-primary" id="simpanButton">Kirim</button> -->
             </div>
         </div>
     </div>
@@ -171,14 +181,18 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="transferForm">
+                <form id="transferForm" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="bankAccount">Rekening Bank:</label>
-                        <input type="text" class="form-control" id="bankAccount" name="bankAccount" required>
+                        <label for="payment">Pilih Metode Pembayaran: </label>
+                        <select class="form-control" id="payment" name="payment" required>
+                            <option value="" disabled selected>Pilih metode pembayaran</option>
+                            <option value="BCA : 0123456789 a/n Risky">BCA : 0123456789 a/n Risky</option>
+                            <option value="DANA : 081234567890">DANA : 081234567890 a/n Risky</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="buktiTransfer">Unggah Bukti Transfer:</label>
-                        <input type="file" class="form-control-file" id="buktiTransfer" name="buktiTransfer" required>
+                        <label for="payment_proof">Unggah Bukti Transfer:</label>
+                        <input type="file" class="form-control-file" id="payment_proof" name="payment_proof" required>
                     </div>
                 </form>
             </div>

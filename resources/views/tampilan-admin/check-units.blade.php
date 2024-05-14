@@ -30,7 +30,7 @@
                         @foreach ($checkUnit->carUnit->photos->take(1) as $photo)
                         <img src="{{ asset('storage/'.$photo->file_path) }}" alt="Gambar Mobil" class="img-fluid car-img">
                         @endforeach
-                        <span class="status card-status @if($checkUnit->status == 'Menunggu Persetujuan') waiting-approval @elseif($checkUnit->status == 'Ditolak') canceled @elseif($checkUnit->status == 'Disetujui') approved  @elseif($checkUnit->status == 'Selesai') approved @else canceled @endif">
+                        <span class="status card-status @if($checkUnit->status == 'Menunggu Verifikasi') waiting-approval @elseif($checkUnit->status == 'Ditolak') canceled @elseif($checkUnit->status == 'Disetujui') approved  @elseif($checkUnit->status == 'Selesai') approved @else canceled @endif">
                             {{ $checkUnit->status }}
                         </span>
                         <span class="car car-status @if($checkUnit->carUnit->status == 'Tersedia') ready @else sold @endif">
@@ -69,6 +69,9 @@
                         <p style="color: black;"><b>Nomor Telepon:</b> {{ $checkUnit->user->phone }}</p>
                         <p style="color: black;"><b>Email:</b> {{ $checkUnit->user->email }}</p>
                         <p style="color: black;"><b>Catatan Tambahan Pengguna :</b> {{ $checkUnit->note }}</p>
+                        @if($checkUnit->payment_proof)
+                            <p style="color: black;"><b>Bukti Pembayaran:</b> <a class="popup-link" href="{{ asset('storage/' . $checkUnit->payment_proof) }}">Lihat</a></p>
+                        @endif
                         <p style="color: black;"><b>Catatan Dari Admin :</b> {{ $checkUnit->note_from_admin }}</p>
                         </br>
                         </br>

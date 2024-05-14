@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
@@ -9,6 +8,7 @@ use App\Models\CheckUnit;
 use App\Models\User;
 use App\Models\CarUnit;
 use Auth;
+use Log;
 
 class SalesController extends Controller
 {
@@ -19,8 +19,12 @@ class SalesController extends Controller
             'paymentMethod' => 'required'
         ]);
 
+        Log::info('Request data:', $request->all());
+
         try {
             $checkUnit = CheckUnit::findOrFail($request->checkUnitId);
+            Log::info('Found CheckUnit:', $checkUnit->toArray());
+
             $checkUnit->status = 'Selesai';
             $checkUnit->last_edit_by = Auth::id();
 
@@ -28,17 +32,20 @@ class SalesController extends Controller
             $checkUnit->updated_at = $updatedAt;
 
             $checkUnit->save();
+            Log::info('CheckUnit updated:', $checkUnit->toArray());
             
             $relatedCheckUnits = CheckUnit::where('car_unit_id', $checkUnit->car_unit_id)->get();
+            Log::info('Related CheckUnits:', $relatedCheckUnits->toArray());
 
             foreach ($relatedCheckUnits as $relatedCheckUnit) {
-                if ($relatedCheckUnit->id !== $checkUnit->id) {
+                if ($relatedCheckUnit->id !== $checkUnit->id && ($relatedCheckUnit->status == 'Menunggu Verifikasi' || $relatedCheckUnit->status == 'Disetujui')) {
                     $relatedCheckUnit->status = 'Dibatalkan Oleh Admin';
-                    $relatedCheckUnit->note_from_admin = 'Mohon maaf, unit mobil baru saja terjual';
+                    $relatedCheckUnit->note_from_admin = 'Mohon maaf, unit mobil baru saja terjual, Silahkan hubungi admin melalui whatsapp untuk konfirmasi proses pengembalian biaya check unit';
+                    $relatedCheckUnit->save();
+                    Log::info('Related CheckUnit updated:', $relatedCheckUnit->toArray());
                 } 
-                $relatedCheckUnit->save();
             }
-            
+
             $sales = new Sales();
             $sales->check_unit_id = $checkUnit->id;
             $sales->user_id = $checkUnit->user_id;
@@ -49,14 +56,18 @@ class SalesController extends Controller
             $sales->date = now();
             $sales->last_edit_by = Auth::id();
             $sales->save();
+            Log::info('Sales data saved:', $sales->toArray());
 
             $carUnit = CarUnit::findOrFail($checkUnit->car_unit_id);
             $carUnit->status = 'Terjual';
             $carUnit->save();
+            Log::info('CarUnit updated:', $carUnit->toArray());
 
             return response()->json(['message' => 'Data penjualan berhasil disimpan.']);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Terjadi kesalahan saat menyimpan data penjualan.'], 500);
+            Log::error('Error occurred:', ['exception' => $e]);
+            return response()->json(['message' => 'Terjadi kesalahan saat menyimpan data penjualan.', 'error' => $e->getMessage()], 500);
         }
     }
 }
+

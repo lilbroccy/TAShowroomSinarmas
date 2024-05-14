@@ -40,15 +40,15 @@ $(document).ready(function() {
 //Handler Check Unit Button
 $(document).ready(function() {
     updateTimeConstraints();
+    
     $('#checkUnitBtn').click(function() {
         Swal.fire({
             title: 'Info',
-            text: 'Layanan ini dikenakan biaya sebesar 15 ribu. Lanjutkan?',
+            text: 'Layanan ini dikenakan biaya sebesar Rp15.000 untuk biaya operasional. Lanjutkan?',
             icon: 'info',
             showCancelButton: true,
             confirmButtonText: 'Lanjutkan',
             cancelButtonText: 'Batal'
-
         }).then((result) => {
             if (result.isConfirmed) {
                 $('#checkUnitModal').modal('show');
@@ -56,13 +56,13 @@ $(document).ready(function() {
         });
     });
     
-    $('#selanjutnyaButton').on('click', function() {
+    $('#simpanButton').on('click', function() {
         var date = $('#date').val();
         var time = $('#time').val();
         var currentTime = new Date().toLocaleTimeString('en-US', {hour12: false}).slice(0, 5);
         var today = new Date().toISOString().slice(0, 10);
         
-        if (date < today || (date === today && time > currentTime)) {
+        if (date < today && time > currentTime) {
             Swal.fire(
                 'Error!',
                 'Silakan pilih tanggal yang valid.',
@@ -79,6 +79,7 @@ $(document).ready(function() {
             );
             return;
         }
+        
         if (time > '22:00' || time < '08:00') {
             Swal.fire(
                 'Error!',
@@ -87,33 +88,26 @@ $(document).ready(function() {
             );
             return;
         }
-        
-        // Jika semua validasi terpenuhi, tampilkan modal transfer
-        $('#checkUnitModal').modal('hide');
-        $('#transferModal').modal('show');
+        var formData = new FormData($('#checkUnitForm')[0]);
+        simpanData(formData);
     });
-    
-    // Tangani simpan data di sini di luar dari event click selanjutnyaButton
-    $('#simpanButton').on('click', function() {
-        simpanData();
-    });
-        
 
-    function simpanData(){
+    function simpanData(formData) {
         var date = $('#date').val();
         var time = $('#time').val();
         var formattedDate = new Date(date).toLocaleDateString('en-GB');
-        var formData = $('#checkUnitForm').serialize(); 
         $.ajax({
             url: '/car-units/detail/check-unit',
             method: 'POST',
             data: formData,
             dataType: 'json',
+            contentType: false,
+            processData: false,
             success: function(response) {
                 console.log(response);
                 Swal.fire(
                     'Terkirim!',
-                    `Anda telah memilih cek unit mobil pada tanggal ${formattedDate} jam ${time}. Kami akan menghubungi Anda segera.`,
+                    `Anda telah memilih cek unit mobil pada tanggal ${formattedDate} jam ${time}. Hubungi admin melalui whatsapp untuk info lebih lanjut.`,
                     'success'
                 ).then(function() {
                     location.reload();
@@ -128,9 +122,10 @@ $(document).ready(function() {
                     'error'
                 );
             }
-        })
+        });
     }
 });
+
 
 function updateTimeConstraints() {
     var selectedDate = document.getElementById('date').value;

@@ -1,5 +1,4 @@
 $(document).ready(function() {
-    
     $('.done-button').click(function() {
         var checkUnitId = $(this).data('id');
         doneButtonHandler(checkUnitId);
@@ -25,6 +24,7 @@ $(document).ready(function() {
         var url = 'https://wa.me/' + phoneNumber;
         window.open(url, '_blank');
     });
+    $('.popup-link').magnificPopup({type:'image'});
 });
 
 function doneButtonHandler(checkUnitId) {
@@ -38,6 +38,36 @@ function doneButtonHandler(checkUnitId) {
     }).then((result) => {
         if (result.isConfirmed) {
             showPaymentMethodDialog(checkUnitId);
+        } else {
+            markCheckUnitAsDone(checkUnitId);
+        }
+    });
+}
+
+function markCheckUnitAsDone(checkUnitId) {
+    $.ajax({
+        url: '/update-check-unit-status/' + checkUnitId,
+        method: 'PUT',
+        data: {
+            status: 'Selesai',
+            _token: $('meta[name="csrf-token"]').attr('content')
+        },
+        dataType: 'json',
+        success: function(response) {
+            Swal.fire({
+                title: 'Sukses',
+                text: 'Status check unit berhasil diperbarui',
+                icon: 'success'
+            }).then(() => {
+                location.reload();
+            });
+        },
+        error: function(xhr, status, error) {
+            Swal.fire({
+                title: 'Error',
+                text: 'Terjadi kesalahan saat memperbarui status check unit',
+                icon: 'error'
+            });
         }
     });
 }
@@ -76,7 +106,9 @@ function saveSalesData(checkUnitId, paymentMethod) {
         if (response.ok) {
             return response.json();
         }
-        throw new Error('Network response was not ok.');
+        return response.json().then(error => {
+            throw new Error(error.message || 'Terjadi kesalahan yang tidak diketahui.');
+        });
     }).then(data => {
         Swal.fire(data.message);
         setTimeout(function() {
@@ -84,7 +116,7 @@ function saveSalesData(checkUnitId, paymentMethod) {
         }, 1000);
     }).catch(error => {
         console.error('Error:', error);
-        Swal.fire('Terjadi Kesalahan');
+        Swal.fire('Terjadi Kesalahan', error.message, 'error');
     });
 }
 

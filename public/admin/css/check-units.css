@@ -138,3 +138,6 @@
     background-color: #ffcccc; /* Warna latar merah muda untuk hari saat ini */
 }
 
+.mfp-bg, .mfp-wrap {
+    z-index: 9999 !important; /* sesuaikan sesuai kebutuhan */
+}
