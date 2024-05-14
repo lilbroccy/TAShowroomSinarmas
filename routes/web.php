@@ -48,9 +48,7 @@ Route::get('/car-units/detail/check-booking', [CheckUnitController::class, 'chec
 
 
 //Dashboard Admin
-Route::get('/admin/dashboard', function () {
-    return view('tampilan-admin.dashboard');
-})->name('dashboard');
+Route::get('/admin/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 
 Route::get      ('/admin/dashboard/car-units', [CarUnitController::class, 'index'])->name('dashboard.car-units');
 Route::post     ('/admin/dashboard/car-units/add', [CarUnitController::class, 'store'])->name('dashboard.car-units.add');
@@ -74,6 +72,7 @@ Route::get      ('/admin/dashboard/check-units/{checkUnitId}', [CheckUnitControl
 Route::post     ('/rubah-status-check-unit', [CheckUnitController::class, 'rubahStatusCheckUnit']);
 Route::put      ('/update-check-unit-status/{id}', [CheckUnitController::class, 'updateStatus']);
 
+Route::get      ('/admin/dashboard/sales', [SalesController::class, 'index'])->name('dashboard.sales');
 Route::post     ('/save-sales-data', [SalesController::class, 'save']);
 
 Route::get('/api/categories', [CategoryController::class, 'getCategory']);

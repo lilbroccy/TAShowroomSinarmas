@@ -12,6 +12,12 @@ use Log;
 
 class SalesController extends Controller
 {
+
+    public function index(){
+    $sales = Sales::all();
+        return view('tampilan-admin.table-sales', compact('sales'));
+    }
+
     public function save(Request $request)
     {
         $request->validate([

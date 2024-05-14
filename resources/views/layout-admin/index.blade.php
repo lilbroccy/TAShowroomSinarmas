@@ -45,6 +45,7 @@
 
     <script src="{{ asset ('admin/assets/plugins/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset ('admin/assets/plugins/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="{{ asset ('admin/assets/plugins/datatables/datatables.min.js') }}"></script>
     <script src="{{ asset ('admin/js/app-style-switcher.js') }}"></script>
     <script src="{{ asset ('admin/js/waves.js') }}"></script>

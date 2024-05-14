@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\CarUnit;
 use App\Models\Category;
 use App\Models\Brand;
+use App\Models\Sales;
+use App\Models\User;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -66,6 +69,30 @@ class HomeController extends Controller
         $categories = Category::all();
         return view('tampilan-user.car-detail', compact('carUnit','categories'));
     }
+
+    public function dashboard()
+{   
+    $currentMonth = Carbon::now()->month;
+    $currentYear = Carbon::now()->year;
+    
+    // Mengambil data penjualan untuk bulan ini
+    $totalSales = Sales::whereYear('date', $currentYear)
+                        ->whereMonth('date', $currentMonth)
+                        ->count();
+
+    $Sales = Sales::whereYear('date', $currentYear)
+                        ->whereMonth('date', $currentMonth)
+                        ->get();
+
+    $totalOmzet = 0;
+    foreach ($Sales as $sale) {
+        $totalOmzet += $sale->carUnit->price;
+    }
+
+    $totalUser = User::where('role', 'User')->count();
+    $totalUnits = CarUnit::where('status', 'Tersedia')->count(); // Sesuaikan status sesuai dengan status unit tersedia di database
+    return view('tampilan-admin.dashboard', compact('totalUnits', 'totalSales', 'totalOmzet', 'totalUser'));
+}
 
     
 }
