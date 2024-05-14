@@ -48,6 +48,8 @@ class SalesController extends Controller
                 if ($relatedCheckUnit->id !== $checkUnit->id && ($relatedCheckUnit->status == 'Menunggu Verifikasi' || $relatedCheckUnit->status == 'Disetujui')) {
                     $relatedCheckUnit->status = 'Dibatalkan Oleh Admin';
                     $relatedCheckUnit->note_from_admin = 'Mohon maaf, unit mobil baru saja terjual, Silahkan hubungi admin melalui whatsapp untuk konfirmasi proses pengembalian biaya cek unit';
+                    $relatedCheckUnit->car_status = 'Terjual';
+                    $relatedCheckUnit->last_edit_by = Auth::id();
                     $relatedCheckUnit->save();
                     Log::info('Related CheckUnit updated:', $relatedCheckUnit->toArray());
                 } 
