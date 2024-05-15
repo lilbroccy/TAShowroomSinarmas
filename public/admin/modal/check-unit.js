@@ -124,7 +124,7 @@ function saveSalesData(checkUnitId, paymentMethod) {
 
 function actionButtonHandler() {
     var checkUnitId = $(this).data('id');
-    var status = $(this).closest('.card-footer').data('status'); // Ambil status dari elemen dengan atribut data-status
+    var status = $(this).closest('.card-footer').data('status');
 
     if (status === 'Selesai') {
         Swal.fire({
@@ -133,6 +133,23 @@ function actionButtonHandler() {
             icon: 'info',
             confirmButtonText: 'Tutup'
         });
+        
+    } else if (status === 'Dibatalkan Oleh Sistem'| status === 'Dibatalkan Oleh Admin') {
+        Swal.fire({
+            title: 'Jadwal dibatalkan',
+            text: 'Jadwal ini telah dibatalkan karena unit telah terjual sebelumnya. Anda tidak bisa memilih opsi.',
+            icon: 'info',
+            confirmButtonText: 'Tutup'
+        });
+        
+    } else if (status === 'Dibatalkan Oleh User') {
+        Swal.fire({
+            title: 'Jadwal dibatalkan',
+            text: 'Jadwal ini telah dibatalkan oleh Pengguna. Anda tidak bisa memilih opsi.',
+            icon: 'info',
+            confirmButtonText: 'Tutup'
+        });
+        
     } else {
         Swal.fire({
             title: 'Pilih Opsi',
