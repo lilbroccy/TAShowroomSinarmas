@@ -11,7 +11,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CheckUnitController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\SalesController;
-
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,7 +48,7 @@ Route::get('/car-units/detail/check-booking', [CheckUnitController::class, 'chec
 
 
 //Dashboard Admin
-Route::get('/admin/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
+Route::get('/admin/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
 Route::get      ('/admin/dashboard/car-units', [CarUnitController::class, 'index'])->name('dashboard.car-units');
 Route::post     ('/admin/dashboard/car-units/add', [CarUnitController::class, 'store'])->name('dashboard.car-units.add');

@@ -15,6 +15,7 @@
     <link href="{{ asset ('admin/assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
     <link href="{{ asset ('plugins/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/magnific-popup/magnific-popup.css') }}" rel="stylesheet">
+    <link href="{{ asset('user/css/font-awesome.min.css') }}" rel="stylesheet">
     @yield('css')
     @include('layout-admin.variable')
     
