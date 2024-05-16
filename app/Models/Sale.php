@@ -8,7 +8,7 @@ use App\Models\CheckUnit;
 use App\Models\CarUnit;
 use App\Models\User;
 
-class Sales extends Model
+class Sale extends Model
 {
     use HasFactory;
 

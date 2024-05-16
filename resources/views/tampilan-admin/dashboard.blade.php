@@ -59,7 +59,7 @@
                                 </form>
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <div class="bd-callout bd-callout-info">
+                                        <div class="bd-callout bd-callout-info shadow">
                                             <h4 class="d-flex justify-content-between align-items-center"> 
                                                 Unit Tersedia 
                                                 <i class="fa fa-car"></i>
@@ -71,7 +71,7 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
-                                        <div class="bd-callout bd-callout-warning">
+                                        <div class="bd-callout bd-callout-warning shadow">
                                             <h4 class="d-flex justify-content-between align-items-center"> 
                                                 Penjualan Bulan Ini
                                                 <i class="fa fa-line-chart"></i>
@@ -83,7 +83,7 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
-                                        <div class="bd-callout bd-callout-danger">
+                                        <div class="bd-callout bd-callout-danger shadow">
                                             <h4 class="d-flex justify-content-between align-items-center"> 
                                                 Akun Terdaftar 
                                                 <i class="fa fa-users"></i>
@@ -95,7 +95,7 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
-                                    <div class="bd-callout bd-callout-default">
+                                    <div class="bd-callout bd-callout-default shadow">
                                             <h4 class="d-flex justify-content-between align-items-center"> 
                                                 Omset Bulan Ini
                                                 <i class="fa fa-money"></i>

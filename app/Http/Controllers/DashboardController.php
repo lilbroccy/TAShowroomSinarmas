@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\CarUnit;
 use App\Models\Category;
 use App\Models\Brand;
-use App\Models\Sales;
+use App\Models\Sale;
 use App\Models\User;
 use Carbon\Carbon;
 
@@ -20,7 +20,7 @@ class DashboardController extends Controller
         $month = $request->input('month', $currentMonth);
         $year = $request->input('year', $currentYear);
 
-        $sales = Sales::whereYear('date', $year)
+        $sales = Sale::whereYear('date', $year)
                         ->whereMonth('date', $month)
                         ->get();
 

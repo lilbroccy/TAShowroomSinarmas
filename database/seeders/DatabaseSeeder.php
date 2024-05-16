@@ -2,12 +2,13 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Brand;
+use App\Models\CarUnit;
 
 class DatabaseSeeder extends Seeder
 {
@@ -61,6 +62,15 @@ class DatabaseSeeder extends Seeder
         foreach ($brands as $brandName) {
             Brand::create([
                 'name' => $brandName,
+            ]);
+        }
+
+        \App\Models\CarUnit::factory()->count(20)->create();
+
+        for ($i = 1; $i <= 20; $i++) {
+            DB::table('photos')->insert([
+                'car_unit_id' => $i,
+                'file_path' => 'car-units-photos/2024-05-1611.jpg'
             ]);
         }
     }

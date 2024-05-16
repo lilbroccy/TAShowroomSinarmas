@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\CarUnit;
 use App\Models\Category;
 use App\Models\Brand;
-use App\Models\Sales;
+use App\Models\Sale;
 use App\Models\User;
 use Carbon\Carbon;
 
