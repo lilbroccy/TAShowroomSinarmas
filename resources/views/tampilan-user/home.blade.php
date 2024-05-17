@@ -2,37 +2,31 @@
 @section('title', 'Halaman Utama')
 @section('css')
 <link href="{{ asset('user/css/cars-tabs.css') }}" rel="stylesheet">
+<style>
+    .faq {
+        margin-top: 20px;
+    }
+    .faq-item {
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+    .faq-question {
+        cursor: pointer;
+        margin: 0;
+    }
+    .faq-answer {
+        display: none;
+        margin-top: 10px;
+    }
+</style>
 @endsection
 @section('content')
-<!-- SECTION -->
-<!-- <div class="section">
-	<div class="container">
-        <div class="row">
-            @foreach($categories as $category)
-            <div class="col-md-4 col-xs-6">
-                <div class="shop">
-                    <div class="shop-img">
-                        <img src="{{ asset('user/img/categories/' . $category->category_logo) }}" alt="{{ $category->name }}">
-                    </div>
-                    <div class="shop-body">
-                        <h3>{{ $category->name }}<br>Collection</h3>
-                        <a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            @endforeach
-        </div>
-	</div>
-</div> -->
-<!-- /SECTION -->
-<!-- Section Per Category -->
-@foreach ($categories as $category)
 <div class="section">
-    <!-- container -->
-    <div class="container">
-        <!-- row -->
-        <div class="row">
-            <!-- section title -->
+	<div class="container">
+		@foreach ($categories as $category)
+		<div class="row">
             <div class="col-md-12">
                 <div class="section-title">
                     <h3 class="title">{{ $category->name }}</h3>
@@ -44,7 +38,6 @@
                         </ul>
                     </div>
                     <div class="cars-tabs">
-						<!-- tab -->
 						<div id="tab{{ $category->id }}-1" class="tab-pane active">
 							<div class="cars-slick" data-nav="#slick-nav-{{ $category->id }}-1">
 								@foreach ($carUnits->where('category_id', $category->id)->where('status', 'Tersedia') as $carUnit)
@@ -65,10 +58,9 @@
 												<i class="fa fa-star"></i>
 												<i class="fa fa-star"></i>
 											</div> -->
-											
+					
 											<div class="car-btns">
 												<button class="add-to-wishlist" title="Tambahkan ke Wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp"></span></button>
-												<!-- <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button> -->
 												<button title="Detail Lengkap"><a href="{{ route('car.detail', ['id' => $carUnit->id]) }}"><i class="fa fa-eye text-white"></i></a></button>
 												<button class="add-to-check" title="Jadwalkan Cek Unit"><i class="fa fa-calendar"></i> Cek Unit</button>
 											</div>
@@ -76,67 +68,59 @@
 									</div>
 								@endforeach
 							</div>
-							<div id="slick-nav-{{ $category->id }}-1" class="cars-slick-nav"></div>
 						</div>
-						<!-- /tab -->
 					</div>
                 </div>
             </div>
-            <!-- /section title -->
         </div>
-        <!-- /row -->
+		@endforeach
     </div>
-    <!-- /container -->
 </div>
-@endforeach
-
-		<!-- HOT DEAL SECTION -->
-		<div id="hot-deal" class="section">
-			<!-- container -->
-			<div class="container">
-				<!-- row -->
-				<div class="row">
-					<div class="col-md-12">
-						<div class="hot-deal">
-							<ul class="hot-deal-countdown">
-								<li>
-									<div>
-										<h3>02</h3>
-										<span>Days</span>
-									</div>
-								</li>
-								<li>
-									<div>
-										<h3>10</h3>
-										<span>Hours</span>
-									</div>
-								</li>
-								<li>
-									<div>
-										<h3>34</h3>
-										<span>Mins</span>
-									</div>
-								</li>
-								<li>
-									<div>
-										<h3>60</h3>
-										<span>Secs</span>
-									</div>
-								</li>
-							</ul>
-							<h2 class="text-uppercase">hot deal this week</h2>
-							<p>New Collection Up to 50% OFF</p>
-							<a class="primary-btn cta-btn" href="#">Shop now</a>
-						</div>
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h3 class="title">Pertanyaan yang Sering Diajukan (FAQ)</h3>
+                </div>
+                <div class="faq">
+					<div class="faq-item">
+						<h4 class="faq-question">Q: Bagaimana cara membeli mobil di sini? <span style="float: right;">&blacktriangledown;</span></h4>
+						<p class="faq-answer" style="display: none;">A: Di sini, Anda dapat melihat unit yang tersedia dan menjadwalkan untuk cek unit/test drive. Untuk melakukan pembelian atau transaksi, Anda dapat langsung datang ke showroom kami.</p>
 					</div>
-				</div>
-				<!-- /row -->
-			</div>
-			<!-- /container -->
-		</div>
-		<!-- /HOT DEAL SECTION -->
+					<div class="faq-item">
+						<h4 class="faq-question">Q: Metode pembayaran apa saja yang diterima? <span style="float: right;">&blacktriangledown;</span></h4>
+						<p class="faq-answer" style="display: none;">A: Kami menerima berbagai metode pembayaran termasuk transfer bank, kartu kredit, dan opsi pembiayaan. Silakan hubungi tim penjualan kami untuk informasi lebih lanjut.</p>
+					</div>
+					<div class="faq-item">
+						<h4 class="faq-question">Q: Apakah saya bisa tukar tambah mobil lama saya? <span style="float: right;">&blacktriangledown;</span></h4>
+						<p class="faq-answer" style="display: none;">A: Ya, kami menawarkan opsi tukar tambah. Silakan hubungi tim kami melalui WhatsApp, bawa mobil Anda untuk evaluasi dan kami akan memberikan penawaran yang kompetitif.</p>
+					</div>
+					<div class="faq-item">
+						<h4 class="faq-question">Q: Apakah ada garansi untuk mobil-mobilnya? <span style="float: right;">&blacktriangledown;</span></h4>
+						<p class="faq-answer" style="display: none;">A: Ya, semua mobil kami dilengkapi dengan garansi standar. Detail garansi bervariasi tergantung pada model dan tahun mobil. Silakan periksa halaman detail mobil untuk informasi lebih lanjut.</p>
+					</div>
+					<div class="faq-item">
+						<h4 class="faq-question">Q: Bagaimana cara menghubungi layanan pelanggan? <span style="float: right;">&blacktriangledown;</span></h4>
+						<p class="faq-answer" style="display: none;">A: Anda bisa menghubungi tim layanan pelanggan kami melalui WhatsApp kami.</p>
+					</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection
 @section('js')
-<script src="{{ asset ('user/modal/logout.js') }}"></script>
+<script src="{{ asset('user/modal/logout.js') }}"></script>
+<script>
+    document.querySelectorAll('.faq-question').forEach(question => {
+        question.addEventListener('click', () => {
+            const answer = question.nextElementSibling;
+            const isVisible = answer.style.display === 'block';
+            document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
+            answer.style.display = isVisible ? 'none' : 'block';
+        });
+    });
+</script>
 @endsection

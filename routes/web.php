@@ -27,6 +27,8 @@ use App\Http\Controllers\DashboardController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('showRegisterForm');
+Route::post('/register', [AuthController::class, 'registerUser'])->name('registerUser');
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');

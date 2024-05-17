@@ -10,7 +10,7 @@
 
 .car {
     position:relative;
-    width: calc(25% - 20px); 
+    width: calc(33.3% - 20px); 
     margin-right: 20px; 
     margin-bottom: 20px;
     background-color: #fff;
@@ -120,7 +120,7 @@
 
 @media (max-width: 768px) {
     .car {
-        width: calc(50% - 20px);
+        width: calc(100% - 20px);
     }
     .car .car-btns {
         position: absolute;
