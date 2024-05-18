@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BrandController;
@@ -12,6 +14,9 @@ use App\Http\Controllers\CheckUnitController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -27,21 +32,56 @@ use App\Http\Controllers\DashboardController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+
+// Route untuk mengirim email tautan reset password
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+
+// Route untuk menampilkan form reset password
+Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
+
+
+Auth::routes(['verify' => true]);
+
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('/');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Tautan verifikasi telah dikirim!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('showRegisterForm');
 Route::post('/register', [AuthController::class, 'registerUser'])->name('registerUser');
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
 
-//Auth
+// Auth routes
 Route::middleware('web')->group(function () {
     Route::post('/loginUser', [AuthController::class, 'login'])->name('loginUser');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-
-//Home User
+// Home route
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+// Routes that require email verification
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+    Route::get('/settings', [UserController::class, 'settings'])->name('settings');
+    // Add other routes that require email verification here
+});
+
 Route::get('/get-car-units-detail/{id}', [HomeController::class, 'getDetail'])->name('car-units.detail');
 Route::get('/car-units/detail/{id}', [HomeController::class, 'getCarDetail'])->name('car.detail');
 
@@ -80,3 +120,4 @@ Route::post     ('/sales/store', [SaleController::class, 'store'])->name('sales.
 
 Route::get('/api/categories', [CategoryController::class, 'getCategory']);
 Route::get('/api/brands', [BrandController::class, 'getBrand']);
+

@@ -123,4 +123,16 @@
         });
     });
 </script>
+@if(session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Email berhasil diverifikasi!',
+            text: '{{ session('success') }}',
+            showConfirmButton: false,
+            timer: 3000 // 3 detik
+        });
+    </script>
+@endif
+
 @endsection
