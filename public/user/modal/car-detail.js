@@ -43,19 +43,28 @@ $(document).ready(function() {
     $('#checkUnitModal').on('hidden.bs.modal', function () {
         $('body').css('padding-right', '0');
     });
+    
     $('#checkUnitBtn').click(function() {
-        Swal.fire({
-            title: 'Info',
-            text: 'Layanan ini dikenakan biaya sebesar Rp15.000 untuk biaya operasional. Lanjutkan?',
-            icon: 'info',
-            showCancelButton: true,
-            confirmButtonText: 'Lanjutkan',
-            cancelButtonText: 'Batal'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $('#checkUnitModal').modal('show');
-            }
-        });
+        if (isAuthenticated) {
+            $('#checkUnitModal').modal('show');
+        } else {
+            Swal.fire({
+                title: 'Info',
+                text: 'Layanan ini dikenakan biaya sebesar Rp15.000 untuk biaya operasional. Silahkan login jika ingin cek unit dan tes drive gratis.',
+                icon: 'info',
+                showCancelButton: true,
+                showDenyButton: true,
+                confirmButtonText: 'Login',
+                denyButtonText: 'Lanjutkan Berbayar',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/login';
+                } else if (result.isDenied) {
+                    $('#checkUnitModal').modal('show');
+                }
+            });
+        }
     });
     
     $('#simpanButton').on('click', function() {

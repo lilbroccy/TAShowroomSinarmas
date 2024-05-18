@@ -14,7 +14,9 @@ class CreateCheckUnitsTable extends Migration
         Schema::create('check_units', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('car_unit_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->string('name')->nullable();
+            $table->string('phone')->nullable(); 
             $table->date('date');
             $table->time('time');
             $table->enum('status', ['Disetujui', 'Ditolak', 'Menunggu Verifikasi', 'Selesai', 'Dibatalkan Oleh Sistem', 'Dibatalkan Oleh User', 'Dibatalkan Oleh Admin']);

@@ -1,7 +1,6 @@
 @extends('layout-admin.index')
 @section('title', 'Dashboard')
 @section('css')
-
 <link href="{{ asset('admin/css/check-units.css') }}" rel="stylesheet">
 <link href="{{ asset('user/css/font-awesome.min.css') }}" rel="stylesheet">
 @endsection
@@ -42,8 +41,13 @@
                 </div>
                 <div class="card-body" style="position: relative;">
                     <h5 class="card-title name car-name" data-id="{{ $checkUnit->id }}"><b>{{ $checkUnit->carUnit->name }}</b></h5>
-                    <p class="card-text name user" data-id="{{ $checkUnit->user->id }}"><i class="fa fa-user-o"></i>&nbsp;:&nbsp; {{ $checkUnit->user->name }}</p>
-                    <p class="card-text name whatsapp-link" data-phone="{{ $checkUnit->user->phone }}"><i class="fa fa-whatsapp"></i>&nbsp;:&nbsp; {{ $checkUnit->user->phone }}</p>
+                    @if($checkUnit->user && $checkUnit->user->id)
+                        <p class="card-text name user" data-id="{{ $checkUnit->user->id }}"><i class="fa fa-user-o"></i>&nbsp;:&nbsp; {{ $checkUnit->user->name}}</p>
+                        <p class="card-text name whatsapp-link" data-phone="{{ $checkUnit->user->phone ?? '-' }}"><i class="fa fa-whatsapp"></i>&nbsp;:&nbsp; {{ $checkUnit->user->phone}}</p>
+                    @else
+                        <p class="card-text name user" data-id=""><i class="fa fa-user-o"></i>&nbsp;:&nbsp; {{ $checkUnit->name}}</p>
+                        <p class="card-text name whatsapp-link" data-phone="{{ $checkUnit->phone}}"><i class="fa fa-whatsapp"></i>&nbsp;:&nbsp; {{ $checkUnit->phone}}</p>
+                    @endif
                     <p class="card-text name date"><i class="fa fa-calendar"></i>&nbsp;:&nbsp; {{ \Carbon\Carbon::parse($checkUnit->date)->format('d-m-Y') }}</p>
                     <p class="card-text name time"><i class="fa fa-clock-o"></i>&nbsp;:&nbsp; {{ $checkUnit->time }} WIB</p>
                 </div>
@@ -67,11 +71,17 @@
                         <p style="color: black;"><b>Tanggal & Waktu Cek Unit:</b> {{ \Carbon\Carbon::createFromFormat('Y-m-d', $checkUnit->date)->format('d-m-Y') }}, {{ $checkUnit->time}} (WIB)</p>
                         <p style="color: black;"><b>Nama Mobil:</b> {{ $checkUnit->carUnit->name }}</p>
                         <p style="color: black;"><b>Harga:</b> {{ $checkUnit->carUnit->price }}</p>
-                        <p style="color: black;"><b>Nama Pengguna:</b> {{ $checkUnit->user->name }}</p>
-                        <p style="color: black;"><b>Nomor Telepon:</b> {{ $checkUnit->user->phone }}</p>
-                        <p style="color: black;"><b>Email:</b> {{ $checkUnit->user->email }}</p>
-                        <p style="color: black;"><b>Catatan Tambahan Pengguna :</b> {{ $checkUnit->note }}</p>
+                        @if($checkUnit->user && $checkUnit->user->id)
+                        <p style="color: black;"><b>Nama Pengguna:</b> {{ optional($checkUnit->user)->name ?? 'Guest' }}</p>
+                        <p class="name whatsapp-link" data-phone="{{ $checkUnit->user->phone}}"><b>Nomor Telepon:</b> {{ optional($checkUnit->user)->phone ?? '-' }}</p>
+                        <p style="color: black;"><b>Email:</b> {{ optional($checkUnit->user)->email ?? '-' }}</p>
+                        @else
+                        <p style="color: black;"><b>Nama Pengguna:</b> {{ $checkUnit->name }}</p>
+                        <p class="name whatsapp-link" data-phone="{{ $checkUnit->phone}}"><b>Nomor Telepon:</b> {{ $checkUnit->phone }}</p>
+                        <p style="color: black;">Email: <span style="color: red;">Akun Tidak Terdaftar</span></p>
                         <p style="color: black;"><b>Bukti Pembayaran:</b> <a class="popup-link" href="{{ asset('storage/' . $checkUnit->payment_proof) }}">Lihat</a></p>
+                        @endif
+                        <p style="color: black;"><b>Catatan Tambahan Pengguna :</b> {{ $checkUnit->note }}</p>
                         <p style="color: black;"><b>Catatan Dari Admin :</b> {{ $checkUnit->note_from_admin }}</p>
                         </br>
                         </br>
@@ -85,22 +95,73 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="userProfileModal{{ $checkUnit->user->id }}" role="dialog" tabindex="-1" aria-labelledby="userProfileModalLabel{{ $checkUnit->user->id }}" aria-hidden="true">
+        <div class="modal fade" id="userProfileModal{{ optional($checkUnit->user)->id }}" role="dialog" tabindex="-1" aria-labelledby="userProfileModalLabel{{ optional($checkUnit->user)->id }}" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="userProfileModalLabel{{ $checkUnit->user->id }}">Profil Pengguna</h5>
+                        <h5 class="modal-title" id="userProfileModalLabel{{ optional($checkUnit->user)->id }}">Profil Pengguna</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                    <p>Nama: {{ $checkUnit->user->name }}</p>
-                    <p>Nomor Telepon: {{ $checkUnit->user->phone }}</p>
-                    <p>Email: {{ $checkUnit->user->email }}</p>
+                    @if($checkUnit->user && $checkUnit->user->id)
+                    <p style="color: black;"><b>Nama: </b>{{ optional($checkUnit->user)->name ?? 'Guest' }}</p>
+                    <p style="color: black;"><b>Nomor Telepon: </b>{{ optional($checkUnit->user)->phone ?? '-' }}</p>
+                    <p style="color: black;"><b>Email: </b>{{ optional($checkUnit->user)->email ?? '-' }}</p>
+                    @else
+                    <p style="color: black;"><b>Nama: </b>{{ $checkUnit->name }}</p>
+                    <p style="color: black;"><b>Nomor Telepon: </b>{{ $checkUnit->phone }}</p>
+                    <p style="color: black;"><b>Email: </b><span style="color: red;">Akun Tidak Terdaftar</span></p>
+                    @endif
                     </div>
                 </div>
             </div>
         </div>
         @endforeach
+    </div>
+</div>
+
+<!-- Tambahkan Modal untuk Pengguna yang Belum Login -->
+<div class="modal fade" id="checkUnitModal" role="dialog" tabindex="-1" aria-labelledby="checkUnitModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="checkUnitModalLabel">Permintaan Jadwal Cek Unit</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="checkUnitForm" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                        <label for="carname">Nama Mobil:</label>
+                        <input type="text" class="form-control" id="carname" name="carname" value="{{ $checkUnit->carUnit->name }}" readonly>                    
+                        </div>
+                    <div class="form-group">
+                        <label for="date">Tanggal:</label>
+                        <input type="date" class="form-control" id="date" name="date" required>                    
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Waktu:</label>
+                        <input type="time" class="form-control" id="time" name="time" required>                    
+                    </div>
+                    <div class="form-group">
+                        <label for="note">Catatan Tambahan:</label>
+                        <textarea class="form-control" id="note" name="note" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="payment_proof">Bukti Pembayaran:</label>
+                        <input type="file" class="form-control" id="payment_proof" name="payment_proof" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" id="car_id" name="car_id" value="{{ $checkUnit->car_id }}">
+                        <input type="hidden" id="user_id" name="user_id" value="{{ auth()->user()->id ?? '' }}">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-primary" id="submitCheckUnitForm">Kirim</button>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

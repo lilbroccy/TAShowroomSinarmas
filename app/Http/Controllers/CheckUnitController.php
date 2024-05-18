@@ -21,36 +21,65 @@ class CheckUnitController extends Controller
         return view('tampilan-admin.check-units', compact('checkUnit'));
     }
 
-    public function store(Request $request){
-        $validatedData = $request->validate([
-            'car_id' => 'required',
-            'user_id' => 'required',
-            'date' => 'required|date',
-            'time' => 'required',
-            'note' => 'nullable',
-            'payment_proof' => 'required|file|mimes:png,jpg,jpeg,webp|max:2048',
-            'payment' => 'required'
-        ]);
-        
-        $checkUnit = new CheckUnit();
-        $checkUnit->car_unit_id = $validatedData['car_id'];
-        $checkUnit->user_id = $validatedData['user_id'];
-        $checkUnit->date = $validatedData['date'];
-        $checkUnit->time = $validatedData['time'];
-        $checkUnit->status = 'Menunggu Verifikasi';
-        $checkUnit->note = $validatedData['note'];
-        $checkUnit->payment = $validatedData['payment'];
-        
-        if ($request->hasFile('payment_proof')) {
-            $paymentProof = $request->file('payment_proof');
-            $filename = date('Y-m-d') . $paymentProof->getClientOriginalName();
-            $path = 'payment-proof/' . $filename;
-            Storage::disk('public')->put($path, file_get_contents($paymentProof));
-            $checkUnit->payment_proof = $path;
+    public function store(Request $request)
+    {
+        if (auth()->check()) {
+            // Validasi untuk pengguna yang sudah login
+            $validatedData = $request->validate([
+                'car_id' => 'required',
+                'user_id' => 'required',
+                'date' => 'required|date',
+                'time' => 'required',
+                'note' => 'nullable'
+            ]);
+
+            $checkUnit = new CheckUnit();
+            $checkUnit->car_unit_id = $validatedData['car_id'];
+            $checkUnit->user_id = $validatedData['user_id'];
+            $checkUnit->date = $validatedData['date'];
+            $checkUnit->time = $validatedData['time'];
+            $checkUnit->status = 'Menunggu Verifikasi';
+            $checkUnit->note = $validatedData['note'];
+            $checkUnit->save();
+
+            return response()->json(['message' => 'Data berhasil disimpan'], 200);
+
+        } else {
+            // Validasi untuk pengguna yang belum login
+            $validatedData = $request->validate([
+                'car_id' => 'required',
+                'name' => 'required|string|max:255',
+                'phone' => 'required|string|max:15',
+                'date' => 'required|date',
+                'time' => 'required',
+                'note' => 'nullable',
+                'payment_proof' => 'required|file|mimes:png,jpg,jpeg,webp|max:2048',
+                'payment' => 'required'
+            ]);
+
+            $checkUnit = new CheckUnit();
+            $checkUnit->car_unit_id = $validatedData['car_id'];
+            $checkUnit->name = $validatedData['name']; // Simpan nama untuk pengguna yang belum login
+            $checkUnit->phone = $validatedData['phone']; // Simpan nomor telepon untuk pengguna yang belum login
+            $checkUnit->date = $validatedData['date'];
+            $checkUnit->time = $validatedData['time'];
+            $checkUnit->status = 'Menunggu Verifikasi';
+            $checkUnit->note = $validatedData['note'];
+            $checkUnit->payment = $validatedData['payment'];
+            
+            if ($request->hasFile('payment_proof')) {
+                $paymentProof = $request->file('payment_proof');
+                $filename = date('Y-m-d') . $paymentProof->getClientOriginalName();
+                $path = 'payment-proof/' . $filename;
+                Storage::disk('public')->put($path, file_get_contents($paymentProof));
+                $checkUnit->payment_proof = $path;
+            }
+            $checkUnit->save();
+
+            return response()->json(['message' => 'Data berhasil disimpan'], 200);
         }
-        $checkUnit->save(); 
-        return response()->json(['message' => 'Data berhasil disimpan'], 200);
     }
+
     
 
     public function checkBooking(Request $request)

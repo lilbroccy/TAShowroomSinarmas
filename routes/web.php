@@ -62,10 +62,7 @@ Route::post('/email/verification-notification', function (Request $request) {
 
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('showRegisterForm');
 Route::post('/register', [AuthController::class, 'registerUser'])->name('registerUser');
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
-
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 // Auth routes
 Route::middleware('web')->group(function () {
     Route::post('/loginUser', [AuthController::class, 'login'])->name('loginUser');

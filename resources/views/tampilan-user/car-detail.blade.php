@@ -125,18 +125,54 @@
                     @csrf
                     <div class="form-group">
                         <label for="carname">Nama Mobil:</label>
-                        <input type="text" class="form-control" id="carname" name="carname" value="{{ $carUnit->name }}" readonly>                    
+                        <input type="text" class="form-control" id="carname" name="carname" value="{{ $carUnit->name }}" readonly>
                         <input type="hidden" id="car_id" name="car_id" value="{{ $carUnit->id }}">
                     </div>
-                    <div class="form-group">
-                        <label for="name">Nama Anda:</label>
-                        <input type="text" class="form-control" id="name" name="name" value="{{ auth()->user()->name }}" readonly>
-                        <input type="hidden" id="user_id" name="user_id" value="{{ auth()->user()->id }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Nomor Telepon Anda:</label>
-                        <input type="text" class="form-control" id="phone" name="phone" value="{{ auth()->user()->phone }}" readonly>
-                    </div>
+                    
+                    @if(auth()->check())
+                        <div class="form-group">
+                            <label for="name">Nama Anda:</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ auth()->user()->name }}" readonly>
+                            <input type="hidden" id="user_id" name="user_id" value="{{ auth()->user()->id }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Nomor Telepon Anda:</label>
+                            <input type="text" class="form-control" id="phone" name="phone" value="{{ auth()->user()->phone }}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="date">Tanggal:</label>
+                            <input type="date" class="form-control" id="date" name="date" required min="{{ now()->format('Y-m-d') }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="time">Jam (WIB):</label>
+                            <input type="time" class="form-control" id="time" name="time" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="note">Catatan Tambahan:</label>
+                            <textarea class="form-control" id="note" name="note" placeholder="Kosongkan jika tidak ada catatan tambahan"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="agreement">
+                                <label class="form-check-label" for="agreement">
+                                    Saya menyetujui 
+                                    <u><a href="#" data-toggle="modal" data-target="#termsModal">persyaratan dan ketentuan</a></u>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                            <button type="button" class="btn btn-primary" id="simpanButton">Kirim</button>
+                        </div>
+                    @else
+                        <div class="form-group">
+                            <label for="name">Nama Anda:</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Masukkan nama Anda">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Nomor Telepon Anda:</label>
+                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Masukkan nomor telepon Anda">
+                        </div>
                     <div class="form-group">
                         <label for="date">Tanggal:</label>
                         <input type="date" class="form-control" id="date" name="date" required min="{{ now()->format('Y-m-d') }}">
@@ -174,6 +210,7 @@
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
                         <button type="button" class="btn btn-primary" id="simpanButton">Kirim</button>
                     </div>
+                    @endif
                 </form>
             </div>
         </div>
@@ -213,5 +250,8 @@
 </div>
 @endsection
 @section('js')
+<script>
+    var isAuthenticated = @json(auth()->check());
+</script>
 <script src="{{ asset ('user/modal/car-detail.js') }}"></script>
 @endsection
