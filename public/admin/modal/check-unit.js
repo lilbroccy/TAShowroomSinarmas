@@ -34,6 +34,7 @@ function doneButtonHandler(checkUnitId) {
         confirmButtonText: '<i class="fa fa-check"></i> Ya',
         cancelButtonText: '<i class="fa fa-times"></i> Tidak',
         showCloseButton: true,
+        allowOutsideClick: false, 
     }).then((result) => {
         if (result.isConfirmed) {
             showPaymentMethodDialog(checkUnitId);
@@ -128,24 +129,32 @@ function actionButtonHandler() {
 
     if (status === 'Selesai') {
         Swal.fire({
-            title: 'Jadwal Selesai',
-            text: 'Jadwal ini telah selesai dilaksanakan. Anda tidak bisa memilih opsi.',
+            title: 'Anda tidak bisa memilih opsi',
+            text: 'Jadwal ini telah selesai dilaksanakan.',
             icon: 'info',
             confirmButtonText: 'Tutup'
         });
         
     } else if (status === 'Dibatalkan Oleh Sistem'| status === 'Dibatalkan Oleh Admin') {
         Swal.fire({
-            title: 'Jadwal dibatalkan',
-            text: 'Jadwal ini telah dibatalkan karena unit telah terjual sebelumnya. Anda tidak bisa memilih opsi.',
+            title: 'Anda tidak bisa memilih opsi',
+            text: 'Jadwal ini telah dibatalkan karena unit telah terjual sebelumnya.',
+            icon: 'info',
+            confirmButtonText: 'Tutup'
+        });
+        
+    } else if (status === 'Ditolak') {
+        Swal.fire({
+            title: 'Anda tidak bisa memilih opsi',
+            text: 'Jadwal ini telah ditolak.',
             icon: 'info',
             confirmButtonText: 'Tutup'
         });
         
     } else if (status === 'Dibatalkan Oleh User') {
         Swal.fire({
-            title: 'Jadwal dibatalkan',
-            text: 'Jadwal ini telah dibatalkan oleh Pengguna. Anda tidak bisa memilih opsi.',
+            title: 'Anda tidak bisa memilih opsi',
+            text: 'Jadwal ini telah dibatalkan oleh Pengguna.',
             icon: 'info',
             confirmButtonText: 'Tutup'
         });

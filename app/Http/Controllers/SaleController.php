@@ -57,14 +57,22 @@ class SaleController extends Controller
             }
 
             $sale = new Sale();
-            $sale->check_unit_id = $checkUnit->id;
+        $sale->check_unit_id = $checkUnit->id;
+        $sale->car_unit_id = $checkUnit->car_unit_id;
+        $sale->payment_method = $request->paymentMethod;
+        $sale->date = now();
+        $sale->last_edit_by = Auth::id();
+
+        if ($checkUnit->user) {
+            // Jika pengguna login, ambil informasi pengguna dari objek user yang terkait
             $sale->user_id = $checkUnit->user_id;
-            $sale->car_unit_id = $checkUnit->car_unit_id;
             $sale->customer_name = $checkUnit->user->name;
             $sale->customer_phone = $checkUnit->user->phone;
-            $sale->payment_method = $request->paymentMethod;
-            $sale->date = now();
-            $sale->last_edit_by = Auth::id();
+        } else {
+            // Jika pengguna tidak login, ambil informasi dari kolom name dan phone di CheckUnit
+            $sale->customer_name = $checkUnit->name;
+            $sale->customer_phone = $checkUnit->phone;
+        }
             $sale->save();
             Log::info('Sale data saved:', $sale->toArray());
 
@@ -81,46 +89,46 @@ class SaleController extends Controller
     }
 
     public function store(Request $request)
-{
-    try {
-        $request->validate([
-            'name' => 'required',
-            'phone' => 'required',
-            'payment' => 'required',
-        ]);
+    {
+        try {
+            $request->validate([
+                'name' => 'required',
+                'phone' => 'required',
+                'payment' => 'required',
+            ]);
 
-        $carUnit = CarUnit::find($request->car_id);
-        if (!$carUnit) {
-            return redirect()->back()->with('error', 'Mobil tidak ditemukan!');
+            $carUnit = CarUnit::find($request->car_id);
+            if (!$carUnit) {
+                return redirect()->back()->with('error', 'Mobil tidak ditemukan!');
+            }
+
+            $checkUnits = CheckUnit::where('car_unit_id', $carUnit->id)->get();
+            foreach ($checkUnits as $checkUnit) {
+                if ($checkUnit->status == 'Menunggu Verifikasi' || $checkUnit->status == 'Disetujui' ) {
+                    $checkUnit->status = 'Dibatalkan Oleh Admin';
+                    $checkUnit->note_from_admin = 'Mohon maaf, unit mobil baru saja terjual, Silahkan hubungi admin melalui whatsapp untuk konfirmasi proses pengembalian biaya cek unit';
+                    $checkUnit->last_edit_by = Auth::id();
+                    $checkUnit->save();
+                } 
+            }
+            
+            $sale = new Sale();
+            $sale->car_unit_id = $request->car_id;
+            $sale->customer_name = $request->name;
+            $sale->customer_phone = $request->phone;
+            $sale->payment_method = $request->payment;
+            $sale->date = now()->toDateString();
+            $sale->last_edit_by = Auth::id();
+            $sale->save();
+
+            $carUnit->status = 'Terjual';
+            $carUnit->save();
+
+            return redirect()->back()->with('success', 'Data penjualan berhasil disimpan!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
         }
-
-        $checkUnits = CheckUnit::where('car_unit_id', $carUnit->id)->get();
-        foreach ($checkUnits as $checkUnit) {
-            if ($checkUnit->status == 'Menunggu Verifikasi' || $checkUnit->status == 'Disetujui') {
-                $checkUnit->status = 'Dibatalkan Oleh Admin';
-                $checkUnit->note_from_admin = 'Mohon maaf, unit mobil baru saja terjual, Silahkan hubungi admin melalui whatsapp untuk konfirmasi proses pengembalian biaya cek unit';
-                $checkUnit->last_edit_by = Auth::id();
-                $checkUnit->save();
-            } 
-        }
-        
-        $sale = new Sale();
-        $sale->car_unit_id = $request->car_id;
-        $sale->customer_name = $request->name;
-        $sale->customer_phone = $request->phone;
-        $sale->payment_method = $request->payment;
-        $sale->date = now()->toDateString();
-        $sale->last_edit_by = Auth::id();
-        $sale->save();
-
-        $carUnit->status = 'Terjual';
-        $carUnit->save();
-
-        return redirect()->back()->with('success', 'Data penjualan berhasil disimpan!');
-    } catch (\Exception $e) {
-        return redirect()->back()->with('error', $e->getMessage());
     }
-}
 
 
 }
