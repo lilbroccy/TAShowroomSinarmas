@@ -48,9 +48,11 @@ class SaleController extends Controller
             foreach ($relatedCheckUnits as $relatedCheckUnit) {
                 if ($relatedCheckUnit->id !== $checkUnit->id && ($relatedCheckUnit->status == 'Menunggu Verifikasi' || $relatedCheckUnit->status == 'Disetujui')) {
                     $relatedCheckUnit->status = 'Dibatalkan Oleh Admin';
-                    $relatedCheckUnit->note_from_admin = 'Mohon maaf, unit mobil baru saja terjual, Silahkan hubungi admin melalui whatsapp untuk konfirmasi proses pengembalian biaya cek unit';
+                    $relatedCheckUnit->note_from_admin = 'Mohon maaf, unit mobil baru saja terjual';
                     $relatedCheckUnit->car_status = 'Terjual';
                     $relatedCheckUnit->last_edit_by = Auth::id();
+                    $updatedAt = Carbon::now()->addHours(7);
+                    $relatedUpdateCheckUnit->updated_at = $updatedAt;
                     $relatedCheckUnit->save();
                     Log::info('Related CheckUnit updated:', $relatedCheckUnit->toArray());
                 } 
@@ -64,12 +66,10 @@ class SaleController extends Controller
         $sale->last_edit_by = Auth::id();
 
         if ($checkUnit->user) {
-            // Jika pengguna login, ambil informasi pengguna dari objek user yang terkait
             $sale->user_id = $checkUnit->user_id;
             $sale->customer_name = $checkUnit->user->name;
             $sale->customer_phone = $checkUnit->user->phone;
         } else {
-            // Jika pengguna tidak login, ambil informasi dari kolom name dan phone di CheckUnit
             $sale->customer_name = $checkUnit->name;
             $sale->customer_phone = $checkUnit->phone;
         }
@@ -106,8 +106,10 @@ class SaleController extends Controller
             foreach ($checkUnits as $checkUnit) {
                 if ($checkUnit->status == 'Menunggu Verifikasi' || $checkUnit->status == 'Disetujui' ) {
                     $checkUnit->status = 'Dibatalkan Oleh Admin';
-                    $checkUnit->note_from_admin = 'Mohon maaf, unit mobil baru saja terjual, Silahkan hubungi admin melalui whatsapp untuk konfirmasi proses pengembalian biaya cek unit';
+                    $checkUnit->note_from_admin = 'Mohon maaf, unit mobil baru saja terjual';
                     $checkUnit->last_edit_by = Auth::id();
+                    $updatedAt = Carbon::now()->addHours(7);
+                    $checkUnit->updated_at = $updatedAt;
                     $checkUnit->save();
                 } 
             }

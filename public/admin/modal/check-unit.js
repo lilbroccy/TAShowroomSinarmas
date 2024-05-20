@@ -38,7 +38,7 @@ function doneButtonHandler(checkUnitId) {
     }).then((result) => {
         if (result.isConfirmed) {
             showPaymentMethodDialog(checkUnitId);
-        } else {
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
             markCheckUnitAsDone(checkUnitId);
         }
     });

@@ -10,6 +10,25 @@
     }
 </style>
 <link href="{{ asset('user/css/car-detail.css') }}" rel="stylesheet">
+<style>
+    .faq {
+        margin-top: 20px;
+    }
+    .faq-item {
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+    .faq-question {
+        cursor: pointer;
+        margin: 0;
+    }
+    .faq-answer {
+        display: none;
+        margin-top: 10px;
+    }
+</style>
 @endsection
 @section('content')
 <div class="container" style="margin-top: 5px; margin-bottom: 50px">
@@ -109,6 +128,39 @@
         <h3 class="text-center mb-5 title"><u>Deskripsi</u></h3>
         <p class="lead description"><b>{{$carUnit->description}}</b></p>
       </div>
+    </div>
+</div>
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h3 class="title">Pertanyaan yang Sering Diajukan (FAQ)</h3>
+                </div>
+                <div class="faq">
+					<div class="faq-item">
+						<h4 class="faq-question">Q: Bagaimana cara membeli mobil di sini? <span style="float: right;">&blacktriangledown;</span></h4>
+						<p class="faq-answer" style="display: none;">A: Di sini, Anda dapat melihat unit yang tersedia dan menjadwalkan untuk cek unit/test drive. Untuk melakukan pembelian atau transaksi, Anda dapat langsung datang ke showroom kami.</p>
+					</div>
+					<div class="faq-item">
+						<h4 class="faq-question">Q: Metode pembayaran apa saja yang diterima? <span style="float: right;">&blacktriangledown;</span></h4>
+						<p class="faq-answer" style="display: none;">A: Kami menerima berbagai metode pembayaran termasuk transfer bank, kartu kredit, dan opsi pembiayaan. Silakan hubungi tim penjualan kami untuk informasi lebih lanjut.</p>
+					</div>
+					<div class="faq-item">
+						<h4 class="faq-question">Q: Apakah saya bisa tukar tambah mobil lama saya? <span style="float: right;">&blacktriangledown;</span></h4>
+						<p class="faq-answer" style="display: none;">A: Ya, kami menawarkan opsi tukar tambah. Silakan hubungi tim kami melalui WhatsApp, bawa mobil Anda untuk evaluasi dan kami akan memberikan penawaran yang kompetitif.</p>
+					</div>
+					<div class="faq-item">
+						<h4 class="faq-question">Q: Apakah ada garansi untuk mobil-mobilnya? <span style="float: right;">&blacktriangledown;</span></h4>
+						<p class="faq-answer" style="display: none;">A: Ya, semua mobil kami dilengkapi dengan garansi standar. Detail garansi bervariasi tergantung pada model dan tahun mobil. Silakan periksa halaman detail mobil untuk informasi lebih lanjut.</p>
+					</div>
+					<div class="faq-item">
+						<h4 class="faq-question">Q: Bagaimana cara menghubungi layanan pelanggan? <span style="float: right;">&blacktriangledown;</span></h4>
+						<p class="faq-answer" style="display: none;">A: Anda bisa menghubungi tim layanan pelanggan kami melalui WhatsApp kami.</p>
+					</div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <div class="modal fade" id="checkUnitModal" tabindex="-1" role="dialog" aria-labelledby="checkUnitModalLabel" aria-hidden="true">
@@ -250,6 +302,16 @@
 </div>
 @endsection
 @section('js')
+<script>
+    document.querySelectorAll('.faq-question').forEach(question => {
+        question.addEventListener('click', () => {
+            const answer = question.nextElementSibling;
+            const isVisible = answer.style.display === 'block';
+            document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
+            answer.style.display = isVisible ? 'none' : 'block';
+        });
+    });
+</script>
 <script>
     var isAuthenticated = @json(auth()->check());
 </script>
