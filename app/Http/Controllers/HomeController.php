@@ -8,7 +8,9 @@ use App\Models\Category;
 use App\Models\Brand;
 use App\Models\Sale;
 use App\Models\User;
+use App\Models\Wishlist;
 use Carbon\Carbon;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -21,8 +23,10 @@ class HomeController extends Controller
         foreach ($carUnits as $carUnit) {
             $carUnit->first_photo = $carUnit->photos->isNotEmpty() ? $carUnit->photos->first()->file_path : null;
         }
-
-        return view('tampilan-user.home', compact('categories', 'carUnits'));
+        $userId = Auth::id();
+        $wishlists = Wishlist::where('user_id', $userId)->get();
+        $totalWishlist = $wishlists->count();
+        return view('tampilan-user.home', compact('categories', 'carUnits', 'wishlists', 'totalWishlist'));
     }
 
     //get detail sweetalert
@@ -65,9 +69,12 @@ class HomeController extends Controller
 
     public function getCarDetail($id)
     {
+        $userId = Auth::id();
+        $wishlists = Wishlist::where('user_id', $userId)->get();
+        $totalWishlist = $wishlists->count();
         $carUnit = CarUnit::find($id);
         $categories = Category::all();
-        return view('tampilan-user.car-detail', compact('carUnit','categories'));
+        return view('tampilan-user.car-detail', compact('carUnit','categories', 'wishlists', 'totalWishlist'));
     }
     
 }

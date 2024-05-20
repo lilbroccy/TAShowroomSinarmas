@@ -61,8 +61,7 @@
 					
 											<div class="car-btns">
 												<button class="add-to-wishlist" title="Tambahkan ke Wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp"></span></button>
-												<button title="Detail Lengkap"><a href="{{ route('car.detail', ['id' => $carUnit->id]) }}"><i class="fa fa-eye text-white"></i></a></button>
-												<button class="add-to-check" title="Jadwalkan Cek Unit"><i class="fa fa-calendar"></i> Cek Unit</button>
+												<button title="Detail Lengkap"><a href="{{ route('car.detail', ['id' => $carUnit->id]) }}"><i class="fa fa-eye" style="color: white;"></i></a></button>
 											</div>
 										</div>
 									</div>

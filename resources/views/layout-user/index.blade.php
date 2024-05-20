@@ -122,13 +122,16 @@
                 </div>
                 <div class="col-md-3 clearfix">
                     <div class="header-ctn">
-                        <div>
-                            <a href="#">
-                                <i class="fa fa-heart-o"></i>
-                                <span>Your Wishlist</span>
-                                <div class="qty">2</div>
-                            </a>
-                        </div>
+						<div>
+							<a href="#" data-toggle="modal" data-target="#wishlistModal">
+								<i class="fa fa-heart-o"></i>
+								<span>Your Wishlist</span>
+								<div class="qty">{{ $totalWishlist }}</div>
+							</a>
+						</div>
+						<!-- Modal -->
+
+
                         <div>
                             <a href="#" id="jadwalLink">
                                 <i class="fa fa-calendar"></i>
@@ -229,6 +232,57 @@
             </div>
         </div>
     </div>
+	<div class="modal fade" id="wishlistModal" tabindex="-1" role="dialog" aria-labelledby="wishlistModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="wishlistModalLabel">Your Wishlist</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    @foreach($wishlists as $wishlist)
+                    <div class="row">
+                        <div class="col-xs-7">
+                            <div class="card border" style="border-radius: 15px; border-width: 10px;">
+                                @foreach ($wishlist->carUnit->photos->take(1) as $photo)
+                                <a href="#" class="car-sale-link" data-id="{{ $wishlist->carUnit->id }}" data-name="{{ $wishlist->carUnit->name }}">
+                                    <img src="{{ asset('storage/'.$photo->file_path) }}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px 10px 10px 10px;" alt="Car Photo">
+                                </a>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="col-xs-5">
+							<div class="card border" style="border-radius: 15px; border-width: 10px;">
+								<div class="card-body" style="overflow-wrap: break-word;"> <!-- Tambahkan style untuk overflow-wrap -->
+									<h4 class="card-title" style="border-top-left-radius: 15px; border-top-right-radius: 15px; font-weight: bold;"> <!-- Tambahkan style untuk tebal -->
+										<a href="#" class="car-sale-link" data-id="{{ $wishlist->carUnit->id }}" data-name="{{ $wishlist->carUnit->name }}" style="text-decoration: none; color: inherit; transition: color 0.3s;">{{ $wishlist->carUnit->name }}</a>
+									</h4>
+									<p class="text-muted fw-normal"> {{$wishlist->carUnit->brand->name}} - {{$wishlist->carUnit->year}} - {{$wishlist->carUnit->transmission}} - {{$wishlist->carUnit->fuel_type}}</p>
+									<p style="color: black;"><b>Rp. {{ number_format($wishlist->carUnit->price, 0, ',', '.') }}</b></p> <!-- Ubah ke format rupiah -->
+									<!-- Tambahkan tombol trash dan eye -->
+									<div style="display: flex; align-items: center; margin-top: 5px;"> <!-- Mengurangi margin-top -->
+										<a href="#" class="btn btn-danger" style="margin-right: 15px;"><i class="fa fa-trash"></i></a> <!-- Mengurangi margin-right -->
+										<a href="#" class="btn btn-info"><i class="fa fa-eye"></i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+                    </div>
+                    <hr>
+                    @endforeach
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 </footer>
 <script src="{{ asset('user/js/jquery.min.js') }}"></script>
 <script src="{{ asset('user/js/bootstrap.min.js') }}"></script>

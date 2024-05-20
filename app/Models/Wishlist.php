@@ -12,4 +12,12 @@ class Wishlist extends Model
     'car_unit_id',
     'user_id',
     ];
+    public function carUnit()
+    {
+        return $this->belongsTo(CarUnit::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
