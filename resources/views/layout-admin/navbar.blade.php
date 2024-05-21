@@ -1,13 +1,10 @@
 <header class="topbar" data-navbarbg="skin6" style="background-color: #4CAF50;">
     <nav class="navbar top-navbar navbar-expand-md navbar-dark">
         <div class="navbar-header" data-logobg="skin6">
-            <a class="navbar-brand" href="{{ url('/') }}">
+            <a class="navbar-brand" href="{{ url('/admin/dashboard') }}">
                 <span class="logo-text">
                     <img src="{{ asset('admin/assets/images/Logo-ShowroomSinarmas.png') }}" alt="homepage" class="dark-logo" style="width: 180px; height: 60px;" />
                 </span>
-            </a>
-            <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none" href="#">
-                <i class="fa fa-comments"></i>
             </a>
             <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none" href="javascript:void(0)">
                 <i class="ti-menu ti-close"></i>

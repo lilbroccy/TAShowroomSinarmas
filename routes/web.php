@@ -14,6 +14,7 @@ use App\Http\Controllers\CheckUnitController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 
@@ -118,3 +119,9 @@ Route::post     ('/sales/store', [SaleController::class, 'store'])->name('sales.
 Route::get('/api/categories', [CategoryController::class, 'getCategory']);
 Route::get('/api/brands', [BrandController::class, 'getBrand']);
 
+Route::post('/wishlist/add', [WishlistController::class, 'addToWishlist'])->name('wishlist.add');
+
+Route::post     ('/profile/update', [UserController::class, 'update'])->name('profile.update');
+Route::get      ('/admin/dashboard/users', [UserController::class, 'index'])->name('dashboard.users');
+Route::delete   ('/admin/dashboard/users/{id}/delete', [UserController::class, 'destroy']);
+Route::put      ('/admin/dashboard/users/{id}/update', [UserController::class, 'update_table']);

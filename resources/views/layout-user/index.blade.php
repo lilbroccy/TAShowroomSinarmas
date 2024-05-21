@@ -79,7 +79,7 @@
             </ul>
             <ul class="header-links pull-right">
                 @if(Auth::check())
-                    <li><a href="#"><i class="fa fa-user-o"></i> {{ Auth::user()->name }}</a></li>
+                    <li><a href="#" class="user-profile-link"><i class="fa fa-user-o"></i> {{ Auth::user()->name }}</a></li>
                     <li>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST">
                             @csrf
@@ -265,7 +265,7 @@
 									<!-- Tambahkan tombol trash dan eye -->
 									<div style="display: flex; align-items: center; margin-top: 5px;"> <!-- Mengurangi margin-top -->
 										<a href="#" class="btn btn-danger" style="margin-right: 15px;"><i class="fa fa-trash"></i></a> <!-- Mengurangi margin-right -->
-										<a href="#" class="btn btn-info"><i class="fa fa-eye"></i></a>
+										<a href="{{ route('car.detail', ['id' => $wishlist->carUnit->id]) }}" class="btn btn-info"><i class="fa fa-eye"></i></a>
 									</div>
 								</div>
 							</div>
@@ -294,6 +294,71 @@
 <script src="{{ asset('plugins/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
 <script src="{{ asset('user/modal/logout.js') }}"></script>
 <script src="{{ asset('user/modal/jadwal.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('.user-profile-link').on('click', function(event) {
+            event.preventDefault();
+            var userName = '{{ Auth::user()->name }}';
+            var userEmail = '{{ Auth::user()->email }}';
+            var userPhone = '{{ Auth::user()->phone }}';
+
+            Swal.fire({
+                title: 'Your Profile',
+                html: `
+                    <div>
+                        <label for="swal-input-name"><i class="fa fa-user"></i> Name</label>
+                        <input type="text" id="swal-input-name" class="swal2-input" placeholder="Name" value="${userName}">
+                    </div>
+                    <div>
+                        <label for="swal-input-email"><i class="fa fa-envelope"></i> Email</label>
+                        <input type="email" id="swal-input-email" class="swal2-input" placeholder="Email" value="${userEmail}" readonly>
+                    </div>
+                    <div>
+                        <label for="swal-input-phone"><i class="fa fa-phone"></i> Phone</label>
+                        <input type="text" id="swal-input-phone" class="swal2-input" placeholder="Phone" value="${userPhone}">
+                    </div>
+                `,
+                focusConfirm: false,
+                showCancelButton: true,
+                confirmButtonText: 'Save',
+                preConfirm: () => {
+                    return {
+                        name: document.getElementById('swal-input-name').value,
+                        phone: document.getElementById('swal-input-phone').value
+                    }
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '{{ route("profile.update") }}',
+                        method: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            name: result.value.name,
+                            phone: result.value.phone
+                        },
+                        success: function(response) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Profil Berhasil Diupdate',
+                                text: 'Profil anda berhasil dirubah.'
+                            }).then(() => {
+                                location.reload();
+                            });
+                        },
+                        error: function(xhr) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Terjadi kesalahan dalam melakukan update profil.'
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
 @yield('js')
 </body>
 </html>

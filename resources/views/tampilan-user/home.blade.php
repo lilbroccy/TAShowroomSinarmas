@@ -58,9 +58,11 @@
 												<i class="fa fa-star"></i>
 												<i class="fa fa-star"></i>
 											</div> -->
-					
 											<div class="car-btns">
-												<button class="add-to-wishlist" title="Tambahkan ke Wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp"></span></button>
+                                            <button class="add-to-wishlist" data-car-unit-id="{{ $carUnit->id }}" title="Tambahkan ke Wishlist">
+                                                <i class="fa fa-heart-o"></i>
+                                                <span class="tooltipp"></span>
+                                            </button>
 												<button title="Detail Lengkap"><a href="{{ route('car.detail', ['id' => $carUnit->id]) }}"><i class="fa fa-eye" style="color: white;"></i></a></button>
 											</div>
 										</div>
@@ -133,5 +135,44 @@
         });
     </script>
 @endif
+<script>
+    $(document).ready(function() {
+        $('.add-to-wishlist').on('click', function() {
+            var carUnitId = $(this).data('car-unit-id');
 
+            $.ajax({
+                url: '{{ route("wishlist.add") }}',
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    car_unit_id: carUnitId
+                },
+                success: function(response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil!',
+                        text: response.message,
+                    }).then(() => {
+                        location.reload(); // Refresh after alert
+                    });
+                },
+                error: function(xhr) {
+                    if (xhr.status === 401) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal!',
+                            text: 'Anda harus login untuk menambahkan ke wishlist.',
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal!',
+                            text: 'Terjadi kesalahan. Silakan coba lagi.',
+                        });
+                    }
+                }
+            });
+        });
+    });
+</script>
 @endsection

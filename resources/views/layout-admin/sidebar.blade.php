@@ -41,7 +41,7 @@
                             aria-hidden="true"></i><span class="hide-menu">Data Penjualan</span></a>
                 </li>
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                        href="#" aria-expanded="false"><i class="me-3 fa fa-user"
+                        href="{{ route ('dashboard.users')}}" aria-expanded="false"><i class="me-3 fa fa-user"
                             aria-hidden="true"></i><span class="hide-menu">Data User</span></a>
                 </li>
             </ul>

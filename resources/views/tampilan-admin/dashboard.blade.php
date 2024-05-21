@@ -17,13 +17,6 @@
                             </nav>
                         </div>
                     </div>
-                    <div class="col-md-6 col-4 align-self-center">
-                        <div class="text-end upgrade-btn">
-                            <a href="https://www.wrappixel.com/templates/monsteradmin/"
-                                class="btn btn-success d-none d-md-inline-block text-white" target="_blank">Upgrade to
-                                Pro</a>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="container-fluid">
@@ -110,11 +103,7 @@
                             </div>
                         </div>
                     </div>
-                <!-- ============================================================== -->
-                <!-- Sales chart -->
-                <!-- ============================================================== -->
-                <div class="row">
-                    <!-- column -->
+                <!-- <div class="row">
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-body">
@@ -128,11 +117,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- column -->
                 </div>
-                <!-- ============================================================== -->
-                <!-- Table -->
-                <!-- ============================================================== -->
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card">
@@ -214,14 +199,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- ============================================================== -->
-                <!-- Table -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Recent blogss -->
-                <!-- ============================================================== -->
                 <div class="row justify-content-center">
-                    <!-- Column -->
                     <div class="col-lg-4 col-md-6">
                         <div class="card">
                             <img class="card-img-top img-responsive" src="../assets/images/big/img1.jpg" alt="Card">
@@ -234,8 +212,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Column -->
-                    <!-- Column -->
                     <div class="col-lg-4 col-md-6">
                         <div class="card">
                             <img class="card-img-top img-responsive" src="../assets/images/big/img2.jpg" alt="Card">
@@ -248,8 +224,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Column -->
-                    <!-- Column -->
                     <div class="col-lg-4 col-md-6">
                         <div class="card">
                             <img class="card-img-top img-responsive" src="../assets/images/big/img4.jpg" alt="Card">
@@ -262,11 +236,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Column -->
-                </div>
-                <!-- ============================================================== -->
-                <!-- Recent blogss -->
-                <!-- ============================================================== -->
+                </div> -->
             </div>
 @endsection
 @section('js')

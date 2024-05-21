@@ -85,7 +85,8 @@
                                                                         <h5 class="card-title">
                                                                             <a href="#" class="car-sale-link" data-id="{{ $carUnit->id }}" data-name="{{ $carUnit->name }}" style="text-decoration: none; color: inherit; transition: color 0.3s;" onmouseover="this.style.color='#007bff'" onmouseout="this.style.color='#000'">{{ $carUnit->name }}</a>
                                                                         </h5>
-                                                                        <p class="card-text">{{ $carUnit->price }}</p>
+                                                                        <p class="text-muted fw-normal"> {{$carUnit->brand->name}} - {{$carUnit->year}} - {{$carUnit->transmission}} - {{$carUnit->fuel_type}}</p>
+                                                                        <p style="color:black"><b>Rp. {{ number_format($carUnit->price, 0, ',', '.') }}</b></p>
                                                                     </div>
                                                                 </a>
                                                             @endforeach
@@ -141,7 +142,7 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="updateModalLabel{{ $sale->id }}">Update Kategori {{ $sale->name }}</h5>
+                                            <h5 class="modal-title" id="updateModalLabel{{ $sale->id }}">Update Penjualan</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
