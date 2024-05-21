@@ -297,11 +297,17 @@
 <script>
     $(document).ready(function() {
         $('.user-profile-link').on('click', function(event) {
-            event.preventDefault();
+            @auth
             var userName = '{{ Auth::user()->name }}';
             var userEmail = '{{ Auth::user()->email }}';
             var userPhone = '{{ Auth::user()->phone }}';
-
+            // Perform actions with user data
+            console.log("User Name:", userName);
+            console.log("User Email:", userEmail);
+            console.log("User Phone:", userPhone);
+        @else
+            console.log("User is not authenticated.");
+        @endauth
             Swal.fire({
                 title: 'Your Profile',
                 html: `
