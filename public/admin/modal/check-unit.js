@@ -106,10 +106,19 @@ function saveSalesData(checkUnitId, paymentMethod) {
     }).then(response => {
         if (response.ok) {
             return response.json();
+        } else {
+            // Jika respons bukan OK, coba parsing JSON untuk mendapatkan pesan kesalahan
+            return response.text().then(text => {
+                // Coba parsing teks sebagai JSON
+                try {
+                    const json = JSON.parse(text);
+                    throw new Error(json.message || 'Terjadi kesalahan yang tidak diketahui.');
+                } catch (e) {
+                    // Jika parsing JSON gagal, lempar kesalahan asli
+                    throw new Error(text);
+                }
+            });
         }
-        return response.json().then(error => {
-            throw new Error(error.message || 'Terjadi kesalahan yang tidak diketahui.');
-        });
     }).then(data => {
         Swal.fire(data.message);
         setTimeout(function() {
@@ -120,6 +129,7 @@ function saveSalesData(checkUnitId, paymentMethod) {
         Swal.fire('Terjadi Kesalahan', error.message, 'error');
     });
 }
+
 
 
 

@@ -38,12 +38,7 @@
                 </div>
                 <div class="form-group">
                     <label for="password">Kata Sandi</label>
-                    <div class="input-group">
-                        <input type="password" name="password" id="password" class="form-control" required>
-                        <span class="input-group-text">
-                            <i class="fas fa-eye toggle-password" id="togglePassword" style="cursor: pointer;"></i>
-                        </span>
-                    </div>
+                    <input type="password" name="password" id="password" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="password_confirmation">Konfirmasi Kata Sandi</label>
@@ -59,7 +54,7 @@
     <script src="{{ asset('user/js/jquery.min.js') }}"></script>
     <script src="{{ asset('user/js/bootstrap.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
-    <script>
+    <!-- <script>
         // Toggle password visibility
         document.addEventListener('DOMContentLoaded', function() {
             const togglePassword = document.getElementById('togglePassword');
@@ -71,6 +66,6 @@
                 this.classList.toggle('fa-eye-slash');
             });
         });
-    </script>
+    </script> -->
 </body>
 </html>

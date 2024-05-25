@@ -15,11 +15,11 @@ class PhotoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(int $carUnitId)
-    {
-        $carUnit = CarUnit::findorfail($carUnitId);
-        return view('tampilan-admin.car-units-photos', compact('carUnit'));
-    }
-
+{
+    $carUnit = CarUnit::findOrFail($carUnitId);
+    $photos = $carUnit->photos;
+    return view('tampilan-admin.car-units-photos', compact('carUnit', 'photos'));
+}
     public function store(Request $request, int $carUnitId)
     {   
         $request->validate([
