@@ -65,13 +65,13 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        \App\Models\CarUnit::factory()->count(20)->create();
+        // \App\Models\CarUnit::factory()->count(20)->create();
 
-        for ($i = 1; $i <= 20; $i++) {
-            DB::table('photos')->insert([
-                'car_unit_id' => $i,
-                'file_path' => 'car-units-photos/2024-05-1611.jpg'
-            ]);
-        }
+        // for ($i = 1; $i <= 20; $i++) {
+        //     DB::table('photos')->insert([
+        //         'car_unit_id' => $i,
+        //         'file_path' => 'car-units-photos/2024-05-1611.jpg'
+        //     ]);
+        // }
     }
 }

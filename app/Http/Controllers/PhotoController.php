@@ -41,4 +41,15 @@ class PhotoController extends Controller
 
         return redirect()->route('dashboard.car-units');
     }
+
+    public function deletePhoto($carUnitId, $photoId)
+    {
+        $carUnit = CarUnit::findOrFail($carUnitId);
+        $photo = Photo::findOrFail($photoId);
+        Storage::delete('public/'.$photo->file_path);
+        $photo->delete();
+
+        return redirect()->back()->with('success', 'Foto Berhasil Dihapus');
+    }
+
 }

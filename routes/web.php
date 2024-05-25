@@ -92,10 +92,12 @@ Route::get('/admin/dashboard', [DashboardController::class, 'dashboard'])->name(
 
 Route::get      ('/admin/dashboard/car-units', [CarUnitController::class, 'index'])->name('dashboard.car-units');
 Route::post     ('/admin/dashboard/car-units/add', [CarUnitController::class, 'store'])->name('dashboard.car-units.add');
-Route::get      ('/admin/dashboard/car-units/{carUnitId}/upload', [PhotoController::class, 'index']);
-Route::post     ('/admin/dashboard/car-units/{carUnitId}/upload', [PhotoController::class, 'store']);
+Route::get      ('/admin/dashboard/car-units/{carUnitId}/upload', [PhotoController::class, 'index'])->name('dashboard.car-units-photos');
+Route::post     ('/admin/dashboard/car-units/{carUnitId}/upload-photos', [PhotoController::class, 'store']);
 Route::delete   ('/admin/dashboard/car-units/{id}/delete', [CarUnitController::class, 'destroy']);
 Route::put      ('/admin/dashboard/car-units/{id}/update', [CarUnitController::class, 'update']);
+Route::delete   ('admin/dashboard/car-units/{carUnitId}/photos/{photoId}', [PhotoController::class, 'deletePhoto'])->name('car-units.photos.delete');
+
 
 Route::get      ('/admin/dashboard/categories', [CategoryController::class, 'index'])->name('dashboard.categories');
 Route::post     ('/admin/dashboard/categories/add', [CategoryController::class, 'store'])->name('dashboard.categories.add');
