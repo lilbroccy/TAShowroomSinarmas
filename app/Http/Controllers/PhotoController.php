@@ -39,7 +39,7 @@ class PhotoController extends Controller
             Photo::create($data);
         }
 
-        return redirect()->route('dashboard.car-units');
+        return redirect()->back()->with('success', 'Foto Berhasil Diupload');
     }
 
     public function deletePhoto($carUnitId, $photoId)
