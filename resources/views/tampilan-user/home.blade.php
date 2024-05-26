@@ -30,13 +30,6 @@
             <div class="col-md-12">
                 <div class="section-title">
                     <h3 class="title">{{ $category->name }}</h3>
-                    <div class="section-nav">
-                        <ul class="section-tab-nav tab-nav">
-                            <li class="active"><a data-toggle="tab" href="#tab{{ $category->id }}-1">All Stock</a></li>
-                            <li><a data-toggle="tab" href="#tab{{ $category->id }}-2">Favorites</a></li>
-                            <li><a data-toggle="tab" href="#tab{{ $category->id }}-3">New Stock</a></li>
-                        </ul>
-                    </div>
                     <div class="cars-tabs">
 						<div id="tab{{ $category->id }}-1" class="tab-pane active">
 							<div class="cars-slick" data-nav="#slick-nav-{{ $category->id }}-1">
@@ -51,13 +44,6 @@
 											<p class="car-category">{{ $carUnit->brand->name }} - {{ $carUnit->transmission }} - {{ $carUnit->fuel_type }}</p>
 											<h3 class="car-name"><a href="{{ route('car.detail', ['id' => $carUnit->id]) }}">{{ $carUnit->name }}</a></h3>
 											<h4 class="car-price">Rp. {{ number_format($carUnit->price, 0, ',', '.') }}</h4>
-											<!-- <div class="car-rating">
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-											</div> -->
 											<div class="car-btns">
                                             <button class="add-to-wishlist" data-car-unit-id="{{ $carUnit->id }}" title="Tambahkan ke Wishlist">
                                                 <i class="fa fa-heart-o"></i>
@@ -75,6 +61,26 @@
             </div>
         </div>
 		@endforeach
+    </div>
+</div>
+<div class="section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="sell-car-box">
+                    <div class="sell-car-content">
+                        <div class="sell-car-text">
+                            <h2>Ingin Menjual Mobil Anda?</h2>
+                            <p>Ajukan penitipan pada kami dan dapatkan penawaran terbaik.</p>
+                        </div>
+                        <i class="fa fa-car fa-3x sell-car-icon"></i>
+                    </div>
+                    <div class="text-center">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahModal">Ajukan Penitipan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <div class="section">
@@ -110,7 +116,125 @@
         </div>
     </div>
 </div>
-
+<div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="tambahModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tambahModalLabel">Form Penitipan Mobil</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="tambahModalForm">
+                @csrf
+                <div class="form-group">
+                        <label for="name">Nama Mobil:</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="brand_id">Brand:</label>
+                        <select class="form-control" id="brand_id" name="brand_id" required>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="category_id">Kategori:</label>
+                        <select class="form-control" id="category_id" name="category_id" required>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Harga:</label>
+                        <input type="text" class="form-control" id="price" name="price" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="year">Tahun:</label>
+                        <input type="text" class="form-control" id="year" name="year" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fuel_type">Tipe Bahan Bakar:</label>
+                        <select class="form-control" id="fuel_type" name="fuel_type" required>
+                            <option value="" disabled selected>-- Pilih Opsi --</option>
+                            @foreach(\App\Models\CarUnit::FUEL_TYPE_OPTIONS as $option)
+                                <option value="{{ $option }}">{{ $option }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="transmission">Transmisi:</label>
+                        <select class="form-control" id="transmission" name="transmission" required>
+                            <option value="" disabled selected>-- Pilih Opsi --</option>
+                            @foreach(\App\Models\CarUnit::TRANSMISSION_OPTIONS as $option)
+                                <option value="{{ $option }}">{{ $option }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="seat">Jumlah Kursi:</label>
+                        <input type="text" class="form-control" id="seat" name="seat" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="warranty">Garansi:</label>
+                        <input type="text" class="form-control" id="warranty" name="warranty" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="color">Warna:</label>
+                        <input type="text" class="form-control" id="color" name="color" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mileage">Jarak Tempuh:</label>
+                        <input type="text" class="form-control" id="mileage" name="mileage" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="engine_cc">CC Mesin:</label>
+                        <input type="text" class="form-control" id="engine_cc" name="engine_cc" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="service_book">Buku Service:</label>
+                        <select class="form-control" id="service_book" name="service_book" required>
+                            <option disabled selected>--Pilih Opsi--</option>
+                            <option value="1">Ya</option>
+                            <option value="0">Tidak</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="spare_key">Kunci Cadangan:</label>
+                        <select class="form-control" id="spare_key" name="spare_key" required>
+                            <option disabled selected>--Pilih Opsi--</option>
+                            <option value="1">Ya</option>
+                            <option value="0">Tidak</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="unit_document">Dokumen Unit:</label>
+                        <select class="form-control" id="unit_document" name="unit_document" required>
+                            <option disabled selected>--Pilih Opsi--</option>
+                            <option value="1">Ya</option>
+                            <option value="0">Tidak</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="stnk_validity_period">Masa Berlaku STNK:</label>
+                        <input type="text" class="form-control" id="stnk_validity_period" name="stnk_validity_period" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Deskripsi:</label>
+                        <textarea class="form-control" id="description" name="description" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="photos">Foto Mobil:</label>
+                        <input type="file" class="form-control-file" id="photos" name="photos[]" multiple accept="image/*">
+                        <small class="form-text text-muted">Pilih beberapa foto (maksimal 12) dengan menekan tombol Ctrl (Cmd untuk Mac) saat memilih.</small>
+                    </div>
+                    <div class="row mb-3" id="selectedPhotos"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary float-end" data-dismiss="modal">Batal</button>
+                        <button type="button" class="btn btn-primary float-end ms-2" id="simpanButton">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @section('js')
 <script src="{{ asset('user/modal/logout.js') }}"></script>
@@ -124,55 +248,18 @@
         });
     });
 </script>
-@if(session('success'))
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Email berhasil diverifikasi!',
-            text: '{{ session('success') }}',
-            showConfirmButton: false,
-            timer: 3000 // 3 detik
-        });
-    </script>
-@endif
-<script>
-    $(document).ready(function() {
-        $('.add-to-wishlist').on('click', function() {
-            var carUnitId = $(this).data('car-unit-id');
 
-            $.ajax({
-                url: '{{ route("wishlist.add") }}',
-                method: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    car_unit_id: carUnitId
-                },
-                success: function(response) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Berhasil!',
-                        text: response.message,
-                    }).then(() => {
-                        location.reload(); // Refresh after alert
-                    });
-                },
-                error: function(xhr) {
-                    if (xhr.status === 401) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Gagal!',
-                            text: 'Anda harus login untuk menambahkan ke wishlist.',
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Gagal!',
-                            text: 'Terjadi kesalahan. Silakan coba lagi.',
-                        });
-                    }
-                }
-            });
-        });
+@if(session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Email berhasil diverifikasi!',
+        text: '{{ session('success') }}',
+        showConfirmButton: false,
+        timer: 3000
     });
 </script>
+@endif
+<script src="{{ asset('user/modal/pengajuan.js') }}"></script>
 @endsection
+

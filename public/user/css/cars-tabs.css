@@ -10,7 +10,7 @@
 
 .car {
     position:relative;
-    width: calc(33.3% - 20px); 
+    width: calc(25% - 20px); 
     margin-right: 20px; 
     margin-bottom: 20px;
     background-color: #fff;
@@ -116,6 +116,65 @@
 
 .cars-slick-nav button.active {
     color: #006888;
+}
+
+.sell-car-box {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 30px;
+    text-align: left;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+.sell-car-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.sell-car-icon {
+    color: #007bff; /* Warna ikon, sesuaikan dengan kebutuhan Anda */
+}
+
+.sell-car-text {
+    flex-grow: 1;
+}
+
+.sell-car-box h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.sell-car-box p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.sell-car-box .btn {
+    font-size: 18px;
+    padding: 10px 30px;
+}
+
+#selectedPhotos {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.selected-photo {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.selected-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 @media (max-width: 768px) {

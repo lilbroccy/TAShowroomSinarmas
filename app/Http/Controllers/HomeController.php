@@ -17,7 +17,9 @@ class HomeController extends Controller
     //
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::whereHas('carUnits', function($query) {
+            $query->where('status', 'Tersedia');
+        })->get();
         $carUnits = CarUnit::all();
 
         foreach ($carUnits as $carUnit) {

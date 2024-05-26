@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Photos;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\User;
 
 class CarUnit extends Model
 {
@@ -18,6 +19,7 @@ class CarUnit extends Model
         'price',
         'brand_id',
         'category_id',
+        'user_id',
         'year',
         'fuel_type',
         'transmission',
@@ -31,6 +33,9 @@ class CarUnit extends Model
         'unit_document',
         'stnk_validity_period',
         'description',
+        'status',
+        'type',
+        'type_status',
     ];
 
     public function photos()
@@ -48,5 +53,10 @@ class CarUnit extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

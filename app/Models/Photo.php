@@ -13,7 +13,6 @@ class Photo extends Model
     protected $fillable = [
         'car_unit_id',
         'file_path',
-        // Tambahkan atribut lain yang sesuai dengan struktur tabel photos
     ];
 
     public function carUnit()

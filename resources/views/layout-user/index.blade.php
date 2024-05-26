@@ -16,6 +16,74 @@
     <link href="{{ asset('user/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/magnific-popup/magnific-popup.css') }}" rel="stylesheet">
+    <style>
+        .header-ctn {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .header-ctn div {
+            text-align: center;
+        }
+
+        .header-ctn a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .header-ctn i {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .header-ctn .qty {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+        }
+        .header-ctn {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .header-ctn div {
+            text-align: center;
+        }
+
+        .header-ctn a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .header-ctn i {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .header-ctn .qty {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+        }
+        </style>
 	<script type="text/javascript">
 		window.$crisp=[];window.CRISP_WEBSITE_ID="6b24d404-7b54-4702-9b58-c1ffd1d7c153";
 		(function(){
@@ -129,19 +197,16 @@
 								<div class="qty">{{ $totalWishlist }}</div>
 							</a>
 						</div>
-						<!-- Modal -->
-
-
                         <div>
                             <a href="#" id="jadwalLink">
                                 <i class="fa fa-calendar"></i>
                                 <span>Jadwal Anda</span>
                             </a>
                         </div>
-                        <div class="menu-toggle">
-                            <a href="#">
-                                <i class="fa fa-bars"></i>
-                                <span>Menu</span>
+                        <div>
+                            <a href="#" id="jadwalLink">
+                                <i class="fa fa-car"></i>
+                                <span>Mobil Titipan</span>
                             </a>
                         </div>
                     </div>
@@ -301,13 +366,7 @@
             var userName = '{{ Auth::user()->name }}';
             var userEmail = '{{ Auth::user()->email }}';
             var userPhone = '{{ Auth::user()->phone }}';
-            // Perform actions with user data
-            console.log("User Name:", userName);
-            console.log("User Email:", userEmail);
-            console.log("User Phone:", userPhone);
-        @else
-            console.log("User is not authenticated.");
-        @endauth
+            @endauth
             Swal.fire({
                 title: 'Your Profile',
                 html: `

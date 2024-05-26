@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('price');
             $table->unsignedBigInteger('brand_id');
             $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->integer('year');
             $table->enum('fuel_type', ['Diesel', 'Bensin', 'Listrik']);
             $table->enum('transmission', ['Manual', 'Automatic', 'CVT', 'DCT', 'AMT']);
@@ -31,10 +32,13 @@ return new class extends Migration
             $table->string('stnk_validity_period');
             $table->text('description')->nullable();
             $table->enum('status', ['Tersedia', 'Terjual'])->default('Tersedia');
+            $table->enum('type', ['Titipan', 'Bukan Titipan'])->default('Bukan Titipan');
+            $table->enum('type_status', ['Menunggu Verifikasi', 'Disetujui', 'Ditolak', 'Tersedia'])->default('Tersedia');
             $table->timestamps();
 
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
