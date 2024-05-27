@@ -38,43 +38,6 @@ $(document).ready(function() {
         });
     }
 
-    $('.add-to-wishlist').on('click', function() {
-        var carUnitId = $(this).data('car-unit-id');
-
-        $.ajax({
-            url: '{{ route("wishlist.add") }}',
-            method: 'POST',
-            data: {
-                _token: '{{ csrf_token() }}',
-                car_unit_id: carUnitId
-            },
-            success: function(response) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Berhasil!',
-                    text: response.message,
-                }).then(() => {
-                    location.reload();
-                });
-            },
-            error: function(xhr) {
-                if (xhr.status === 401) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Gagal!',
-                        text: 'Anda harus login untuk menambahkan ke wishlist.',
-                    });
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Gagal!',
-                        text: 'Terjadi kesalahan. Silakan coba lagi.',
-                    });
-                }
-            }
-        });
-    });
-
     function previewPhotos(input) {
         var selectedPhotosContainer = document.getElementById('selectedPhotos');
         selectedPhotosContainer.innerHTML = '';

@@ -76,7 +76,11 @@
                         <i class="fa fa-car fa-3x sell-car-icon"></i>
                     </div>
                     <div class="text-center">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahModal">Ajukan Penitipan</button>
+                        @auth
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahModal">Ajukan Penitipan</button>
+                        @else
+                            <button type="button" class="btn btn-primary" id="login-alert-button">Ajukan Penitipan</button>
+                        @endauth
                     </div>
                 </div>
             </div>
@@ -261,5 +265,64 @@
 </script>
 @endif
 <script src="{{ asset('user/modal/pengajuan.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('#login-alert-button').click(function() {
+            Swal.fire({
+                title: 'Anda harus login terlebih dahulu untuk mengajukan mobil',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Login',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "{{ route('login') }}";
+                }
+            });
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('.add-to-wishlist').click(function() {
+            var carUnitId = $(this).data('car-unit-id');
+            
+            $.ajax({
+                type: "POST",
+                url: "{{ route('wishlist.add') }}",
+                data: {
+                    car_unit_id: carUnitId,
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    Swal.fire({
+                        title: 'Berhasil!',
+                        text: response.message,
+                        icon: 'success'
+                    }).then(() => {
+                        location.reload(); // Reload halaman setelah menampilkan pesan sukses
+                    });
+                },
+                error: function(xhr) {
+                    if (xhr.status === 401) {
+                        Swal.fire({
+                            title: 'Gagal!',
+                            text: 'Anda harus login untuk menambahkan ke wishlist',
+                            icon: 'error'
+                        }).then(() => {
+                            window.location.href = "{{ route('login') }}";
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Gagal!',
+                            text: 'Terjadi kesalahan. Silakan coba lagi.',
+                            icon: 'error'
+                        });
+                    }
+                }
+            });
+        });
+    });
+</script>
 @endsection
 
