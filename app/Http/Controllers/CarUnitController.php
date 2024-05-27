@@ -25,7 +25,6 @@ class CarUnitController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi data yang diterima dari formulir
         $validatedData = $request->validate([
             'name' => 'required|string',
             'brand_id' => 'required|exists:brands,id',

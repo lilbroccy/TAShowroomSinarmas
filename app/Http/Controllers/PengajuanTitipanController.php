@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\CarUnit;
 use App\Models\Photo;
+use App\Models\Brand;
+use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
 
 class PengajuanTitipanController extends Controller
@@ -64,4 +66,13 @@ class PengajuanTitipanController extends Controller
         }
         return response()->json(['message' => 'Data mobil berhasil disimpan!']);
     }
+
+    public function index()
+    {
+        $carUnits = CarUnit::where('type', 'Titipan')->get();
+        $brands = Brand::all();
+        $categories = Category::all();
+        return view('tampilan-admin.mobil-titipan', compact('carUnits', 'brands', 'categories'));
+    }
+
 }
