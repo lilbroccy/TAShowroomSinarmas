@@ -17,7 +17,7 @@ class CarUnitController extends Controller
      */
     public function index()
     {
-        $carUnits = CarUnit::all();
+        $carUnits = CarUnit::where('type', 'Bukan Titipan')->get();
         $brands = Brand::all();
         $categories = Category::all();
         return view('tampilan-admin.car-units', compact('carUnits', 'brands', 'categories'));

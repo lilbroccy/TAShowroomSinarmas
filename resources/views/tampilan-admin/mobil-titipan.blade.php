@@ -49,11 +49,14 @@
                                 <thead>
                                     <tr>
                                     <th>No</th>
-                                    <th>Nama Mobil</th>
                                     <th>Nama Penitip</th>
+                                    <th>Nama Mobil</th>
+                                    <th>Brand</th>
+                                    <th>Kategori</th>
                                     <th>Harga</th>
                                     <th>Deskripsi</th>
-                                    <th>Status</th>
+                                    <th>Status Penitipan</th>
+                                    <th>Status Unit</th>
                                     <th style="text-align: center;">Aksi</th>
                                     </tr>
                                 </thead>
@@ -64,27 +67,48 @@
                                 @foreach ($carUnits as $carUnit)
                                 <tr>
                                 <td>{{ $no++ }}</td>
-                                <td>{{ $carUnit->name }}</td>
                                 <td>{{ $carUnit->user->name }}</td>
+                                <td>{{ $carUnit->name }}</td>
+                                <td>{{ $carUnit->brand->name }}</td>
+                                <td>{{ $carUnit->category->name }}</td>
                                 <td>{{ $carUnit->price }}</td>
                                 <td>{{ $carUnit->description }}</td>
-                                <td>
+                                <td class="text-center">
                                     @if($carUnit->type_status == 'Menunggu Verifikasi')
+                                        <span style="background-color: #888888; color: #ffffff; border-radius: 0.5rem; padding: 0.25rem 0.5rem; font-weight: bold; font-size: 0.75rem;">
+                                            {{ $carUnit->type_status }}
+                                        </span>
+                                    @elseif($carUnit->type_status == 'Disetujui')
                                         <span style="background-color: #34D399; color: #ffffff; border-radius: 0.5rem; padding: 0.25rem 0.5rem; font-weight: bold; font-size: 0.75rem;">
                                             {{ $carUnit->type_status }}
                                         </span>
-                                    @elseif($carUnit->type_status == '')
-                                        <span style="background-color: #FF5F5F; color: #ffffff; border-radius: 0.5rem; padding: 0.25rem 0.5rem; font-weight: bold; font-size: 0.75rem;">
-                                            {{ $carUnit->type_status }}
+                                    @elseif($carUnit->type_status == 'Ditolak')
+                                    <span style="background-color: #ff0000; color: #ffffff; border-radius: 0.5rem; padding: 0.25rem 0.5rem; font-weight: bold; font-size: 0.75rem;">
+                                        {{ $carUnit->type_status }}
+                                    </span>
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    @if($carUnit->status == 'Tersedia')
+                                        <span style="background-color: #34D399; color: #ffffff; border-radius: 0.5rem; padding: 0.25rem 0.5rem; font-weight: bold; font-size: 0.75rem;">
+                                            {{ $carUnit->status }}
                                         </span>
+                                    @elseif($carUnit->status == 'Terjual' | $carUnit->status == 'Ditolak')
+                                    <span style="background-color: #ff0000; color: #ffffff; border-radius: 0.5rem; padding: 0.25rem 0.5rem; font-weight: bold; font-size: 0.75rem;">
+                                        {{ $carUnit->status }}
+                                    </span>
+                                    @elseif($carUnit->status == 'Menunggu Verifikasi')
+                                    <span style="background-color: #888888; color: #ffffff; border-radius: 0.5rem; padding: 0.25rem 0.5rem; font-weight: bold; font-size: 0.75rem;">
+                                        {{ $carUnit->status }}
+                                    </span>
                                     @endif
                                 </td>
                                 <td class="text-center">
                                     <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#detailModal{{ $carUnit->id }}" title="Detail Data Mobil">
                                         <i class="fas fa-eye"></i>
                                     </button>
-                                    <button class="btn btn-warning btn-sm updateBtn" data-carunitid="{{ $carUnit->id }}" data-carunitname="{{ $carUnit->name }}" title="Edit Data Mobil">
-                                        <i class="fas fa-edit"></i>
+                                    <button class="btn btn-warning btn-sm optionBtn" data-carunitid="{{ $carUnit->id }}" data-carunitname="{{ $carUnit->name }}" title="Opsi">
+                                        <i class="fas fa-cogs"></i>
                                     </button>
                                     <button class="btn btn-danger btn-sm deleteBtn" data-carunitid="{{ $carUnit->id }}" data-carunitname="{{ $carUnit->name }}" title="Hapus Data Mobil">
                                         <i class="fas fa-trash"></i>
@@ -228,78 +252,78 @@
                                                     <!-- Kolom pertama -->
                                                     <div class="mb-3">
                                                         <strong>Nama Penitip:</strong>
-                                                        <p>{{ $carUnit->user->name }}</p>
+                                                        <p style="border-bottom: 1px solid #ccc;" class="user" data-id="{{ $carUnit->user->id }}">{{ $carUnit->user->name }}</p>
                                                     </div>
                                                     <div class="mb-3">
                                                         <strong>Nomor HP/WA Penitip:</strong>
-                                                        <p>{{ $carUnit->user->phone }}</p>
+                                                        <p style="border-bottom: 1px solid #ccc;" class="whatsapp-link" data-phone="{{ $carUnit->user->phone }}">{{ $carUnit->user->phone }}</p>
                                                     </div>
                                                     <div class="mb-3">
                                                         <strong>Nama:</strong>
-                                                        <p>{{ $carUnit->name }}</p>
+                                                        <p style="border-bottom: 1px solid #ccc;">{{ $carUnit->name }}</p>
                                                     </div>
                                                     <div class="mb-3">
                                                         <strong>Brand:</strong>
-                                                        <p>{{ $brands->firstWhere('id', $carUnit->brand_id)->name }}</p>
+                                                        <p style="border-bottom: 1px solid #ccc;">{{ $brands->firstWhere('id', $carUnit->brand_id)->name }}</p>
                                                     </div>
                                                     <div class="mb-3">
                                                         <strong>Kategori:</strong>
-                                                        <p>{{ $categories->firstWhere('id', $carUnit->category_id)->name }}</p>
+                                                        <p style="border-bottom: 1px solid #ccc;">{{ $categories->firstWhere('id', $carUnit->category_id)->name }}</p>
                                                     </div>
                                                     <div class="mb-3">
                                                         <strong>Harga:</strong>
-                                                        <p>{{ $carUnit->price }}</p>
+                                                        <p style="border-bottom: 1px solid #ccc;">{{ $carUnit->price }}</p>
                                                     </div>
                                                     <div class="mb-3">
                                                         <strong>Tahun:</strong>
-                                                        <p>{{ $carUnit->year }}</p>
+                                                        <p style="border-bottom: 1px solid #ccc;">{{ $carUnit->year }}</p>
                                                     </div>
                                                     <div class="mb-3">
                                                         <strong>Tipe Bahan Bakar:</strong>
-                                                        <p>{{ $carUnit->fuel_type }}</p>
+                                                        <p style="border-bottom: 1px solid #ccc;">{{ $carUnit->fuel_type }}</p>
                                                     </div>
                                                     <div class="mb-3">
                                                         <strong>Transmisi:</strong>
-                                                        <p>{{ $carUnit->transmission }}</p>
+                                                        <p style="border-bottom: 1px solid #ccc;">{{ $carUnit->transmission }}</p>
                                                     </div>
                                                     <div class="mb-3">
                                                         <strong>Jumlah Kursi:</strong>
-                                                        <p>{{ $carUnit->seat }}</p>
+                                                        <p style="border-bottom: 1px solid #ccc;">{{ $carUnit->seat }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <!-- Kolom kedua -->
                                                     <div class="mb-3">
                                                         <strong>Garansi:</strong>
-                                                        <p>{{ $carUnit->warranty }}</p>
+                                                        <p style="border-bottom: 1px solid #ccc;">{{ $carUnit->warranty }}</p>
                                                     </div>
                                                     <div class="mb-3">
                                                         <strong>Warna:</strong>
-                                                        <p>{{ $carUnit->color }}</p>
+                                                        <p style="border-bottom: 1px solid #ccc;">{{ $carUnit->color }}</p>
                                                     </div>
                                                     <div class="mb-3">
                                                         <strong>Jarak Tempuh:</strong>
-                                                        <p>{{ $carUnit->mileage }}</p>
+                                                        <p style="border-bottom: 1px solid #ccc;">{{ $carUnit->mileage }} km</p>
                                                     </div>
                                                     <div class="mb-3">
                                                         <strong>CC Mesin:</strong>
-                                                        <p>{{ $carUnit->engine_cc }}</p>
+                                                        <p style="border-bottom: 1px solid #ccc;">{{ $carUnit->engine_cc }} cc</p>
                                                     </div>
                                                     <div class="mb-3">
                                                         <strong>Buku Service:</strong>
-                                                        <p>{{ $carUnit->service_book ? 'Ya' : 'Tidak' }}</p>
+                                                        <p style="border-bottom: 1px solid #ccc;">{{ $carUnit->service_book ? 'Ya' : 'Tidak' }}</p>
                                                     </div>
                                                     <div class="mb-3">
                                                         <strong>Kunci Cadangan:</strong>
-                                                        <p>{{ $carUnit->spare_key ? 'Ya' : 'Tidak' }}</p>
+                                                        <p style="border-bottom: 1px solid #ccc;">{{ $carUnit->spare_key ? 'Ya' : 'Tidak' }}</p>
                                                     </div>
                                                     <div class="mb-3">
                                                         <strong>Dokumen Unit:</strong>
-                                                        <p>{{ $carUnit->unit_document ? 'Ya' : 'Tidak' }}</p>
+                                                        <p style="border-bottom: 1px solid #ccc;">{{ $carUnit->unit_document ? 'Ya' : 'Tidak' }}</p>
                                                     </div>
                                                     <div class="mb-3">
                                                         <strong>Masa Berlaku STNK:</strong>
-                                                        <p>{{ $carUnit->stnk_validity_period }}</p>
+                                                        <p style="border-bottom: 1px solid #ccc;">{{ $carUnit->stnk_validity_period }}</p>
                                                     </div>
                                                     <div class="mb-3">
                                                         <strong>Deskripsi:</strong>
@@ -310,7 +334,9 @@
                                                     <strong>Foto:</strong>
                                                     <div class="position-relative">
                                                         @foreach($carUnit->photos as $photo)
-                                                            <img src="{{ asset('storage/'.$photo->file_path) }}" alt="Foto Mobil" class="img-thumbnail" style="width: 200px;">
+                                                            <a href="{{ asset('storage/'.$photo->file_path) }}">
+                                                                <img src="{{ asset('storage/'.$photo->file_path) }}" alt="Foto Mobil" class="img-thumbnail" style="width: 200px;">
+                                                            </a>
                                                         @endforeach
                                                     </div>
                                                 </div>
@@ -322,8 +348,31 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="modal fade" id="userProfileModal{{ $carUnit->user->id }}" role="dialog" tabindex="-1" aria-labelledby="userProfileModalLabel{{ optional($carUnit->user)->id }}" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="userProfileModalLabel{{ optional($carUnit->user)->id }}">Profil Pengguna</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                        <p style="color: black;"><b>Nama: </b>{{ optional($carUnit->user)->name ?? 'Guest' }}</p>
+                                        <p style="color: black;"><b>Nomor Telepon: </b>
+                                            <span style="background-color: #00d885; color: white; padding: 4px 8px; border-radius: 10px; font-weight: bold;">
+                                                {{ optional($carUnit->user)->phone ?? '-' }}
+                                                <i class="fa fa-whatsapp" style="margin-left: 5px;"></i>
+                                            </span>
+                                        </p>
+                                        <p style="color: black;"><b>Email: </b>
+                                            <span style="background-color: #448fff; color: white; padding: 4px 8px; border-radius: 10px; font-weight: bold;">
+                                                {{ optional($carUnit->user)->email ?? '-' }}
+                                            </span>
+                                        </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             @endforeach
-
                             <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -365,6 +414,83 @@
     } );
     })
 </script>
-<script src="{{ asset('admin/modal/car-units.js') }}"></script>
+<script>
+    $(document).ready(function() {
+    $('.user').click(function() {
+        var userId = $(this).data('id');
+        $('[id^="detailModal"]').modal('hide');
+        $('#userProfileModal' + userId).modal('show');
+    });
+    $('.whatsapp-link').click(function(e) {
+        e.preventDefault();
+        var phoneNumber = $(this).data('phone');
+        phoneNumber = phoneNumber.replace(/^0/, '62');
+        var url = 'https://wa.me/' + phoneNumber;
+        window.open(url, '_blank');
+    });
+
+    $('.optionBtn').click(function() {
+        var carUnitId = $(this).data('carunitid');
+        var carUnitName = $(this).data('carunitname');
+        Swal.fire({
+            title: 'Silahkan pilih opsi untuk permintaan penitipan ini',
+            icon: 'info',
+            showCancelButton: true,
+            showCloseButton: true, // Menampilkan tombol close
+            confirmButtonText: 'Setujui',
+            cancelButtonText: 'Tolak',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: "/ubah-status-car-unit",
+                    data: {
+                        carUnitId: carUnitId,
+                        status: 'Tersedia',
+                        type_status: 'Disetujui',
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(response) {
+                        Swal.fire({
+                            title: 'Permintaan disetujui!',
+                            icon: 'success',
+                            showCloseButton: true
+                        }).then((result) => {
+                            location.reload();
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        Swal.fire('Terjadi kesalahan', 'Gagal memproses permintaan.', 'error');
+                    }
+                });
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                $.ajax({
+                    type: "POST",
+                    url: "/ubah-status-car-unit",
+                    data: {
+                        carUnitId: carUnitId,
+                        status: 'Ditolak',
+                        type_status: 'Ditolak',
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(response) {
+                        Swal.fire({
+                            title: 'Permintaan penitipan ditolak!',
+                            icon: 'error',
+                            showCloseButton: true
+                        }).then((result) => {
+                            location.reload();
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        Swal.fire('Terjadi kesalahan', 'Gagal memproses permintaan.', 'error');
+                    }
+                });
+            }
+        });
+    });
+});
+</script>
+<!-- <script src="{{ asset('admin/modal/car-units.js') }}"></script> -->
 @endsection
 

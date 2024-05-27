@@ -27,6 +27,7 @@
                                     <th>No</th>
                                     <th>Nama Mobil</th>
                                     <th>Harga Mobil</th>
+                                    <th>Status Mobil</th>
                                     <th>Nama Pembeli</th>
                                     <th>No HP</th>
                                     <th>Sistem Pembayaran</th>
@@ -43,6 +44,7 @@
                             <td>{{ $no++ }}</td>
                             <td>{{ $sale->carUnit->name }}</td>
                             <td>{{ $sale->carUnit->price }}</td>
+                            <td>{{ $sale->carUnit->type }}</td>
                             <td>{{ $sale->customer_name }}</td>
                             <td>{{ $sale->customer_phone }}</td>
                             <td>{{ $sale->payment_method }}</td>

@@ -46,6 +46,7 @@ class PengajuanTitipanController extends Controller
         $carUnit = new CarUnit();
         $carUnit->fill($validatedData);
         $carUnit->user_id = $user_id;
+        $carUnit->status = 'Menunggu Verifikasi';
         $carUnit->type = 'Titipan';
         $carUnit->type_status = 'Menunggu Verifikasi';
         $carUnit->save();
@@ -75,4 +76,21 @@ class PengajuanTitipanController extends Controller
         return view('tampilan-admin.mobil-titipan', compact('carUnits', 'brands', 'categories'));
     }
 
+    public function changeStatus(Request $request)
+    {
+        $carUnitId = $request->input('carUnitId');
+        $status = $request->input('status');
+        $type_status = $request->input('type_status');
+
+        $carUnit = CarUnit::find($carUnitId);
+        if ($carUnit) {
+            $carUnit->status = $status;
+            $carUnit->type_status = $type_status;
+            $carUnit->save();
+
+            return response()->json(['message' => 'Status berhasil diubah'], 200);
+        } else {
+            return response()->json(['message' => 'Car Unit tidak ditemukan'], 404);
+        }
+    }
 }

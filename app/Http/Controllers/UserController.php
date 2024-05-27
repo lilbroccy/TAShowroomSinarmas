@@ -20,6 +20,7 @@ class UserController extends Controller
         $user = Auth::user();
         $user->name = $request->input('name');
         $user->phone = $request->input('phone');
+        $user->address = $request->input('address');
         $user->save();
 
         return response()->json(['message' => 'Profile updated successfully.']);
@@ -44,6 +45,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|max:255',
             'phone' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
             'role' => 'required',
         ]);
         $user->update($request->all());

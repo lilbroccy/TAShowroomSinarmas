@@ -366,21 +366,26 @@
             var userName = '{{ Auth::user()->name }}';
             var userEmail = '{{ Auth::user()->email }}';
             var userPhone = '{{ Auth::user()->phone }}';
+            var userAddress = '{{ Auth::user()->address }}';
             @endauth
             Swal.fire({
                 title: 'Your Profile',
                 html: `
                     <div>
-                        <label for="swal-input-name"><i class="fa fa-user"></i> Name</label>
+                        <label for="swal-input-name"><i class="fa fa-user"></i>Nama</label>
                         <input type="text" id="swal-input-name" class="swal2-input" placeholder="Name" value="${userName}">
                     </div>
                     <div>
-                        <label for="swal-input-email"><i class="fa fa-envelope"></i> Email</label>
+                        <label for="swal-input-email"><i class="fa fa-envelope"></i>Email</label>
                         <input type="email" id="swal-input-email" class="swal2-input" placeholder="Email" value="${userEmail}" readonly>
                     </div>
                     <div>
-                        <label for="swal-input-phone"><i class="fa fa-phone"></i> Phone</label>
+                        <label for="swal-input-phone"><i class="fa fa-phone"></i>No.HP</label>
                         <input type="text" id="swal-input-phone" class="swal2-input" placeholder="Phone" value="${userPhone}">
+                    </div>
+                    <div>
+                        <label for="swal-input-address"><i class="fa fa-home"></i>Alamat</label>
+                        <input type="text" id="swal-input-address" class="swal2-input" placeholder="Address" value="${userAddress}">
                     </div>
                 `,
                 focusConfirm: false,
@@ -389,7 +394,8 @@
                 preConfirm: () => {
                     return {
                         name: document.getElementById('swal-input-name').value,
-                        phone: document.getElementById('swal-input-phone').value
+                        phone: document.getElementById('swal-input-phone').value,
+                        address: document.getElementById('swal-input-address').value                      
                     }
                 }
             }).then((result) => {
@@ -400,7 +406,8 @@
                         data: {
                             _token: '{{ csrf_token() }}',
                             name: result.value.name,
-                            phone: result.value.phone
+                            phone: result.value.phone,
+                            address: result.value.address
                         },
                         success: function(response) {
                             Swal.fire({

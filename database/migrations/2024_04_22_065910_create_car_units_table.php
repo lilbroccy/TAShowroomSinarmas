@@ -31,7 +31,7 @@ return new class extends Migration
             $table->boolean('unit_document');
             $table->string('stnk_validity_period');
             $table->text('description')->nullable();
-            $table->enum('status', ['Tersedia', 'Terjual'])->default('Tersedia');
+            $table->enum('status', ['Tersedia', 'Terjual', 'Menunggu Verifikasi', 'Ditolak'])->default('Tersedia');
             $table->enum('type', ['Titipan', 'Bukan Titipan'])->default('Bukan Titipan');
             $table->enum('type_status', ['Menunggu Verifikasi', 'Disetujui', 'Ditolak', 'Tersedia'])->default('Tersedia');
             $table->timestamps();
