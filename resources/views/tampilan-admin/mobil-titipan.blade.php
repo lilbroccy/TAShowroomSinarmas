@@ -20,6 +20,13 @@
     .img-thumbnail:hover {
         transform: scale(1.1);
     }
+    
+    .mfp-bg {
+        z-index: 1060;
+    }
+    .mfp-wrap {
+        z-index: 1060;
+    }
 
 </style>
 
@@ -54,7 +61,6 @@
                                     <th>Brand</th>
                                     <th>Kategori</th>
                                     <th>Harga</th>
-                                    <th>Deskripsi</th>
                                     <th>Status Penitipan</th>
                                     <th>Status Unit</th>
                                     <th style="text-align: center;">Aksi</th>
@@ -71,8 +77,7 @@
                                 <td>{{ $carUnit->name }}</td>
                                 <td>{{ $carUnit->brand->name }}</td>
                                 <td>{{ $carUnit->category->name }}</td>
-                                <td>{{ $carUnit->price }}</td>
-                                <td>{{ $carUnit->description }}</td>
+                                <td>Rp. {{ number_format($carUnit->price, 0, ',', '.') }}</td>
                                 <td class="text-center">
                                     @if($carUnit->type_status == 'Menunggu Verifikasi')
                                         <span style="background-color: #888888; color: #ffffff; border-radius: 0.5rem; padding: 0.25rem 0.5rem; font-weight: bold; font-size: 0.75rem;">
@@ -239,115 +244,77 @@
 
                             <!-- Modal Detail -->
                             @foreach ($carUnits as $carUnit)
-                            <div class="modal fade" id="detailModal{{ $carUnit->id }}" tabindex="-1" aria-labelledby="detailModalLabel{{ $carUnit->id }}" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="detailModalLabel{{ $carUnit->id }}">Detail Mobil {{ $carUnit->name }}</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <!-- Kolom pertama -->
-                                                    <div class="mb-3">
-                                                        <strong>Nama Penitip:</strong>
-                                                        <p style="border-bottom: 1px solid #ccc;" class="user" data-id="{{ $carUnit->user->id }}">{{ $carUnit->user->name }}</p>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <strong>Nomor HP/WA Penitip:</strong>
-                                                        <p style="border-bottom: 1px solid #ccc;" class="whatsapp-link" data-phone="{{ $carUnit->user->phone }}">{{ $carUnit->user->phone }}</p>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <strong>Nama:</strong>
-                                                        <p style="border-bottom: 1px solid #ccc;">{{ $carUnit->name }}</p>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <strong>Brand:</strong>
-                                                        <p style="border-bottom: 1px solid #ccc;">{{ $brands->firstWhere('id', $carUnit->brand_id)->name }}</p>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <strong>Kategori:</strong>
-                                                        <p style="border-bottom: 1px solid #ccc;">{{ $categories->firstWhere('id', $carUnit->category_id)->name }}</p>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <strong>Harga:</strong>
-                                                        <p style="border-bottom: 1px solid #ccc;">{{ $carUnit->price }}</p>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <strong>Tahun:</strong>
-                                                        <p style="border-bottom: 1px solid #ccc;">{{ $carUnit->year }}</p>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <strong>Tipe Bahan Bakar:</strong>
-                                                        <p style="border-bottom: 1px solid #ccc;">{{ $carUnit->fuel_type }}</p>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <strong>Transmisi:</strong>
-                                                        <p style="border-bottom: 1px solid #ccc;">{{ $carUnit->transmission }}</p>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <strong>Jumlah Kursi:</strong>
-                                                        <p style="border-bottom: 1px solid #ccc;">{{ $carUnit->seat }}</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <!-- Kolom kedua -->
-                                                    <div class="mb-3">
-                                                        <strong>Garansi:</strong>
-                                                        <p style="border-bottom: 1px solid #ccc;">{{ $carUnit->warranty }}</p>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <strong>Warna:</strong>
-                                                        <p style="border-bottom: 1px solid #ccc;">{{ $carUnit->color }}</p>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <strong>Jarak Tempuh:</strong>
-                                                        <p style="border-bottom: 1px solid #ccc;">{{ $carUnit->mileage }} km</p>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <strong>CC Mesin:</strong>
-                                                        <p style="border-bottom: 1px solid #ccc;">{{ $carUnit->engine_cc }} cc</p>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <strong>Buku Service:</strong>
-                                                        <p style="border-bottom: 1px solid #ccc;">{{ $carUnit->service_book ? 'Ya' : 'Tidak' }}</p>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <strong>Kunci Cadangan:</strong>
-                                                        <p style="border-bottom: 1px solid #ccc;">{{ $carUnit->spare_key ? 'Ya' : 'Tidak' }}</p>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <strong>Dokumen Unit:</strong>
-                                                        <p style="border-bottom: 1px solid #ccc;">{{ $carUnit->unit_document ? 'Ya' : 'Tidak' }}</p>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <strong>Masa Berlaku STNK:</strong>
-                                                        <p style="border-bottom: 1px solid #ccc;">{{ $carUnit->stnk_validity_period }}</p>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <strong>Deskripsi:</strong>
-                                                        <textarea class="form-control" rows="4" readonly>{{ $carUnit->description }}</textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <strong>Foto:</strong>
-                                                    <div class="position-relative">
-                                                        @foreach($carUnit->photos as $photo)
-                                                            <a href="{{ asset('storage/'.$photo->file_path) }}">
-                                                                <img src="{{ asset('storage/'.$photo->file_path) }}" alt="Foto Mobil" class="img-thumbnail" style="width: 200px;">
-                                                            </a>
-                                                        @endforeach
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                        </div>
-                                    </div>
+    <div class="modal fade" id="detailModal{{ $carUnit->id }}" tabindex="-1" aria-labelledby="detailModalLabel{{ $carUnit->id }}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailModalLabel{{ $carUnit->id }}">Detail Mobil {{ $carUnit->name }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <!-- Kolom pertama -->
+                        <div class="col-md-6">
+                            @foreach ([
+                                'Nama Penitip' => $carUnit->user->name,
+                                'Nomor HP/WA Penitip' => $carUnit->user->phone,
+                                'Nama' => $carUnit->name,
+                                'Brand' => $brands->firstWhere('id', $carUnit->brand_id)->name,
+                                'Kategori' => $categories->firstWhere('id', $carUnit->category_id)->name,
+                                'Harga' => 'Rp. ' . number_format($carUnit->price, 0, ',', '.'),
+                                'Tahun' => $carUnit->year,
+                                'Tipe Bahan Bakar' => $carUnit->fuel_type,
+                                'Transmisi' => $carUnit->transmission,
+                                'Jumlah Kursi' => $carUnit->seat
+                            ] as $label => $value)
+                                <div class="mb-3">
+                                    <strong>{{ $label }}:</strong>
+                                    <p class="border-bottom">{{ $value }}</p>
                                 </div>
+                            @endforeach
+                        </div>
+                        <!-- Kolom kedua -->
+                        <div class="col-md-6">
+                            @foreach ([
+                                'Garansi' => $carUnit->warranty,
+                                'Warna' => $carUnit->color,
+                                'Jarak Tempuh' => $carUnit->mileage . ' km',
+                                'CC Mesin' => $carUnit->engine_cc . ' cc',
+                                'Buku Service' => $carUnit->service_book ? 'Ya' : 'Tidak',
+                                'Kunci Cadangan' => $carUnit->spare_key ? 'Ya' : 'Tidak',
+                                'Dokumen Unit' => $carUnit->unit_document ? 'Ya' : 'Tidak',
+                                'Masa Berlaku STNK' => $carUnit->stnk_validity_period
+                            ] as $label => $value)
+                                <div class="mb-3">
+                                    <strong>{{ $label }}:</strong>
+                                    <p class="border-bottom">{{ $value }}</p>
+                                </div>
+                            @endforeach
+                            <div class="mb-3">
+                                <strong>Deskripsi:</strong>
+                                <textarea class="form-control" rows="4" readonly>{{ $carUnit->description }}</textarea>
                             </div>
+                        </div>
+                        <!-- Foto -->
+                        <div class="col-md-12">
+                            <strong>Foto:</strong>
+                            <div class="d-flex flex-wrap gap-2 mt-2 magnific-gallery">
+                                @foreach($carUnit->photos as $photo)
+                                    <a href="{{ asset('storage/'.$photo->file_path) }}" class="image-link">
+                                        <img src="{{ asset('storage/'.$photo->file_path) }}" alt="Foto Mobil" class="img-thumbnail" style="width: 200px;">
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
                             <div class="modal fade" id="userProfileModal{{ $carUnit->user->id }}" role="dialog" tabindex="-1" aria-labelledby="userProfileModalLabel{{ optional($carUnit->user)->id }}" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -368,6 +335,7 @@
                                                 {{ optional($carUnit->user)->email ?? '-' }}
                                             </span>
                                         </p>
+                                        <p style="color: black;"><b>Alamat: </b>{{ $carUnit->user->address }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -492,5 +460,18 @@
 });
 </script>
 <!-- <script src="{{ asset('admin/modal/car-units.js') }}"></script> -->
+<script>
+    $(document).ready(function() {
+        $('.magnific-gallery').each(function() {
+            $(this).magnificPopup({
+                delegate: 'a',
+                type: 'image',
+                gallery: {
+                    enabled: true
+                }
+            });
+        });
+    });
+</script>
 @endsection
 

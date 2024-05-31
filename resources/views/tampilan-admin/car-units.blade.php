@@ -54,7 +54,7 @@
                                 <tr>
                                 <td>{{ $no++ }}</td>
                                 <td>{{ $carUnit->name }}</td>
-                                <td>{{ $carUnit->price }}</td>
+                                <td>Rp. {{ number_format($carUnit->price, 0, ',', '.') }}</td>
                                 <td>{{ $carUnit->brand->name }}</td>
                                 <td>{{ $carUnit->category->name }}</td>
                                 <td>{{ $carUnit->year }}</td>
@@ -70,7 +70,7 @@
                                 <td>{{ $carUnit->unit_document ? 'Ya' : 'Tidak' }}</td>
                                 <td>{{ $carUnit->stnk_validity_period }}</td>
                                 <td>{{ $carUnit->description }}</td>
-                                <td>
+                                <td style="text-align: center;">
                                     @if($carUnit->status == 'Tersedia')
                                         <span style="background-color: #34D399; color: #ffffff; border-radius: 0.5rem; padding: 0.25rem 0.5rem; font-weight: bold; font-size: 0.75rem;">
                                             {{ $carUnit->status }}
