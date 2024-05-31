@@ -22,13 +22,13 @@ class HomeController extends Controller
         })->get();
         $carUnits = CarUnit::all();
 
-        foreach ($carUnits as $carUnit) {
-            $carUnit->first_photo = $carUnit->photos->isNotEmpty() ? $carUnit->photos->first()->file_path : null;
-        }
         $userId = Auth::id();
         $wishlists = Wishlist::where('user_id', $userId)->get();
         $totalWishlist = $wishlists->count();
-        return view('tampilan-user.home', compact('categories', 'carUnits', 'wishlists', 'totalWishlist'));
+        $carUnitsTitipan = CarUnit::where('type', 'Titipan')->where('user_id', $userId)->get();
+        $totalTitipan = $carUnitsTitipan->count();
+
+        return view('tampilan-user.home', compact('categories', 'carUnits', 'wishlists', 'totalWishlist', 'carUnitsTitipan', 'totalTitipan'));
     }
 
     //get detail sweetalert
@@ -76,7 +76,9 @@ class HomeController extends Controller
         $totalWishlist = $wishlists->count();
         $carUnit = CarUnit::find($id);
         $categories = Category::all();
-        return view('tampilan-user.car-detail', compact('carUnit','categories', 'wishlists', 'totalWishlist'));
+        $carUnitsTitipan = CarUnit::where('type', 'Titipan')->where('user_id', $userId)->get();
+        $totalTitipan = $carUnitsTitipan->count();
+        return view('tampilan-user.car-detail', compact('carUnit','categories', 'wishlists', 'totalWishlist', 'carUnitsTitipan', 'totalTitipan'));
     }
     
 }
