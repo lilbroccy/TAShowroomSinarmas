@@ -20,6 +20,57 @@
         display: none;
         margin-top: 10px;
     }
+
+    .testimonial-box {
+        background-color: #f8f8f8;
+        border: 1px solid #ddd;
+        border-radius: 15px;
+        padding: 20px;
+        margin: 10px;
+        text-align: center;
+    }
+
+    .carousel-inner > .item > div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .carousel-control {
+            width: 5%;
+        }
+
+        .carousel-control .fa-chevron-left,
+        .carousel-control .fa-chevron-right {
+            font-size: 30px;
+            color: #000;
+        }
+
+        .carousel-control.left, .carousel-control.right {
+            background-image: none;
+            top: 65%;
+            transform: translateY(-50%);
+            width: 5%; /* Adjust the width of the control */
+        }
+
+        .carousel-control.left {
+            left: -3%; /* Move the left control outwards */
+        }
+
+        .carousel-control.right {
+            right: -3%; /* Move the right control outwards */
+        }
+
+        .carousel-indicators {
+            bottom: -15px; /* Adjusted to move indicators lower */
+        }
+    .carousel-indicators li {
+        border-color: #000;
+    }
+
+    .carousel-indicators .active {
+        background-color: #000;
+    }
 </style>
 @endsection
 @section('content')
@@ -120,6 +171,67 @@
         </div>
     </div>
 </div>
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h3 class="title">Testimoni</h3>
+                </div>
+                <div id="testimonialCarousel" class="carousel slide" data-ride="carousel">\
+                    <ol class="carousel-indicators">
+                        <li data-target="#testimonialCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#testimonialCarousel" data-slide-to="1"></li>
+                        <li data-target="#testimonialCarousel" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <div class="col-xs-4">
+                                <div class="testimonial-box">
+                                    <p>"Showroom ini benar-benar hebat! Mobil bekas yang saya beli di sini dalam kondisi sangat baik dan pelayanannya luar biasa." - Rizky</p>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="testimonial-box">
+                                    <p>"Proses pembelian sangat mudah dan cepat. Terima kasih Sinarmas Jember!" - Syahrul</p>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="testimonial-box">
+                                    <p>"Rekomendasi terbaik untuk showroom mobil bekas. Kualitas mobilnya top!" - Edi Saputro</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="col-xs-4">
+                                <div class="testimonial-box">
+                                    <p>"Harga yang ditawarkan sangat kompetitif dan layanan pelanggan sangat memuaskan." - Rahmad</p>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="testimonial-box">
+                                    <p>"Sangat puas dengan mobil yang saya beli di sini. Kondisi mobil sangat bagus." - Akbar Maulana</p>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="testimonial-box">
+                                    <p>"Showroom Sinarmas Jember sangat terpercaya. Saya akan kembali lagi untuk pembelian berikutnya." - Daffa Afifi</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="left carousel-control" href="#testimonialCarousel" data-slide="prev">
+                        <span class="fa fa-chevron-left"></span>
+                    </a>
+                    <a class="right carousel-control" href="#testimonialCarousel" data-slide="next">
+                        <span class="fa fa-chevron-right"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="tambahModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
