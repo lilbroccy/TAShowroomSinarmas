@@ -48,6 +48,10 @@
                         href="{{ route ('dashboard.titipan')}}" aria-expanded="false"><i class="me-3 fa fa-car"
                             aria-hidden="true"></i><span class="hide-menu">Data Mobil Titipan</span></a>
                 </li>
+                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                        href="{{ route ('dashboard.sales-titipan')}}" aria-expanded="false"><i class="me-3 fa fa-car"
+                            aria-hidden="true"></i><span class="hide-menu">Data Penjualan Titipan</span></a>
+                </li>
             </ul>
         </nav>
         <div class="text-center mt-3">

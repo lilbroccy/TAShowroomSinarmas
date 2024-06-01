@@ -6,16 +6,19 @@
     .faq {
         margin-top: 20px;
     }
+
     .faq-item {
         border: 1px solid #ddd;
         padding: 15px;
         margin-bottom: 10px;
         border-radius: 5px;
     }
+
     .faq-question {
         cursor: pointer;
         margin: 0;
     }
+
     .faq-answer {
         display: none;
         margin-top: 10px;
@@ -50,19 +53,19 @@
             background-image: none;
             top: 65%;
             transform: translateY(-50%);
-            width: 5%; /* Adjust the width of the control */
+            width: 5%;
         }
 
         .carousel-control.left {
-            left: -3%; /* Move the left control outwards */
+            left: -3%;
         }
 
         .carousel-control.right {
-            right: -3%; /* Move the right control outwards */
+            right: -3%; 
         }
 
         .carousel-indicators {
-            bottom: -15px; /* Adjusted to move indicators lower */
+            bottom: -15px;
         }
     .carousel-indicators li {
         border-color: #000;
@@ -166,6 +169,10 @@
 						<h4 class="faq-question">Q: Bagaimana cara menghubungi layanan pelanggan? <span style="float: right;">&blacktriangledown;</span></h4>
 						<p class="faq-answer" style="display: none;">A: Anda bisa menghubungi tim layanan pelanggan kami melalui WhatsApp kami.</p>
 					</div>
+                    <div class="faq-item">
+                        <h4 class="faq-question">Q: Bagaimana cara mengajukan penitipan mobil saya untuk dijual? <span style="float: right;">&blacktriangledown;</span></h4>
+                        <p class="faq-answer" style="display: none;">A: Anda bisa klik Ajukan Penitipan, kemudian isi data mobil Anda. Setelah itu, tim kami akan segera menghubungi Anda untuk informasi lebih lanjut.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -231,7 +238,6 @@
         </div>
     </div>
 </div>
-
 <div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="tambahModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

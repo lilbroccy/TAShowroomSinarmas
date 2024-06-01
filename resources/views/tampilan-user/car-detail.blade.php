@@ -57,11 +57,6 @@
         </div>
         <div class="row" style="margin-bottom: 10px;">
             <div class="col-xs-12">
-                <button class="btn btn-success btn-block btn-round" style="padding: 10px 0;"><i class="fa fa-comment"></i> Chat Admin</button>
-            </div>
-        </div>
-        <div class="row" style="margin-bottom: 10px;">
-            <div class="col-xs-12">
             <button class="btn btn-primary btn-block btn-round" id="checkUnitBtn" style="padding: 10px 0;">
                 <i class="fa fa-calendar"></i> Cek Unit & Test Drive
             </button>
@@ -177,27 +172,30 @@
                     @csrf
                     <div class="form-group">
                         <label for="carname">Nama Mobil:</label>
-                        <input type="text" class="form-control" id="carname" name="carname" value="{{ $carUnit->name }}" readonly>
+                        <input type="text" class="form-control" id="carname" name="carname" value="{{ $carUnit->name }}" disabled>
                         <input type="hidden" id="car_id" name="car_id" value="{{ $carUnit->id }}">
                     </div>
                     
                     @if(auth()->check())
                         <div class="form-group">
-                            <label for="name">Nama Anda:</label>
-                            <input type="text" class="form-control" id="name" name="name" value="{{ auth()->user()->name }}" readonly>
+                            <label for="name">Nama:</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ auth()->user()->name }}" disabled>
                             <input type="hidden" id="user_id" name="user_id" value="{{ auth()->user()->id }}">
                         </div>
                         <div class="form-group">
-                            <label for="phone">Nomor Telepon Anda:</label>
-                            <input type="text" class="form-control" id="phone" name="phone" value="{{ auth()->user()->phone }}" readonly>
+                            <label for="phone">Nomor Telepon:</label>
+                            <input type="text" class="form-control" id="phone" name="phone" value="{{ auth()->user()->phone }}" disabled>
                         </div>
                         <div class="form-group">
                             <label for="date">Tanggal:</label>
-                            <input type="date" class="form-control" id="date" name="date" required min="{{ now()->format('Y-m-d') }}">
+                            <input type="date" class="form-control" id="date" name="date" required 
+                                min="{{ now()->addDays(1)->format('Y-m-d') }}" 
+                                max="{{ now()->addDays(3)->format('Y-m-d') }}">
                         </div>
                         <div class="form-group">
                             <label for="time">Jam (WIB):</label>
-                            <input type="time" class="form-control" id="time" name="time" required>
+                            <input type="time" class="form-control" id="time" value="16:00" disabled required>
+                            <input type="hidden" id="hiddenTime" name="time" value="16:00">
                         </div>
                         <div class="form-group">
                             <label for="note">Catatan Tambahan:</label>
@@ -218,50 +216,53 @@
                         </div>
                     @else
                         <div class="form-group">
-                            <label for="name">Nama Anda:</label>
+                            <label for="name">Nama:</label>
                             <input type="text" class="form-control" id="name" name="name" placeholder="Masukkan nama Anda">
                         </div>
                         <div class="form-group">
-                            <label for="phone">Nomor Telepon Anda:</label>
+                            <label for="phone">Nomor Telepon:</label>
                             <input type="text" class="form-control" id="phone" name="phone" placeholder="Masukkan nomor telepon Anda">
                         </div>
-                    <div class="form-group">
-                        <label for="date">Tanggal:</label>
-                        <input type="date" class="form-control" id="date" name="date" required min="{{ now()->format('Y-m-d') }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="time">Jam (WIB):</label>
-                        <input type="time" class="form-control" id="time" name="time" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="note">Catatan Tambahan:</label>
-                        <textarea class="form-control" id="note" name="note" placeholder="Kosongkan jika tidak ada catatan tambahan"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="agreement">
-                            <label class="form-check-label" for="agreement">
-                                Saya menyetujui 
-                                <u><a href="#" data-toggle="modal" data-target="#termsModal">persyaratan dan ketentuan</a></u>
-                            </label>
+                        <div class="form-group">
+                            <label for="date">Tanggal:</label>
+                            <input type="date" class="form-control" id="date" name="date" required 
+                                min="{{ now()->addDays(1)->format('Y-m-d') }}" 
+                                max="{{ now()->addDays(3)->format('Y-m-d') }}">
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="payment">Pilih Metode Pembayaran: </label>
-                        <select class="form-control" id="payment" name="payment" required>
-                            <option value="" disabled selected>Pilih metode pembayaran</option>
-                            <option value="BCA : 0123456789 a/n Risky">BCA : 0123456789 a/n Risky</option>
-                            <option value="DANA : 081234567890">DANA : 081234567890 a/n Risky</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="payment_proof">Unggah Bukti Transfer:</label>
-                        <input type="file" class="form-control" id="payment_proof" name="payment_proof" required>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
-                        <button type="button" class="btn btn-primary" id="simpanButton">Kirim</button>
-                    </div>
+                        <div class="form-group">
+                            <label for="time">Jam (WIB):</label>
+                            <input type="time" class="form-control" id="time" value="16:00" disabled required>
+                            <input type="hidden" id="hiddenTime" name="time" value="16:00">
+                        </div>
+                        <div class="form-group">
+                            <label for="note">Catatan Tambahan:</label>
+                            <textarea class="form-control" id="note" name="note" placeholder="Kosongkan jika tidak ada catatan tambahan"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="agreement">
+                                <label class="form-check-label" for="agreement">
+                                    Saya menyetujui 
+                                    <u><a href="#" data-toggle="modal" data-target="#termsModal">persyaratan dan ketentuan</a></u>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="payment">Pilih Metode Pembayaran: </label>
+                            <select class="form-control" id="payment" name="payment" required>
+                                <option value="" disabled selected>Pilih metode pembayaran</option>
+                                <option value="BCA : 0123456789 a/n Risky">BCA : 0123456789 a/n Risky</option>
+                                <option value="DANA : 081234567890">DANA : 081234567890 a/n Risky</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="payment_proof">Unggah Bukti Transfer:</label>
+                            <input type="file" class="form-control" id="payment_proof" name="payment_proof" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                            <button type="button" class="btn btn-primary" id="simpanButton">Kirim</button>
+                        </div>
                     @endif
                 </form>
             </div>

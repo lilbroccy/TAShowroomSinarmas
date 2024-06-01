@@ -29,9 +29,9 @@
                         @foreach ($checkUnit->carUnit->photos->take(1) as $photo)
                         <img src="{{ asset('storage/'.$photo->file_path) }}" alt="Gambar Mobil" class="img-fluid car-img">
                         @endforeach
-                        <span class="status card-status @if($checkUnit->status == 'Menunggu Verifikasi') waiting-approval @elseif($checkUnit->status == 'Ditolak') canceled @elseif($checkUnit->status == 'Disetujui') approved  @elseif($checkUnit->status == 'Selesai') approved @else canceled @endif">
+                        <!-- <span class="status card-status @if($checkUnit->status == 'Menunggu Verifikasi') waiting-approval @elseif($checkUnit->status == 'Ditolak') canceled @elseif($checkUnit->status == 'Disetujui') approved  @elseif($checkUnit->status == 'Selesai') approved @else canceled @endif">
                             {{ $checkUnit->status }}
-                        </span>
+                        </span> -->
                         @if(!empty($checkUnit->car_status))
                             <span class="car car-status @if($checkUnit->car_status == 'Terjual') sold @else notsold @endif">
                                 {{ $checkUnit->car_status }}

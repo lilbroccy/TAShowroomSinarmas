@@ -14,9 +14,19 @@ class SaleController extends Controller
 {
 
     public function index(){
-    $carUnits = CarUnit::all();
-    $sales = Sale::all();
+        $carUnits = CarUnit::where('type', 'Bukan Titipan')->get();
+        $sales = Sale::whereHas('carUnit', function($query) {
+            $query->where('type', '=', 'Bukan Titipan');
+        })->get();
         return view('tampilan-admin.table-sales', compact('sales', 'carUnits'));
+    }
+
+    public function indexTitipan(){
+        $carUnits = CarUnit::where('type', 'Titipan')->get();
+        $sales = Sale::whereHas('carUnit', function($query) {
+            $query->where('type', '=', 'Titipan');
+        })->get();
+        return view('tampilan-admin.table-sales-titipan', compact('sales', 'carUnits'));
     }
 
     public function save(Request $request)

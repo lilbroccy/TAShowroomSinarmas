@@ -116,6 +116,7 @@ Route::post     ('/rubah-status-check-unit', [CheckUnitController::class, 'rubah
 Route::put      ('/update-check-unit-status/{id}', [CheckUnitController::class, 'updateStatus']);
 
 Route::get      ('/admin/dashboard/sales', [SaleController::class, 'index'])->name('dashboard.sales');
+Route::get      ('/admin/dashboard/sales-titipan', [SaleController::class, 'indexTitipan'])->name('dashboard.sales-titipan');
 Route::post     ('/save-sales-data', [SaleController::class, 'save']);
 Route::post     ('/sales/store', [SaleController::class, 'store'])->name('sales.store');
 
