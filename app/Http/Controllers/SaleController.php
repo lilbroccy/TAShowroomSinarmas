@@ -57,8 +57,8 @@ class SaleController extends Controller
             if ($relatedCheckUnit->id !== $checkUnit->id && 
                 ($relatedCheckUnit->status == 'Menunggu Verifikasi' || $relatedCheckUnit->status == 'Disetujui')) {
                 
-                $relatedCheckUnit->status = 'Dibatalkan Oleh Admin';
-                $relatedCheckUnit->note_from_admin = 'Mohon maaf, unit mobil baru saja terjual';
+                $relatedCheckUnit->status = 'Dibatalkan Oleh Sistem';
+                // $relatedCheckUnit->note_from_admin = 'Mohon maaf, unit mobil baru saja terjual';
                 $relatedCheckUnit->last_edit_by = Auth::id();
                 $relatedCheckUnit->updated_at = Carbon::now()->addHours(7);
 
@@ -116,8 +116,8 @@ class SaleController extends Controller
             $checkUnits = CheckUnit::where('car_unit_id', $carUnit->id)->get();
             foreach ($checkUnits as $checkUnit) {
                 if ($checkUnit->status == 'Menunggu Verifikasi' || $checkUnit->status == 'Disetujui' ) {
-                    $checkUnit->status = 'Dibatalkan Oleh Admin';
-                    $checkUnit->note_from_admin = 'Mohon maaf, unit mobil baru saja terjual';
+                    $checkUnit->status = 'Dibatalkan Oleh Sistem';
+                    // $checkUnit->note_from_admin = 'Mohon maaf, unit mobil baru saja terjual';
                     $checkUnit->last_edit_by = Auth::id();
                     $updatedAt = Carbon::now()->addHours(7);
                     $checkUnit->updated_at = $updatedAt;
@@ -143,6 +143,11 @@ class SaleController extends Controller
         }
     }
 
+    public function show($id)
+    {
+        $sale = Sale::findOrFail($id);
 
+        return response()->json($sale);
+    }
 }
 

@@ -29,9 +29,9 @@
                         @foreach ($checkUnit->carUnit->photos->take(1) as $photo)
                         <img src="{{ asset('storage/'.$photo->file_path) }}" alt="Gambar Mobil" class="img-fluid car-img">
                         @endforeach
-                        <!-- <span class="status card-status @if($checkUnit->status == 'Menunggu Verifikasi') waiting-approval @elseif($checkUnit->status == 'Ditolak') canceled @elseif($checkUnit->status == 'Disetujui') approved  @elseif($checkUnit->status == 'Selesai') approved @else canceled @endif">
+                        <span class="status card-status @if($checkUnit->status == 'Menunggu Verifikasi') waiting-approval @elseif($checkUnit->status == 'Ditolak') canceled @elseif($checkUnit->status == 'Disetujui') approved  @elseif($checkUnit->status == 'Selesai') approved @else canceled @endif">
                             {{ $checkUnit->status }}
-                        </span> -->
+                        </span>
                         @if(!empty($checkUnit->car_status))
                             <span class="car car-status @if($checkUnit->car_status == 'Terjual') sold @else notsold @endif">
                                 {{ $checkUnit->car_status }}
@@ -96,7 +96,7 @@
                         <p style="color: black;"><b>Bukti Pembayaran:</b> <a class="popup-link" href="{{ asset('storage/' . $checkUnit->payment_proof) }}">Lihat</a></p>
                         @endif
                         <p style="color: black;"><b>Catatan Tambahan Pengguna :</b> {{ $checkUnit->note }}</p>
-                        <p style="color: black;"><b>Catatan Dari Admin :</b> {{ $checkUnit->note_from_admin }}</p>
+                        <!-- <p style="color: black;"><b>Catatan Dari Admin :</b> {{ $checkUnit->note_from_admin }}</p> -->
                         </br>
                         </br>
                         </br>
@@ -130,6 +130,7 @@
                             {{ optional($checkUnit->user)->email ?? '-' }}
                         </span>
                     </p>
+                    <p style="color: black;"><b>Alamat: </b>{{ $checkUnit->user->address }}</p>
                     @else
                     <p style="color: black;"><b>Nama: </b>{{ $checkUnit->name }}</p>
                     <p style="color: black;"><b>Nomor Telepon: </b>

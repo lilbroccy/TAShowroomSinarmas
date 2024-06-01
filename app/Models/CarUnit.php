@@ -36,6 +36,7 @@ class CarUnit extends Model
         'status',
         'type',
         'type_status',
+        'fee',
     ];
 
     public function photos()

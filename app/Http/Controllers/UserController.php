@@ -10,7 +10,7 @@ class UserController extends Controller
 {   
     public function index()
     {
-        $users = User::all();
+        $users = User::where('role', 'User')->get();
         $currentUserRole = Auth::user()->role;
         return view('tampilan-admin.table-user', compact('users', 'currentUserRole'));
     }

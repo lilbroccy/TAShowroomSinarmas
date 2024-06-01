@@ -27,8 +27,8 @@
                                     <th>No</th>
                                     <th>Nama Mobil</th>
                                     <th>Harga Mobil</th>
-                                    <th>Sistem Pembayaran</th>
                                     <th>Fee Penitipan</th>
+                                    <th>Sistem Pembayaran</th>
                                     <th>Tanggal Transaksi</th>
                                     <th style="text-align: center;">Aksi</th>
                                     </tr>
@@ -42,21 +42,85 @@
                             <td>{{ $no++ }}</td>
                             <td>{{ $sale->carUnit->name }}</td>
                             <td>{{ $sale->carUnit->price }}</td>
+                            <td>{{ $sale->carUnit->fee }}</td>
                             <td>{{ $sale->payment_method }}</td>
-                            <td>{{ $sale->carUnit->price }}</td>
                             <td>{{ $sale->date }}</td>
-                                <td class="text-right">
-                                    <button class="btn btn-warning btn-sm updateBtn" data-saleid="{{ $sale->id }}" data-salename="{{ $sale->name }}" title="Edit sale">
-                                        <i class="fas fa-edit"></i> <!-- Ikon Edit -->
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#detailModal{{ $sale->id }}">
+                                        <i class="fas fa-info-circle"></i>
                                     </button>
-                                    <button class="btn btn-danger btn-sm deleteBtn" data-saleid="{{ $sale->id }}" data-salename="{{ $sale->name }}" title="Hapus sale">
-                                        <i class="fas fa-trash-alt"></i> <!-- Ikon Hapus -->
-                                    </button>
+                                    <!-- <button class="btn btn-danger btn-sm deleteBtn" data-saleid="{{ $sale->id }}" data-salename="{{ $sale->name }}" title="Hapus sale">
+                                        <i class="fas fa-trash-alt"></i> 
+                                    </button> -->
                                 </td>
                             </tr>
+                            
                                     @endforeach
                                 </tbody>
                             </table>
+                            @foreach($sales as $sale)
+                            <div class="modal fade" id="detailModal{{ $sale->id }}" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel{{ $sale->id }}" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="detailModalLabel{{ $sale->id }}">Detail Penjualan Titipan</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <!-- Pemilik -->
+                                                <div class="col-6">
+                                                <h6 class="modal-subtitle"><u>Informasi Penitip</u></h6>
+                                                    <p><strong>Nama Penitip:</strong> {{ $sale->carUnit->user->name }}</p>
+                                                    <p><strong>No. HP/WA:</strong> {{ $sale->carUnit->user->phone }}</p>
+                                                    <p><strong>Alamat:</strong> {{ $sale->carUnit->user->address }}</p>
+                                                </div>
+                                                <!-- Pembeli -->
+                                                <div class="col-6">
+                                                <h6 class="modal-subtitle"><u>Informasi Pembeli</u></h6>
+                                                    <p><strong>Nama Pembeli:</strong> 
+                                                        @if ($sale->user)
+                                                            {{ $sale->user->name }}
+                                                        @else
+                                                            {{ $sale->customer_name }}
+                                                        @endif
+                                                    </p>
+                                                    <p><strong>No. HP/WA:</strong> 
+                                                        @if ($sale->user)
+                                                            {{ $sale->user->phone }}
+                                                        @else
+                                                            {{ $sale->customer_phone }}
+                                                        @endif
+                                                    </p>
+                                                    <p><strong>Alamat:</strong> 
+                                                        @if ($sale->user)
+                                                            {{ $sale->user->address }}
+                                                        @else
+                                                            {{ $sale->customer_addres }}
+                                                        @endif
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <!-- Data Penjualan -->
+                                            <div class="row mt-3">
+                                                <div class="col-12">
+                                                <h6 class="modal-subtitle"><u>Informasi Penjualan</u></h6>
+                                                    <p><strong>Nama Mobil:</strong> {{ $sale->carUnit->name }}</p>
+                                                    <p><strong>Harga Mobil:</strong> Rp {{ number_format($sale->carUnit->price, 0, ',', '.') }}</p>
+                                                    <p><strong>Fee Penitipan:</strong> Rp {{ number_format($sale->carUnit->fee, 0, ',', '.') }}</p>
+                                                    <p><strong>Sistem Pembayaran:</strong> {{ $sale->payment_method }}</p>
+                                                    <p><strong>Tanggal Transaksi:</strong> {{ $sale->date }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+
                             <div class="modal fade" id="modalMobil" tabindex="-1" aria-labelledby="modalMobilLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">

@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
             'phone' => '081234567890',
+            'address' => 'Jalan PB. Sudirman, Jember',
             'password' => Hash::make('123'),
             'role' => 'admin',
         ]);
@@ -29,6 +30,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Owner',
             'email' => 'owner@gmail.com',
             'phone' => '089876543210',
+            'address' => 'Jalan PB. Sudirman, Jember',
             'password' => Hash::make('123'),
             'role' => 'owner', 
         ]);
@@ -37,6 +39,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Hendy',
             'email' => 'hendy@gmail.com',
             'phone' => '087654321098',
+            'address' => 'Jalan Wolter Monginsidi, Jember',
             'password' => Hash::make('123'),
             'role' => 'user',
         ]);
@@ -45,6 +48,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Daffa Afifi',
             'email' => 'daffa@gmail.com',
             'phone' => '087654321099',
+            'address' => 'Jalan Nangka, Jember',
             'password' => Hash::make('123'),
             'role' => 'user',
         ]);

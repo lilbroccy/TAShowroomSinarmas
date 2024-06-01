@@ -42,6 +42,11 @@ class PengajuanTitipanController extends Controller
             'description' => 'nullable|string'
         ]);
         
+        $fee = 0;
+        if (isset($validatedData['price']) && is_numeric($validatedData['price'])) {
+            $fee = $validatedData['price'] * 0.02;
+        }
+
         $user_id = Auth::id();
         $carUnit = new CarUnit();
         $carUnit->fill($validatedData);
@@ -49,6 +54,7 @@ class PengajuanTitipanController extends Controller
         $carUnit->status = 'Menunggu Verifikasi';
         $carUnit->type = 'Titipan';
         $carUnit->type_status = 'Menunggu Verifikasi';
+        $carUnit->fee = $fee;
         $carUnit->save();
         
         $request->validate([

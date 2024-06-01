@@ -170,12 +170,7 @@
             <div class="modal-body">
                 <form id="checkUnitForm" enctype="multipart/form-data">
                     @csrf
-                    <div class="form-group">
-                        <label for="carname">Nama Mobil:</label>
-                        <input type="text" class="form-control" id="carname" name="carname" value="{{ $carUnit->name }}" disabled>
-                        <input type="hidden" id="car_id" name="car_id" value="{{ $carUnit->id }}">
-                    </div>
-                    
+                    <input type="hidden" id="car_id" name="car_id" value="{{ $carUnit->id }}">
                     @if(auth()->check())
                         <div class="form-group">
                             <label for="name">Nama:</label>

@@ -182,96 +182,61 @@ function actionButtonHandler() {
             showCloseButton: true,
         }).then((result) => {
             if (result.isConfirmed) {
-                Swal.fire({
-                    title: 'Catatan Tambahan',
-                    input: 'text',
-                    inputPlaceholder: 'Kosongkan jika tidak ada catatan tambahan',
-                    showCancelButton: true,
-                    confirmButtonText: 'Kirim',
-                    cancelButtonText: 'Batal',
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    allowOutsideClick: false,
-                    showCloseButton: false,
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var note = result.value ? result.value : '';
-                        fetch('/rubah-status-check-unit', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            body: JSON.stringify({
-                                checkUnitId: checkUnitId,
-                                status: 'Disetujui',
-                                note: note
-                            })
-                        }).then(response => {
-                            if (response.ok) {
-                                return response.json();
-                            }
-                            throw new Error('Network response was not ok.');
-                        }).then(data => {
-                            Swal.fire(data.message);
-                            setTimeout(function() {
-                                location.reload();
-                            }, 1000);
-                        }).catch(error => {
-                            console.error('Error:', error);
-                            Swal.fire('Terjadi Kesalahan');
-                        });
+                fetch('/rubah-status-check-unit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    body: JSON.stringify({
+                        checkUnitId: checkUnitId,
+                        status: 'Disetujui',
+                        note: ''
+                    })
+                }).then(response => {
+                    if (response.ok) {
+                        return response.json();
                     }
+                    throw new Error('Network response was not ok.');
+                }).then(data => {
+                    Swal.fire(data.message);
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1000);
+                }).catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire('Terjadi Kesalahan');
                 });
             } else if (result.dismiss === Swal.DismissReason.close) {
                 // Do nothing if closed
             } else {
-                Swal.fire({
-                    title: 'Alasan Penolakan',
-                    input: 'text',
-                    inputPlaceholder: 'Masukkan alasan penolakan',
-                    showCancelButton: true,
-                    confirmButtonText: 'Kirim',
-                    cancelButtonText: 'Batal',
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    inputValidator: (value) => {
-                        if (!value) {
-                            return 'Alasan penolakan diperlukan!';
-                        }
+                fetch('/rubah-status-check-unit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    allowOutsideClick: false,
-                    showCloseButton: true,
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        fetch('/rubah-status-check-unit', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            body: JSON.stringify({
-                                checkUnitId: checkUnitId,
-                                status: 'Ditolak',
-                                note: result.value
-                            })
-                        }).then(response => {
-                            if (response.ok) {
-                                return response.json();
-                            }
-                            throw new Error('Network response was not ok.');
-                        }).then(data => {
-                            Swal.fire(data.message);
-                            setTimeout(function() {
-                                location.reload();
-                            }, 1000);
-                        }).catch(error => {
-                            console.error('Error:', error);
-                            Swal.fire('Terjadi Kesalahan');
-                        });
+                    body: JSON.stringify({
+                        checkUnitId: checkUnitId,
+                        status: 'Ditolak',
+                        note: ''
+                    })
+                }).then(response => {
+                    if (response.ok) {
+                        return response.json();
                     }
+                    throw new Error('Network response was not ok.');
+                }).then(data => {
+                    Swal.fire(data.message);
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1000);
+                }).catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire('Terjadi Kesalahan');
                 });
             }
         });
+        
     }
 }

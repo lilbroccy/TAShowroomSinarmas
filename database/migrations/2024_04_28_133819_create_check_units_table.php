@@ -21,7 +21,7 @@ class CreateCheckUnitsTable extends Migration
             $table->time('time');
             $table->enum('status', ['Disetujui', 'Ditolak', 'Menunggu Verifikasi', 'Selesai', 'Dibatalkan Oleh Sistem', 'Dibatalkan Oleh User', 'Dibatalkan Oleh Admin']);
             $table->text('note')->nullable();
-            $table->text('note_from_admin')->nullable();
+            // $table->text('note_from_admin')->nullable();
             $table->string('payment')->nullable();
             $table->string('payment_proof')->nullable();
             $table->unsignedBigInteger('last_edit_by')->nullable();

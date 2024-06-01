@@ -102,7 +102,7 @@ class CheckUnitController extends Controller
         try {
             $checkUnitId = $request->input('checkUnitId');
             $status = $request->input('status');
-            $note = $request->input('note');
+            // $note = $request->input('note');
 
             $adminId = Auth::id();
 
@@ -110,7 +110,7 @@ class CheckUnitController extends Controller
             $checkUnit->status = $status;
             $checkUnit->last_edit_by = $adminId;
 
-            $checkUnit->note_from_admin = $note;
+            // $checkUnit->note_from_admin = $note;
 
             $updatedAt = Carbon::now()->addHours(7);
             $checkUnit->updated_at = $updatedAt;

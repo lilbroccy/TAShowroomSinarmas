@@ -117,6 +117,7 @@ Route::put      ('/update-check-unit-status/{id}', [CheckUnitController::class, 
 
 Route::get      ('/admin/dashboard/sales', [SaleController::class, 'index'])->name('dashboard.sales');
 Route::get      ('/admin/dashboard/sales-titipan', [SaleController::class, 'indexTitipan'])->name('dashboard.sales-titipan');
+Route::get      ('/sales/{id}', [SaleController::class, 'show']);
 Route::post     ('/save-sales-data', [SaleController::class, 'save']);
 Route::post     ('/sales/store', [SaleController::class, 'store'])->name('sales.store');
 

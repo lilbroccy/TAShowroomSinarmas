@@ -34,6 +34,7 @@ return new class extends Migration
             $table->enum('status', ['Tersedia', 'Terjual', 'Menunggu Verifikasi', 'Ditolak'])->default('Tersedia');
             $table->enum('type', ['Titipan', 'Bukan Titipan'])->default('Bukan Titipan');
             $table->enum('type_status', ['Menunggu Verifikasi', 'Disetujui', 'Ditolak', 'Tersedia'])->default('Tersedia');
+            $table->integer('fee')->nullable();
             $table->timestamps();
 
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
