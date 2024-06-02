@@ -48,11 +48,8 @@
         <p class="text-muted fw-normal"> {{$carUnit->brand->name}} - {{$carUnit->year}} - {{$carUnit->transmission}} - {{$carUnit->fuel_type}}</p>
         <p class="lead"><b>Rp. {{ number_format($carUnit->price, 0, ',', '.') }}</b></p>
         <div class="row" style="margin-bottom: 10px;">
-            <div class="col-xs-6">
+            <div class="col-xs-12">
                 <button class="btn btn-danger btn-block btn-round" style="padding: 10px 0;"><i class="fa fa-heart"></i> Suka</button>
-            </div>
-            <div class="col-xs-6">
-                <button class="btn btn-info btn-block btn-round" style="padding: 10px 0;"><i class="fa fa-share"></i> Bagikan</button>
             </div>
         </div>
         <div class="row" style="margin-bottom: 10px;">

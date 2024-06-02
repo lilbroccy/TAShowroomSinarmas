@@ -27,7 +27,8 @@
                                     <th>No</th>
                                     <th>Nama</th>
                                     <th>Email</th>
-                                    <th>Phone</th>
+                                    <th>No HP/WA</th>
+                                    <th>Alamat</th>
                                     <th>Role</th>           
                                     <th style="text-align: center;">Aksi</th>
                                     </tr>
@@ -42,22 +43,13 @@
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->phone }}</td>
+                            <td>{{ $user->address }}</td>
                             <td>{{ $user->role }}</td>
                                 <td class="text-right">
-                                    <!-- Tombol Update -->
-                                    <button class="btn btn-warning btn-sm updateBtn" 
-                                            data-userid="{{ $user->id }}" 
-                                            data-username="{{ $user->name }}" 
-                                            title="Edit Data Pengguna"
-                                            @if($currentUserRole != 'owner') disabled @endif>
-                                        <i class="fas fa-edit"></i> <!-- Ikon Hapus -->
-                                    </button>
-                                    <!-- Tombol Delete -->
                                     <button class="btn btn-danger btn-sm deleteBtn" 
                                             data-userid="{{ $user->id }}" 
                                             data-username="{{ $user->name }}" 
-                                            title="Hapus Data Pengguna"
-                                            @if($currentUserRole != 'owner') disabled @endif>
+                                            title="Hapus Data Pengguna">
                                         <i class="fas fa-trash-alt"></i> <!-- Ikon Hapus -->
                                     </button>
                                 </td>
@@ -107,7 +99,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="updateModalLabel{{ $user->id }}">Update User {{ $user->name }}</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
@@ -135,7 +127,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                                                 <button type="button" class="btn btn-primary updateButton" id="updateButton_{{ $user->id }}">Simpan Perubahan</button>
                                                 </div>
                                             </form>
@@ -150,7 +142,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Penghapusan</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
@@ -158,7 +150,7 @@
                                             Apakah Anda yakin ingin menghapus User?
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                                             <button type="button" class="btn btn-danger" id="confirmDelete">Hapus</button>
                                         </div>
                                     </div>

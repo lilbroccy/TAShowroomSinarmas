@@ -47,9 +47,9 @@
                     <div class="card-body">
                         <div class="row mb-3">
                             <div class="col-md-6"><h4 class="card-title">Tabel Data Mobil Titipan</h4></div>
-                            <div class="col-md-6 text-right">
+                            <!-- <div class="col-md-6 text-right">
                             <button type="button" class="btn btn-primary float-end" id="tambahUnitMobil"><i class="fas fa-plus"></i>Tambah Unit Mobil</button>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="table-responsive">
                             <table id="titipan" class="table no-wrap">
