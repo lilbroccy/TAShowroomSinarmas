@@ -80,5 +80,28 @@ class HomeController extends Controller
         $totalTitipan = $carUnitsTitipan->count();
         return view('tampilan-user.car-detail', compact('carUnit','categories', 'wishlists', 'totalWishlist', 'carUnitsTitipan', 'totalTitipan'));
     }
-    
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $category = $request->input('category');
+
+        $cars = CarUnit::where('name', 'like', "%$query%")
+                       ->when($category, function($query) use ($category) {
+                           return $query->where('category_id', $category);
+                       })
+                       ->where('status', 'Tersedia') // Only available cars
+                       ->get();
+
+        $categories = Category::whereHas('carUnits', function($query) {
+                    $query->where('status', 'Tersedia');
+                    })->get();
+        $carUnits = CarUnit::all();
+            
+        $userId = Auth::id();
+        $wishlists = Wishlist::where('user_id', $userId)->get();
+        $totalWishlist = $wishlists->count();
+        $carUnitsTitipan = CarUnit::where('type', 'Titipan')->where('user_id', $userId)->get();
+        $totalTitipan = $carUnitsTitipan->count();
+        return view('tampilan-user.home', compact('cars', 'categories', 'carUnits', 'wishlists', 'carUnitsTitipan', 'totalWishlist', 'totalTitipan'));
+    }
 }

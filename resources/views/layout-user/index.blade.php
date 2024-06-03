@@ -220,14 +220,16 @@
                     </div>
                 </div>
                 <div class="col-md-6">
+                    <!-- resources/views/home.blade.php -->
                     <div class="header-search">
-                        <form>
-                            <select class="input-select">
+                        <form action="{{ route('search') }}" method="GET">
+                            <select class="input-select" name="category">
+                                <option value="">All Categories</option>
                                 @foreach ($categories as $category)
-                                    <option value="">{{$category->name}}</option>
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
                                 @endforeach
                             </select>
-                            <input class="input" placeholder="Search here">
+                            <input class="input" name="query" placeholder="Search here">
                             <button class="search-btn">Search</button>
                         </form>
                     </div>

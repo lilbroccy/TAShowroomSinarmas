@@ -73,6 +73,7 @@ Route::middleware('web')->group(function () {
 
 // Home route
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/search', [HomeController::class, 'search'])->name('search');
 
 // Routes that require email verification
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -134,3 +135,4 @@ Route::put      ('/admin/dashboard/users/{id}/update', [UserController::class, '
 Route::get      ('/admin/dashboard/data-mobil-titipan', [PengajuanTitipanController::class, 'index'])->name('dashboard.titipan');
 Route::post     ('/pengajuan-titipan', [PengajuanTitipanController::class, 'store'])->name('pengajuan.store');
 Route::post     ('/ubah-status-car-unit', [PengajuanTitipanController::class, 'changeStatus']);
+

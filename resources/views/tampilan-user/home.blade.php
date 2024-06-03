@@ -78,43 +78,83 @@
 @endsection
 @section('content')
 <div class="section">
-	<div class="container">
-		@foreach ($categories as $category)
-		<div class="row">
-            <div class="col-md-12">
-                <div class="section-title">
-                    <h3 class="title">{{ $category->name }}</h3>
-                    <div class="cars-tabs">
-						<div id="tab{{ $category->id }}-1" class="tab-pane active">
-							<div class="cars-slick" data-nav="#slick-nav-{{ $category->id }}-1">
-								@foreach ($carUnits->where('category_id', $category->id)->where('status', 'Tersedia') as $carUnit)
-									<div class="car">
-										<div class="car-img">
-											@foreach ($carUnit->photos->take(1) as $photo)
-												<img src="{{ asset('storage/'.$photo->file_path) }}" alt="">
-											@endforeach
-										</div>
-										<div class="car-body">
-											<p class="car-category">{{ $carUnit->brand->name }} - {{ $carUnit->transmission }} - {{ $carUnit->fuel_type }}</p>
-											<h3 class="car-name"><a href="{{ route('car.detail', ['id' => $carUnit->id]) }}">{{ $carUnit->name }}</a></h3>
-											<h4 class="car-price">Rp. {{ number_format($carUnit->price, 0, ',', '.') }}</h4>
-											<div class="car-btns">
-                                            <button class="add-to-wishlist" data-car-unit-id="{{ $carUnit->id }}" title="Tambahkan ke Wishlist">
-                                                <i class="fa fa-heart-o"></i>
-                                                <span class="tooltipp"></span>
-                                            </button>
-												<button title="Detail Lengkap"><a href="{{ route('car.detail', ['id' => $carUnit->id]) }}"><i class="fa fa-eye" style="color: white;"></i></a></button>
-											</div>
-										</div>
-									</div>
-								@endforeach
-							</div>
-						</div>
-					</div>
+    <div class="container">
+        @if(isset($cars))
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-title">
+                        <h3 class="title">Search Results</h3>
+                        <div class="cars-tabs">
+                            <div id="search-results" class="tab-pane active">
+                                <div class="cars-slick" data-nav="#slick-nav-search-results">
+                                    @forelse ($cars as $car)
+                                        <div class="car">
+                                            <div class="car-img">
+                                                @foreach ($car->photos->take(1) as $photo)
+                                                    <img src="{{ asset('storage/'.$photo->file_path) }}" alt="">
+                                                @endforeach
+                                            </div>
+                                            <div class="car-body">
+                                                <p class="car-category">{{ $car->brand->name }} - {{ $car->transmission }} - {{ $car->fuel_type }}</p>
+                                                <h3 class="car-name"><a href="{{ route('car.detail', ['id' => $car->id]) }}">{{ $car->name }}</a></h3>
+                                                <h4 class="car-price">Rp. {{ number_format($car->price, 0, ',', '.') }}</h4>
+                                                <div class="car-btns">
+                                                    <button class="add-to-wishlist" data-car-unit-id="{{ $car->id }}" title="Tambahkan ke Wishlist">
+                                                        <i class="fa fa-heart-o"></i>
+                                                        <span class="tooltipp"></span>
+                                                    </button>
+                                                    <button title="Detail Lengkap"><a href="{{ route('car.detail', ['id' => $car->id]) }}"><i class="fa fa-eye" style="color: white;"></i></a></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @empty
+                                        <p>No results found.</p>
+                                    @endforelse
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-		@endforeach
+        @else
+            <!-- Default content here -->
+            @foreach ($categories as $category)
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-title">
+                            <h3 class="title">{{ $category->name }}</h3>
+                            <div class="cars-tabs">
+                                <div id="tab{{ $category->id }}-1" class="tab-pane active">
+                                    <div class="cars-slick" data-nav="#slick-nav-{{ $category->id }}-1">
+                                        @foreach ($carUnits->where('category_id', $category->id)->where('status', 'Tersedia') as $carUnit)
+                                            <div class="car">
+                                                <div class="car-img">
+                                                    @foreach ($carUnit->photos->take(1) as $photo)
+                                                        <img src="{{ asset('storage/'.$photo->file_path) }}" alt="">
+                                                    @endforeach
+                                                </div>
+                                                <div class="car-body">
+                                                    <p class="car-category">{{ $carUnit->brand->name }} - {{ $carUnit->transmission }} - {{ $carUnit->fuel_type }}</p>
+                                                    <h3 class="car-name"><a href="{{ route('car.detail', ['id' => $carUnit->id]) }}">{{ $carUnit->name }}</a></h3>
+                                                    <h4 class="car-price">Rp. {{ number_format($carUnit->price, 0, ',', '.') }}</h4>
+                                                    <div class="car-btns">
+                                                        <button class="add-to-wishlist" data-car-unit-id="{{ $carUnit->id }}" title="Tambahkan ke Wishlist">
+                                                            <i class="fa fa-heart-o"></i>
+                                                            <span class="tooltipp"></span>
+                                                        </button>
+                                                        <button title="Detail Lengkap"><a href="{{ route('car.detail', ['id' => $carUnit->id]) }}"><i class="fa fa-eye" style="color: white;"></i></a></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        @endif
     </div>
 </div>
 <div class="section">
