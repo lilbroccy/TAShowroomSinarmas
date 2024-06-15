@@ -249,13 +249,13 @@
                                 <span>Jadwal Anda</span>
                             </a>
                         </div> -->
-                        <!-- <div>
+                        <div>
                             <a href="#" data-toggle="modal" data-target="#mobilTitipanModal">
                                 <i class="fa fa-car"></i>
                                 <span>Mobil Titipan</span>
                                 <div class="qty">{{ $totalTitipan }}</div>
                             </a>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
             </div>
