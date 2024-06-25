@@ -10,31 +10,9 @@
                         href="{{ route('dashboard.check-units') }}" aria-expanded="false"><i class="me-3 fa fa-calendar"
                             aria-hidden="true"></i><span class="hide-menu">Jadwal Cek Unit</span></a>
                 </li>
-                <li class="sidebar-item"> 
-                    <a id="data-mobil-link" class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false">
+                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route ('dashboard.car-units')}}" aria-expanded="false">
                         <i class="me-3 fa fa-car" aria-hidden="true"></i>
-                        <span class="hide-menu">Data Mobil <i class="fa fa-chevron-down"></i></span>
-                    </a>
-                    <ul id="data-mobil-submenu" class="sidebar-submenu">
-                        <li class="sidebar-item"> 
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route ('dashboard.car-units')}}" aria-expanded="false">
-                                <i class="me-3 fa fa-ambulance" aria-hidden="true"></i>
-                                <span class="hide-menu">Unit Mobil</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item"> 
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route ('dashboard.categories')}}" aria-expanded="false">
-                                <i class="me-3 fa fa-list-alt" aria-hidden="true"></i>
-                                <span class="hide-menu">Kategori</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item"> 
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route ('dashboard.brands')}}" aria-expanded="false">
-                                <i class="me-3 fa fa-copyright" aria-hidden="true"></i>
-                                <span class="hide-menu">Brand</span>
-                            </a>
-                        </li>
-                    </ul>
+                        <span class="hide-menu">Data Mobil</span> </a>
                 </li>
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                         href="{{ route ('dashboard.sales')}}" aria-expanded="false"><i class="me-3 fa fa-table"
@@ -49,7 +27,7 @@
                             aria-hidden="true"></i><span class="hide-menu">Data Mobil Titipan</span></a>
                 </li>
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                        href="{{ route ('dashboard.sales-titipan')}}" aria-expanded="false"><i class="me-3 fa fa-car"
+                        href="{{ route ('dashboard.sales-titipan')}}" aria-expanded="false"><i class="me-3 fa fa-table"
                             aria-hidden="true"></i><span class="hide-menu">Data Penjualan Titipan</span></a>
                 </li>
             </ul>

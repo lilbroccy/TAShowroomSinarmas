@@ -78,7 +78,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <!-- Modal Update -->
                             @foreach ($brands as $brand)
                             <div class="modal fade" id="updateModal{{ $brand->id }}" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel{{ $brand->id }}" aria-hidden="true">
@@ -108,7 +107,6 @@
                                 </div>
                             </div>
                             @endforeach
-
                             <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -128,8 +126,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>

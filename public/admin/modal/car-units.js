@@ -37,12 +37,12 @@ $(document).ready(function() {
             }
         });
     }
-
+    
     $('#tambahUnitMobil').off('click').on('click', function() {
-        $('#tambahModal').modal('show'); 
+        $('#tambahModalUnit').modal('show'); // Menampilkan modal tambah unit
     });
 
-    $('#simpanButton').off('click').on('click', function() {
+    $('#simpanButtonUnit').off('click').on('click', function() {
         simpanData();
     });
 
@@ -55,7 +55,7 @@ $(document).ready(function() {
     });
 
     function simpanData() {
-        var formData = $('#tambahModalForm').serialize(); 
+        var formData = $('#tambahModalUnitForm').serialize(); 
         $.ajax({
             url: '/admin/dashboard/car-units/add', 
             method: 'POST',
@@ -111,7 +111,7 @@ $(document).ready(function() {
 // Delete
 $(document).ready(function() {
     function handleDeleteButtonClick() {
-        $('.deleteBtn').off('click').on('click', function() {
+        $('.deleteBtnCar').off('click').on('click', function() {
             var carUnitId = $(this).data('carunitid');
             var carName = $(this).data('carunitname');
             $('#deleteModalBody').text('Apakah Anda yakin ingin menghapus data mobil "' + carName + '"?');
@@ -159,7 +159,7 @@ $(document).ready(function() {
 // Update
 $(document).ready(function() {
     function handleUpdateButton() {
-    $('.updateBtn').off('click').on('click', function(event) {
+    $('.updateBtnCar').off('click').on('click', function(event) {
         var id = $(this).data('carunitid');
         $('#updateModal' + id).modal('show');
         $('#updateButton_' + id).data('carunitid', id);

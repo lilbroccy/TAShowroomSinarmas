@@ -1,9 +1,9 @@
 $(document).ready(function() {
     $('#tambahKategori').off('click').on('click', function() {
-        $('#tambahModal').modal('show'); 
+        $('#tambahModalKategori').modal('show'); 
     });
 
-    $('#simpanButton').off('click').on('click', function() {
+    $('#simpanButtonKategori').off('click').on('click', function() {
         simpanData();
     });
 
@@ -16,7 +16,7 @@ $(document).ready(function() {
     });
 
     function simpanData() {
-        var formData = $('#tambahModalForm').serialize(); 
+        var formData = $('#tambahModalKategoriForm').serialize(); 
         $.ajax({
             url: '/admin/dashboard/categories/add', 
             method: 'POST',
@@ -35,7 +35,7 @@ $(document).ready(function() {
                         window.location.reload();
                     }
                 });
-                $('#tambahModal').modal('hide');
+                $('#tambahModalKategori').modal('hide');
             },
         });
     }
@@ -44,12 +44,12 @@ $(document).ready(function() {
 // Delete
 $(document).ready(function() {
     function handleDeleteButtonClick() {
-        $('.deleteBtn').off('click').on('click', function() {
+        $('.deleteBtnCate').off('click').on('click', function() {
             var categoryId = $(this).data('categoryid');
             var categoryName = $(this).data('categoryname');
-            $('#deleteModalBody').text('Apakah Anda yakin ingin menghapus data kategori "' + categoryName + '"?');
-            $('#deleteModal').modal('show');
-            $('#confirmDelete').off('click').on('click', function() {
+            $('#deleteModalBodyCate').text('Apakah Anda yakin ingin menghapus data kategori "' + categoryName + '"?');
+            $('#deleteModalCate').modal('show');
+            $('#confirmDeleteCate').off('click').on('click', function() {
                 deleteCategory(categoryId);
             });
         });
@@ -64,7 +64,7 @@ $(document).ready(function() {
                 'X-CSRF-TOKEN': csrfToken
             },
             success: function(response) {
-                $('#deleteModal').modal('hide');
+                $('#deleteModalCate').modal('hide');
                 Swal.fire({
                     title: 'Berhasil!',
                     text: 'Data kategori berhasil dihapus.',
@@ -92,11 +92,11 @@ $(document).ready(function() {
 // Update
 $(document).ready(function() {
     function handleUpdateButton() {
-    $('.updateBtn').off('click').on('click', function(event) {
+    $('.updateBtnCate').off('click').on('click', function(event) {
         var id = $(this).data('categoryid');
-        $('#updateModal' + id).modal('show');
-        $('#updateButton_' + id).data('categoryid', id);
-        $('.updateButton').off('click').on('click',function(event) {
+        $('#updateModalCate' + id).modal('show');
+        $('#updateButtonCate_' + id).data('categoryid', id);
+        $('.updateButtonCate').off('click').on('click',function(event) {
             var id = $(this).data('categoryid'); 
             updateCategory(id);
         });
@@ -105,13 +105,13 @@ $(document).ready(function() {
 
     function updateCategory(id) {
         event.preventDefault();
-        var formData = $('#updateForm_' + id).serialize(); 
+        var formData = $('#updateFormCate_' + id).serialize(); 
         $.ajax({
             url: '/admin/dashboard/categories/' + id + '/update',
             type: 'PUT',
             data: formData,
             success: function(response) {
-                $('#updateModal'+id).modal('hide');
+                $('#updateModalCate'+id).modal('hide');
                 Swal.fire({
                     title: 'Berhasil!',
                     text: 'Data kategori berhasil diupdate.',

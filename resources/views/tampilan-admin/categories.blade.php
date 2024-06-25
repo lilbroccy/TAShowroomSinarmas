@@ -78,7 +78,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <!-- Modal Update -->
                             @foreach ($categories as $category)
                             <div class="modal fade" id="updateModal{{ $category->id }}" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel{{ $category->id }}" aria-hidden="true">
@@ -109,7 +108,6 @@
                                 </div>
                             </div>
                             @endforeach
-
                             <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -129,8 +127,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
@@ -150,7 +146,7 @@
             leftColumns: 1, 
             rightColumns: 1 
         }
-    } );
+        });
     })
 </script>
 <script src="{{ asset('admin/modal/categories.js') }}"></script>

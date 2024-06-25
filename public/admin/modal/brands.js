@@ -1,9 +1,9 @@
 $(document).ready(function() {
     $('#tambahBrand').off('click').on('click', function() {
-        $('#tambahModal').modal('show'); 
+        $('#tambahModalBrand').modal('show'); 
     });
 
-    $('#simpanButton').off('click').on('click', function() {
+    $('#simpanButtonBrand').off('click').on('click', function() {
         simpanData();
     });
 
@@ -16,7 +16,7 @@ $(document).ready(function() {
     });
 
     function simpanData() {
-        var formData = $('#tambahModalForm').serialize(); 
+        var formData = $('#tambahModalBrandForm').serialize(); 
         $.ajax({
             url: '/admin/dashboard/brands/add', 
             method: 'POST',
@@ -35,7 +35,7 @@ $(document).ready(function() {
                         window.location.reload();
                     }
                 });
-                $('#tambahModal').modal('hide');
+                $('#tambahModalBrand').modal('hide');
             },
         });
     }
@@ -44,12 +44,12 @@ $(document).ready(function() {
 // Delete
 $(document).ready(function() {
     function handleDeleteButtonClick() {
-        $('.deleteBtn').off('click').on('click', function() {
+        $('.deleteBtnBrand').off('click').on('click', function() {
             var brandId = $(this).data('brandid');
             var brandName = $(this).data('brandname');
             $('#deleteModalBody').text('Apakah Anda yakin ingin menghapus data brand "' + brandName + '"?');
-            $('#deleteModal').modal('show');
-            $('#confirmDelete').off('click').on('click', function() {
+            $('#deleteModalBrand').modal('show');
+            $('#confirmDeleteBrand').off('click').on('click', function() {
                 deleteBrand(brandId);
             });
         });
@@ -64,7 +64,7 @@ $(document).ready(function() {
                 'X-CSRF-TOKEN': csrfToken
             },
             success: function(response) {
-                $('#deleteModal').modal('hide');
+                $('#deleteModalBrand').modal('hide');
                 Swal.fire({
                     title: 'Berhasil!',
                     text: 'Data brand berhasil dihapus.',
@@ -92,11 +92,11 @@ $(document).ready(function() {
 // Update
 $(document).ready(function() {
     function handleUpdateButton() {
-    $('.updateBtn').off('click').on('click', function(event) {
+    $('.updateBtnBrand').off('click').on('click', function(event) {
         var id = $(this).data('brandid');
-        $('#updateModal' + id).modal('show');
-        $('#updateButton_' + id).data('brandid', id);
-        $('.updateButton').off('click').on('click',function(event) {
+        $('#updateModalBrand' + id).modal('show');
+        $('#updateButtonBrand_' + id).data('brandid', id);
+        $('.updateButtonBrand').off('click').on('click',function(event) {
             var id = $(this).data('brandid'); 
             updateBrand(id);
         });
@@ -105,13 +105,13 @@ $(document).ready(function() {
 
     function updateBrand(id) {
         event.preventDefault();
-        var formData = $('#updateForm_' + id).serialize(); 
+        var formData = $('#updateFormBrand_' + id).serialize(); 
         $.ajax({
             url: '/admin/dashboard/brands/' + id + '/update',
             type: 'PUT',
             data: formData,
             success: function(response) {
-                $('#updateModal'+id).modal('hide');
+                $('#updateModalBrand'+id).modal('hide');
                 Swal.fire({
                     title: 'Berhasil!',
                     text: 'Data brand berhasil diupdate.',
