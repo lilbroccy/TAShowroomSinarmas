@@ -26,7 +26,7 @@
                                     <tr>
                                     <th>No</th>
                                     <th>Nama Mobil</th>
-                                    <th>Harga Mobil</th>
+                                    <th>Harga Terjual</th>
                                     <th>Sistem Pembayaran</th>
                                     <th>Tanggal Transaksi</th>
                                     <th style="text-align: center;">Aksi</th>
@@ -95,7 +95,7 @@
                                                 <div class="col-12">
                                                 <h6 class="modal-subtitle"><u>Informasi Penjualan</u></h6>
                                                     <p><strong>Nama Mobil:</strong> {{ $sale->carUnit->name }}</p>
-                                                    <p><strong>Harga Mobil:</strong> Rp {{ number_format($sale->carUnit->price, 0, ',', '.') }}</p>
+                                                    <p><strong>Harga Terjual:</strong> Rp {{ number_format($sale->carUnit->price, 0, ',', '.') }}</p>
                                                     <p><strong>Sistem Pembayaran:</strong> {{ $sale->payment_method }}</p>
                                                     <p><strong>Tanggal Transaksi:</strong> {{ $sale->date }}</p>
                                                 </div>
@@ -160,47 +160,47 @@
                                         </div>
                                         <div class="modal-body">
                                         <form id="formPembeliData">
-    @csrf
-    <input type="hidden" id="carId" name="car_id">
-    
-    <div class="mb-3">
-        <label for="name" class="form-label">Nama:</label>
-        <input type="text" class="form-control" id="name" name="name" required>
-    </div>
+                                            @csrf
+                                            <input type="hidden" id="carId" name="car_id">
+                                            
+                                            <div class="mb-3">
+                                                <label for="name" class="form-label">Nama:</label>
+                                                <input type="text" class="form-control" id="name" name="name" required>
+                                            </div>
 
-    <div class="mb-3">
-        <label for="phone" class="form-label">Nomor Telepon:</label>
-        <input type="tel" class="form-control" id="phone" name="phone" required>
-    </div>
+                                            <div class="mb-3">
+                                                <label for="phone" class="form-label">Nomor Telepon:</label>
+                                                <input type="tel" class="form-control" id="phone" name="phone" required>
+                                            </div>
 
-    <div class="mb-3">
-        <label for="payment" class="form-label">Sistem Pembayaran:</label>
-        <select class="form-select" id="payment" name="payment" required>
-            <option value="" selected disabled>Pilih sistem pembayaran</option>
-            <option value="Tunai">Tunai</option>
-            <option value="Kredit">Kredit</option>
-        </select>
-    </div>
+                                            <div class="mb-3">
+                                                <label for="payment" class="form-label">Sistem Pembayaran:</label>
+                                                <select class="form-select" id="payment" name="payment" required>
+                                                    <option value="" selected disabled>Pilih sistem pembayaran</option>
+                                                    <option value="Tunai">Tunai</option>
+                                                    <option value="Kredit">Kredit</option>
+                                                </select>
+                                            </div>
 
-    <div class="mb-3">
-        <label class="form-label">Harga Terjual:</label>
-        <div>
-            <input type="radio" id="originalPrice" name="sale_price" value="originalPrice" required>
-            <label for="originalPrice">Harga Asli</label>
-        </div>
-        <div>
-            <input type="radio" id="customPrice" name="sale_price" value="customPrice" required>
-            <label for="customPrice">Harga Nego</label>
-        </div>
-    </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Harga Terjual:</label>
+                                                <div>
+                                                    <input type="radio" id="originalPrice" name="sale_price" value="originalPrice" required>
+                                                    <label for="originalPrice">Harga Asli</label>
+                                                </div>
+                                                <div>
+                                                    <input type="radio" id="customPrice" name="sale_price" value="customPrice" required>
+                                                    <label for="customPrice">Harga Nego</label>
+                                                </div>
+                                            </div>
 
-    <div class="mb-3" id="customPriceContainer">
-        <label for="customPriceInput" class="form-label">Harga Nego:</label>
-        <input type="number" class="form-control" id="customPriceInput" name="custom_price" min="0">
-    </div>
+                                            <div class="mb-3" id="customPriceContainer">
+                                                <label for="customPriceInput" class="form-label">Harga Nego:</label>
+                                                <input type="number" class="form-control" id="customPriceInput" name="custom_price" min="0">
+                                            </div>
 
-    <button type="submit" class="btn btn-primary">Kirim</button>
-</form>
+                                            <button type="submit" class="btn btn-primary">Kirim</button>
+                                        </form>
                                         </div>
                                     </div>
                                 </div>
