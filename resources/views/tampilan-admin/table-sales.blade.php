@@ -152,38 +152,59 @@
                                 </div>
                             </div>
                             <div class="modal fade" id="formPembeliModal" tabindex="-1" aria-labelledby="formPembeliModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="formPembeliModalLabel">Form Pembeli - <span id="carName"></span></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="formPembeliData">
-                @csrf
-                    <input type="hidden" id="carId" name="car_id">
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Nama:</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="phone" class="form-label">Nomor Telepon:</label>
-                        <input type="tel" class="form-control" id="phone" name="phone" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="payment" class="form-label">Sistem Pembayaran:</label>
-                        <select class="form-select" id="payment" name="payment" required>
-                            <option value="" selected disabled>Pilih sistem pembayaran</option>
-                            <option value="Tunai">Tunai</option>
-                            <option value="Kredit">Kredit</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Kirim</button>
-                </form>
-            </div>
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="formPembeliModalLabel">Form Pembeli - <span id="carName"></span></h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                        <form id="formPembeliData">
+    @csrf
+    <input type="hidden" id="carId" name="car_id">
+    
+    <div class="mb-3">
+        <label for="name" class="form-label">Nama:</label>
+        <input type="text" class="form-control" id="name" name="name" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="phone" class="form-label">Nomor Telepon:</label>
+        <input type="tel" class="form-control" id="phone" name="phone" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="payment" class="form-label">Sistem Pembayaran:</label>
+        <select class="form-select" id="payment" name="payment" required>
+            <option value="" selected disabled>Pilih sistem pembayaran</option>
+            <option value="Tunai">Tunai</option>
+            <option value="Kredit">Kredit</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Harga Terjual:</label>
+        <div>
+            <input type="radio" id="originalPrice" name="sale_price" value="originalPrice" required>
+            <label for="originalPrice">Harga Asli</label>
+        </div>
+        <div>
+            <input type="radio" id="customPrice" name="sale_price" value="customPrice" required>
+            <label for="customPrice">Harga Nego</label>
         </div>
     </div>
-</div>
+
+    <div class="mb-3" id="customPriceContainer">
+        <label for="customPriceInput" class="form-label">Harga Nego:</label>
+        <input type="number" class="form-control" id="customPriceInput" name="custom_price" min="0">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Kirim</button>
+</form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                             <!-- Modal Update -->
                             @foreach ($sales as $sale)
@@ -276,6 +297,20 @@
             }
         });
     });
+
+    $('#customPriceContainer').hide(); // Initially hide the custom price input
+
+        $('input[name="sale_price"]').change(function(){
+            if ($(this).val() === 'customPrice') {
+                $('#customPriceContainer').show();
+                $('#customPriceInput').prop('disabled', false);
+                $('#customPriceInput').attr('required', true);
+            } else {
+                $('#customPriceContainer').hide();
+                $('#customPriceInput').prop('disabled', true);
+                $('#customPriceInput').attr('required', false);
+            }
+        });
 
     $('#formPembeliData').submit(function(e) {
         e.preventDefault();

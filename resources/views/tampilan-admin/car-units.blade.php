@@ -26,8 +26,7 @@
                                         <li><a class="dropdown-item" href="#" data-table="categories">Kategori</a></li>
                                         <li><a class="dropdown-item" href="#" data-table="brand">Brand</a></li>
                                     </ul>
-                                    <li>
-                                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button type="button" class="btn btn-primary ms-2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                         Tambah Data
                                     </button>
                                     <ul class="dropdown-menu">

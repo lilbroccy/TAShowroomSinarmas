@@ -106,7 +106,10 @@ class SaleController extends Controller
                 'name' => 'required',
                 'phone' => 'required',
                 'payment' => 'required',
+                'custom_price' => 'nullable|integer|min:0',
             ]);
+            $salePrice = $request->custom_price;
+            $fee = $salePrice * 0.02;
 
             $carUnit = CarUnit::find($request->car_id);
             if (!$carUnit) {
@@ -135,6 +138,8 @@ class SaleController extends Controller
             $sale->save();
 
             $carUnit->status = 'Terjual';
+            $carUnit->price = $salePrice;
+            $carUnit->fee = $fee;
             $carUnit->save();
 
             return redirect()->back()->with('success', 'Data penjualan berhasil disimpan!');
